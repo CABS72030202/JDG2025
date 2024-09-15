@@ -3,10 +3,10 @@
 // Author: Sebastien Cabana
 
 /* 
- * This code defines the functions needed to manage passengers between the machine 
- * and the stations, without considering communication with the blackbox. 
- * The responses are predefined to allow debugging without requiring data from the 
- * blackbox or the stations.
+ * This code implements the necessary functions for managing passenger interactions 
+ * between the machine and the stations, excluding communication with the black box. 
+ * Responses are pre-defined to allow code compilation and debugging without the 
+ * inputs from any external components.
  */
 
 #include<stdio.h>
