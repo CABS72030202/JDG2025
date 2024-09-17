@@ -11,9 +11,10 @@
 
 #include<stdio.h>
 #include<string.h>
+#include "station.c"
 
-enum color {RED, GREEN, BLUE, YELLOW, PURPLE, NONE};
-typedef enum color Color;
+/*enum color {RED, GREEN, BLUE, YELLOW, PURPLE, NONE};
+typedef enum color Color;*/
 
 /* DELETE THIS SECTION ONCE BLACKBOX CONNECTION IS FUNCTIONNAL */
 // Predefined blackbox responses (fake infos)
@@ -28,11 +29,11 @@ char* Response(char*);                               // Simulates communication 
 // Global variables and constants
 const int ERROR = 1;
 const int OK = 0;    
-int r_station_pass[5];      // Passenger count for each destination still waiting at station RED since last visit
-int g_station_pass[5];      // Passenger count for each destination still waiting at station GREEN since last visit
-int b_station_pass[5];      // Passenger count for each destination still waiting at station BLUE since last visit
-int y_station_pass[5];      // Passenger count for each destination still waiting at station YELLOW since last visit
-int p_station_pass[5];      // Passenger count for each destination still waiting at station PURPLE since last visit
+Station r_station;      
+Station g_station;     
+Station b_station;      
+Station y_station;      
+Station p_station;      
 int blackbox_pass[5];       // Passenger count for each destination onboard
 Color curr_station;         // Current station (NONE if not properly connected to one)
 
@@ -129,23 +130,23 @@ int Update_Station_Count() {
     {
     case RED:
         for (int i = 0, j = 3; j < strlen(response); i++, j += 2)
-            r_station_pass[i] = response[j] - '0';
+            r_station.passengers[i] = response[j] - '0';
         return OK;
     case GREEN:
         for (int i = 0, j = 3; j < strlen(response); i++, j += 2)
-            g_station_pass[i] = response[j] - '0';
+            g_station.passengers[i] = response[j] - '0';
         return OK;
     case BLUE:
         for (int i = 0, j = 3; j < strlen(response); i++, j += 2)
-            b_station_pass[i] = response[j] - '0';
+            b_station.passengers[i] = response[j] - '0';
         return OK;
     case YELLOW:
         for (int i = 0, j = 3; j < strlen(response); i++, j += 2)
-            y_station_pass[i] = response[j] - '0';
+            y_station.passengers[i] = response[j] - '0';
         return OK;
     case PURPLE:
         for (int i = 0, j = 3; j < strlen(response); i++, j += 2)
-            p_station_pass[i] = response[j] - '0';
+            p_station.passengers[i] = response[j] - '0';
         return OK;
     case NONE:
         return ERROR;
