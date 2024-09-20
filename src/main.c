@@ -13,9 +13,6 @@
 #include<string.h>
 #include "station.c"
 
-/*enum color {RED, GREEN, BLUE, YELLOW, PURPLE, NONE};
-typedef enum color Color;*/
-
 /* DELETE THIS SECTION ONCE BLACKBOX CONNECTION IS FUNCTIONNAL */
 // Predefined blackbox responses (fake infos)
 const char station_pass_str[] = "OK:1:0:4:1:2\n";    // R:G:B:Y:P
@@ -33,25 +30,29 @@ Station r_station;
 Station g_station;     
 Station b_station;      
 Station y_station;      
-Station p_station;      
+Station p_station;
+Station null_station;      
 int blackbox_pass[5];       // Passenger count for each destination onboard
-Color curr_station;         // Current station (NONE if not properly connected to one)
+Station curr_station;       // Current station
 
 // Prototypes
+void Initialize();                      // Initialize global variables
 char* Color_To_String(Color);           // Get string format from enum Color
+Station Color_To_Station(Color);        // Get corresponding station from enum Color
 void Print_Count(int*);                 // Print the number of passenger going to each station from an array of size 5
-int Update_Station_Color();             // Get current station color
+int Update_Curr_Station();              // Get current station color
 int Update_Station_Count();             // Get current station passenger count
 int Update_Blackbox_Count();            // Get current number of passenger onboard
-char* Format_Str(char*, Color, int);    // 
-int Drop_Passengers();                  // Drop all corresponding passengers onboard to current station
+char* Format_Str(char*, Color, int);    //
+int Connect_Station(Color);             // Change current station 
+int Drop_Passengers(Color);             // Drop all corresponding passengers onboard to specific station
 int Load_Passengers(Color, int);        // Load a specific number of passengers going to a specific station
 
 int main() {
     printf("----- start main -----\n\n");
     Update_Blackbox_Count();
     Print_Count(blackbox_pass);
-    Drop_Passengers();
+    //Drop_Passengers();
     Print_Count(blackbox_pass);
     Load_Passengers(PURPLE, 1);
     Print_Count(blackbox_pass);
@@ -59,6 +60,9 @@ int main() {
     return OK;
 }
 
+void Initialize() {
+
+}
 char* Color_To_String(Color c) {
     switch (c)
     {
@@ -79,17 +83,35 @@ char* Color_To_String(Color c) {
         return NULL;
     }
 }
+Station Color_To_Station(Color c) {
+    switch(c) {
+        case RED:
+            return r_station;
+        case GREEN:
+            return g_station;
+        case BLUE:
+            return b_station;
+        case YELLOW:
+            return y_station;
+        case PURPLE:
+            return p_station;
+        case NONE:
+        default:
+            printf("\nERROR. INVALID PARAMETER | main.c | Connect_Station(Color station)\n\n");
+            return null_station;
+    }
+}
 void Print_Count(int* array) {
     printf("Red:%i\nGreen:%i\nBlue:%i\nYellow:%i\nPurple:%i\n", array[0], array[1], array[2], array[3], array[4]);
 }
-int Update_Station_Color() {
+int Update_Curr_Station() {
     // Get message from blackbox using predefined INFO function
     char* response = Response("INFO:C\n");
 
     // Detect and print error
     if (response[0] == 'E') {
         printf("Cannot update current station color : %s", response);
-        curr_station = NONE;
+        curr_station = null_station;
         return ERROR;
     }
 
@@ -98,19 +120,19 @@ int Update_Station_Color() {
     switch (c)
     {
     case 'R':
-        curr_station = RED;
+        curr_station = r_station;
         return OK;
     case 'G':
-        curr_station = GREEN;
+        curr_station = g_station;
         return OK;
     case 'B':
-        curr_station = BLUE;
+        curr_station = b_station;
         return OK;
     case 'Y':
-        curr_station = YELLOW;
+        curr_station = y_station;
         return OK;
     case 'P':
-        curr_station = PURPLE;
+        curr_station = p_station;
         return OK;
     default:
         printf("\nERROR. INVALID COLOR | main.c | Update_Station_Color\n\n");
@@ -122,11 +144,11 @@ int Update_Station_Count() {
     char* response = Response("INFO:S\n");
 
     // Detect and print error
-    if (response == NULL || Update_Station_Color() == ERROR)
+    if (response == NULL || Update_Curr_Station() == ERROR)
         return ERROR;
 
     // Decode message and update passenger count array for current station
-    switch (curr_station)
+    switch (curr_station.color)
     {
     case RED:
         for (int i = 0, j = 3; j < strlen(response); i++, j += 2)
@@ -206,13 +228,27 @@ char* Format_Str(char* comm, Color c, int nb) {
     }
     return str;
 }
-int Drop_Passengers() {
-    // Detect and abort if error detected
-    if(Update_Blackbox_Count() || Update_Station_Color())
+int Connect_Station(Color station_color) {
+    // Get corresponding station from specified color
+    Station current = Color_To_Station(station_color);
+
+    // Detect and abord if station is inactive
+    if(current.state == INACTIVE) {
+        printf("Station %s is inactive.", Color_To_String(station_color));
+        return ERROR; 
+    }
+
+    // Change current station
+    curr_station = current;
+    return OK;
+}
+int Drop_Passengers(Color drop_station) {
+    // Detect and abort if error detected while connecting to drop station
+    if(Update_Blackbox_Count() || Connect_Station(drop_station))
         return ERROR;
 
     // Get message from blackbox using predefined SEND function
-    char* response = Response(Format_Str("SEND", curr_station, blackbox_pass[curr_station]));
+    char* response = Response(Format_Str("SEND", curr_station.color, blackbox_pass[curr_station.color]));
 
     // Detect and print error
     if(response[0] == 'E') {
@@ -222,14 +258,14 @@ int Drop_Passengers() {
 
     // Print confirmation message if successful
     else {
-        printf("\nSuccessfully sent %i passengers to %s station\n", blackbox_pass[curr_station], Color_To_String(curr_station));
-        blackbox_pass[curr_station] = 0;
+        printf("\nSuccessfully sent %i passengers to %s station\n", blackbox_pass[curr_station.color], Color_To_String(curr_station.color));
+        blackbox_pass[curr_station.color] = 0;
         return OK;
     }
 }
 int Load_Passengers(Color c, int nb) {
     // Detect and abort if error detected
-    if(Update_Blackbox_Count() || Update_Station_Color())
+    if(Update_Blackbox_Count() || Update_Curr_Station())
         return ERROR;
 
     // Get message from blackbox using predefined TAKE function
@@ -237,13 +273,13 @@ int Load_Passengers(Color c, int nb) {
 
     // Detect and print error
     if(response[0] == 'E') {
-        printf("Cannot take %i passengers going to %s from %s : %s", nb, Color_To_String(c), Color_To_String(curr_station), response);
+        printf("Cannot take %i passengers going to %s from %s : %s", nb, Color_To_String(c), Color_To_String(curr_station.color), response);
         return ERROR;       
     }
 
     // Print confirmation message if successful
     else {
-        printf("\nSuccessfully took %i passengers going to %s from %s\n", nb, Color_To_String(c), Color_To_String(curr_station));
+        printf("\nSuccessfully took %i passengers going to %s from %s\n", nb, Color_To_String(c), Color_To_String(curr_station.color));
         blackbox_pass[c] += nb;
         return OK;
     }
