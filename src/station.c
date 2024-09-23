@@ -69,7 +69,10 @@ int Drop_Passengers(Color drop_station) {
     // Print confirmation message if successful
     else {
         printf("\nSuccessfully sent %i passengers to %s station\n", blackbox_pass[drop_station], Color_To_String(drop_station));
-        Info_Blackbox_Count();      // Update blackbox count
+
+        // Update array
+        blackbox_pass[drop_station] = 0;
+
         curr_station = temp;        // Reconnect to current station
         return OK;
     }
@@ -84,7 +87,7 @@ int Load_Passengers(Color c, int nb) {
     int sum = 0;
     for(int i = 0; i < 5; i++)
         sum += blackbox_pass[0];
-    if(blackbox_pass[c] < nb || sum + nb > 5)
+    if(sum + nb > 5)
         return ERROR;
 
     // Take passengers from station
@@ -92,15 +95,18 @@ int Load_Passengers(Color c, int nb) {
 
     // Detect and print error
     if(response[0] == 'E') {
-        printf("Cannot take %i passengers going to %s from %s : %s", nb, Color_To_String(c), Color_To_String(c), response);
+        printf("Cannot take %i passengers going to %s from %s : %s", nb, Color_To_String(c), Color_To_String(curr_station->color), response);
         return ERROR;       
     }
 
     // Print confirmation message if successful
     else {
-        printf("\nSuccessfully took %i passengers going to %s from %s\n", nb, Color_To_String(c), Color_To_String(c));
-        Info_Blackbox_Count();      // Update blackbox count
-        Info_Station_Count();       // Update station count
+        printf("\nSuccessfully took %i passengers going to %s from %s\n", nb, Color_To_String(c), Color_To_String(curr_station->color));
+        
+        // Update arrays
+        blackbox_pass[c] += nb;
+        curr_station->passengers[c] -= nb;
+
         return OK;
     }
 }

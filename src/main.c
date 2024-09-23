@@ -21,26 +21,21 @@ int main(void) {
     Initialize();
     Fictive_State();
 
-    printf("Connect_Station RED\n");
+    printf("\n\nSEND 2 GREEN FROM R\n");
+    printf("\n\n1. Connect to RED\n");
     Connect_Station(RED);
-
-    Print_Count(blackbox_pass);
-    Print_Count(curr_station->passengers);
-
-    printf("Load 2 passengers to GREEN\n");
+    printf("\n\n2. Take 2\n");
     Load_Passengers(GREEN, 2);
-
-    printf("Drop 2 passengers to GREEN\n");
+    printf("\n\n3. Print blackbox\n");
+    Print_Count(blackbox_pass);
+    printf("\n\n4. Drop 2\n");
     Drop_Passengers(GREEN);
-
-    printf("Connect_Station GREEN\n");
-    Connect_Station(GREEN);
-
-    printf("Load 1 passengers to RED\n");
-    Load_Passengers(RED, 1);
-
-    printf("Drop 1 passengers to RED\n");
-    Drop_Passengers(RED);
+    printf("\n\n5. Print blackbox\n");
+    Print_Count(blackbox_pass);
+    printf("\n\n6. Print RED\n");
+    Print_Count(r_station.passengers);
+    printf("\n\n7. Print GREEN\n");
+    Print_Count(g_station.passengers);
 
     return 0;
 }
