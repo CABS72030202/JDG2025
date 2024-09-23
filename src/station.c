@@ -25,7 +25,8 @@ void Initialize() {
     p_station.color = PURPLE;
     p_station.state = INACTIVE; 
     null_station.color = NONE;
-    null_station.state = INACTIVE;  
+    null_station.state = INACTIVE;
+    curr_station = &null_station;  
 }
 
 void Print_Count(int* array) {
@@ -34,47 +35,59 @@ void Print_Count(int* array) {
 
 int Connect_Station(Color station_color) {
     // Get corresponding station from specified color
-    Station* current = Color_To_Station(station_color);
+    Station* temp = Color_To_Station(station_color);
 
     // Detect and abord if station is inactive
-    if(current->state == INACTIVE) {
+    if(temp->state == INACTIVE) {
         printf("Station %s is inactive.", Color_To_String(station_color));
         return ERROR; 
     }
 
     // Change current station
-    curr_station = current;
+    curr_station = temp;
     return OK;
 }
 
 int Drop_Passengers(Color drop_station) {
+    // Store current station
+    Station* temp = curr_station;
+
     // Detect and abort if error detected while connecting to drop station
-    if(Info_Blackbox_Count())
+    if(Connect_Station(drop_station))
         return ERROR;
 
-    // Get message from blackbox using predefined SEND function
+    // Send all passengers to station
     char* response = Communication(Format_Str("SEND", drop_station, Get_Passenger_Count(drop_station)));
 
     // Detect and print error
     if(response[0] == 'E') {
         printf("Cannot send passengers to station : %s", response);
+        curr_station = temp;        // Reconnect to current station
         return ERROR;       
     }
 
     // Print confirmation message if successful
     else {
         printf("\nSuccessfully sent %i passengers to %s station\n", Get_Passenger_Count(drop_station), Color_To_String(drop_station));
-        Info_Blackbox_Count();
+        Info_Blackbox_Count();      // Update blackbox count
+        curr_station = temp;        // Reconnect to current station
         return OK;
     }
 }
 
 int Load_Passengers(Color c, int nb) {
-    // Detect and abort if error detected
-    if(Info_Blackbox_Count() || Info_Color())
+    // Update arrays and abort if error detected
+    if(Info_Blackbox_Count() || Info_Station_Count())
         return ERROR;
 
-    // Get message from blackbox using predefined TAKE function
+    // Test parameter consistency
+    int sum = 0;
+    for(int i = 0; i < 5; i++)
+        sum += blackbox_pass[0];
+    if(blackbox_pass[c] < nb || sum + nb > 5)
+        return ERROR;
+
+    // Take passengers from station
     char* response = Communication(Format_Str("TAKE", c, nb));
 
     // Detect and print error
@@ -86,7 +99,8 @@ int Load_Passengers(Color c, int nb) {
     // Print confirmation message if successful
     else {
         printf("\nSuccessfully took %i passengers going to %s from %s\n", nb, Color_To_String(c), Color_To_String(c));
-        Info_Blackbox_Count();
+        Info_Blackbox_Count();      // Update blackbox count
+        Info_Station_Count();       // Update station count
         return OK;
     }
 }
