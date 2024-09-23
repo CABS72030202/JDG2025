@@ -13,6 +13,7 @@
 
 #ifndef STATION_H
 #define STATION_H
+#include<stdlib.h>
 #include<stdio.h>
 #include<string.h>
 
@@ -49,12 +50,12 @@ int Load_Passengers(Color, int);        // Load a specific number of passengers 
 
 // Prototypes (blackbox)
 char* Communication(char*);             // Returns the message received after sending a specific message
+char* Response_Simulation(char*);        // Lets the user choose the expected response from the blackbox (USED ONLY FOR DEBUGGING)
 char* Color_To_String(Color);           // Get string format from enum Color
 Station* Color_To_Station(Color);       // Get corresponding station from enum Color
 Color Info_Color();                     // Get current station color
 int Info_Station_Count();               // Update current station passenger array
 int Info_Blackbox_Count();              // Update blackbox passenger array
 char* Format_Str(char*, Color, int);    // Format station attributes and command in a string
-const int Get_Passenger_Count(Color);   // Returns the number of passenger onboard going to a station
 
 #endif
