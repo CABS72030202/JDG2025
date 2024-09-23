@@ -8,7 +8,8 @@
  * between stations. The algorithm starts once two stations are connected to 
  * our robotic solution and runs until the end of the on-ground trial. This 
  * code also includes all the necessary functions to enable communication 
- * between our robotic solution and the embedded black box.
+ * between our robotic solution and the embedded black box. Note that this project
+ * requires its own microcontroller.
  */
 
 #ifndef STATION_H
@@ -31,7 +32,8 @@ typedef struct {
 
 // Global variables and constants
 #define ERROR 1
-#define OK 0       
+#define OK 0
+#define ACTIVE_LOOP 1              // 1 is yes       
 extern Station r_station;      
 extern Station g_station;     
 extern Station b_station;      
@@ -47,10 +49,11 @@ void Print_Count(int*);                 // Print the number of passenger going t
 int Connect_Station(Color);             // Change current station
 int Drop_Passengers(Color);             // Drop all corresponding passengers onboard to specific station
 int Load_Passengers(Color, int);        // Load a specific number of passengers going to a specific station
+void Auto_Load_Drop();                  // Automates the loading and dropping off of passengers at ACTIVE locations
 
 // Prototypes (blackbox)
 char* Communication(char*);             // Returns the message received after sending a specific message
-char* Response_Simulation(char*);        // Lets the user choose the expected response from the blackbox (USED ONLY FOR DEBUGGING)
+char* Response_Simulation(char*);       // Lets the user choose the expected response from the blackbox (USED ONLY FOR DEBUGGING)
 char* Color_To_String(Color);           // Get string format from enum Color
 Station* Color_To_Station(Color);       // Get corresponding station from enum Color
 Color Info_Color();                     // Get current station color

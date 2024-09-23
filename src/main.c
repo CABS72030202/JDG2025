@@ -21,7 +21,7 @@ int main(void) {
     Initialize();
     Fictive_State();
 
-    printf("\n\nSEND 2 GREEN FROM R\n");
+    /*printf("\n\nSEND 2 GREEN FROM R\n");
     printf("\n\n1. Connect to RED\n");
     Connect_Station(RED);
     printf("\n\n2. Take 2\n");
@@ -35,7 +35,9 @@ int main(void) {
     printf("\n\n6. Print RED\n");
     Print_Count(r_station.passengers);
     printf("\n\n7. Print GREEN\n");
-    Print_Count(g_station.passengers);
+    Print_Count(g_station.passengers);*/
+
+    Auto_Load_Drop();
 
     return 0;
 }
@@ -56,7 +58,7 @@ void Fictive_State() {
     r_station.passengers[4] = 0;    // P
 
     // Green station
-    g_station.state = ACTIVE;
+    g_station.state = INACTIVE;
     g_station.passengers[0] = 1;    // R
     g_station.passengers[2] = 0;    // B
     g_station.passengers[3] = 0;    // Y

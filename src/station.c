@@ -111,6 +111,28 @@ int Load_Passengers(Color c, int nb) {
     }
 }
 
+void Auto_Load_Drop() {
+
+    /* 
+    * The general operation of the algorithm is as follows: each station is completely emptied 
+    * one at a time. Two loops allow switching between stations and returning after each iteration. 
+    * Once a station is empty, the algorithm moves to the next one. However, inactive stations 
+    * are excluded from this process. For example: starting at the red station, we pick up all 
+    * passengers heading to the green station, then return to the red station to take all passengers 
+    * going to the blue station, and so on until the red station is empty. This process is then 
+    * repeated for the green station, and so forth. Note that the defined order is R:G:B:Y:P.
+    */
+
+    // Exit if deactivated loop
+    if(!ACTIVE_LOOP)
+        return;
+
+    // Define variables
+    Station* load_station;      // Station currently being emptied
+    Station* drop_station;      // Current dropping station
+
+}
+
 char* Communication(char* sent) {
     char* response = Response_Simulation(sent);
     return response;  // Caller must free the memory when done
