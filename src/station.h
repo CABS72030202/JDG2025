@@ -18,6 +18,11 @@
 #include<stdio.h>
 #include<string.h>
 
+// Debugging parameters
+#define ACTIVE_LOOP 1               // 1 is yes       
+#define MAX_ITERATIONS 1000
+#define USER_INPUT 0                // 1 is yes
+
 enum color {RED, GREEN, BLUE, YELLOW, PURPLE, NONE};
 typedef enum color Color;
 
@@ -33,7 +38,6 @@ typedef struct {
 // Global variables and constants
 #define ERROR 1
 #define OK 0
-#define ACTIVE_LOOP 1              // 1 is yes       
 extern Station r_station;      
 extern Station g_station;     
 extern Station b_station;      
@@ -45,7 +49,7 @@ extern int blackbox_pass[5];       // Passenger count for each destination onboa
 
 // Prototypes (station)
 void Initialize();                      // Initialize stations
-void Print_Count(int*);                 // Print the number of passenger going to each station from an array of size 5
+void Print_Count(char*, int*);          // Print the number of passenger going to each station from an array of size 5
 int Connect_Station(Color);             // Change current station
 int Drop_Passengers(Color);             // Drop all corresponding passengers onboard to specific station
 int Load_Passengers(Color, int);        // Load a specific number of passengers going to a specific station
@@ -56,6 +60,7 @@ char* Communication(char*);             // Returns the message received after se
 char* Response_Simulation(char*);       // Lets the user choose the expected response from the blackbox (USED ONLY FOR DEBUGGING)
 char* Color_To_String(Color);           // Get string format from enum Color
 Station* Color_To_Station(Color);       // Get corresponding station from enum Color
+int Get_Max_Count(Station*, Station*);   // Get the maximum number of passengers for boarding from a station depending on blackbox available seats and destination
 Color Info_Color();                     // Get current station color
 int Info_Station_Count();               // Update current station passenger array
 int Info_Blackbox_Count();              // Update blackbox passenger array

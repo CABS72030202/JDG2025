@@ -29,8 +29,8 @@ void Initialize() {
     curr_station = &null_station;  
 }
 
-void Print_Count(int* array) {
-    printf("Red:%i\nGreen:%i\nBlue:%i\nYellow:%i\nPurple:%i\n", array[0], array[1], array[2], array[3], array[4]);
+void Print_Count(char* tag, int* array) {
+    printf("\nPassengers at %s\nRed:%i\nGreen:%i\nBlue:%i\nYellow:%i\nPurple:%i\n", tag, array[0], array[1], array[2], array[3], array[4]);
 }
 
 int Connect_Station(Color station_color) {
@@ -49,20 +49,12 @@ int Connect_Station(Color station_color) {
 }
 
 int Drop_Passengers(Color drop_station) {
-    // Store current station
-    Station* temp = curr_station;
-
-    // Detect and abort if error detected while connecting to drop station
-    if(Connect_Station(drop_station))
-        return ERROR;
-
     // Send all passengers to station
     char* response = Communication(Format_Str("SEND", drop_station, blackbox_pass[drop_station]));
 
     // Detect and print error
     if(response[0] == 'E') {
         printf("Cannot send passengers to station : %s", response);
-        curr_station = temp;        // Reconnect to current station
         return ERROR;       
     }
 
@@ -72,8 +64,6 @@ int Drop_Passengers(Color drop_station) {
 
         // Update array
         blackbox_pass[drop_station] = 0;
-
-        curr_station = temp;        // Reconnect to current station
         return OK;
     }
 }
@@ -128,9 +118,71 @@ void Auto_Load_Drop() {
         return;
 
     // Define variables
-    Station* load_station;      // Station currently being emptied
-    Station* drop_station;      // Current dropping station
+    int load_station_id;        // Station ID currently being emptied
+    int drop_station_id;        // Current dropping station ID
+    int cpt1 = 0;               // Count loop iterations
+    int cpt2 = 0;               // Count loop iterations
+    int nb = 0;
+    Station* array[5];          // Array of pointers to all stations
 
+    load_station_id = 0;        // Start emptying at RED
+    drop_station_id = 1;        // Start dropping at GREEN
+    array[0] = &r_station;
+    array[1] = &g_station;
+    array[2] = &b_station;
+    array[3] = &y_station;
+    array[4] = &p_station;
+
+    while(1) {
+        for(int i = 0; i < 4; i++) {
+
+            // Exit after max iterations
+            cpt1++;
+            if(cpt1 == MAX_ITERATIONS)
+                return;
+
+            // 1. Connect to load station and skip if inactive
+            if(Connect_Station(array[load_station_id]->color) == ERROR)
+                break;
+
+            // 2. Find next active/relevant drop station
+            cpt2 = 0;
+            while(array[drop_station_id]->state == INACTIVE || array[load_station_id]->passengers[drop_station_id] == 0) {
+                drop_station_id++;
+                cpt2++;
+                if(drop_station_id >= 5)
+                    drop_station_id = 0;
+                // Exit loop if none found
+                if(cpt2 >= 5)
+                    break;
+            }
+                // Exit loop if none found
+                if(cpt2 >= 5)
+                    break;
+
+            // 3. Load passengers
+            nb = Get_Max_Count(array[load_station_id], array[drop_station_id]);
+            if(Load_Passengers(array[drop_station_id]->color, nb) == ERROR)
+                return;
+
+            // 4. Connect to drop station
+            if(Connect_Station(array[drop_station_id]->color) == ERROR)
+                return;
+
+            // 5. Drop passengers
+            if(Drop_Passengers(array[drop_station_id]->color) == ERROR)
+                return;
+        }
+        // Change load station
+        load_station_id++;
+        if(load_station_id >= 5)
+            load_station_id = 0;
+
+        // Reset drop station (always start at the following station)
+        drop_station_id = load_station_id + 1;
+        if(drop_station_id >= 5)
+            drop_station_id = 0;
+    }
 }
 
 char* Communication(char* sent) {
@@ -171,39 +223,43 @@ char* Response_Simulation(char* sent) {
     };
 
     // Display the sent string
-    printf("\n--------------------------\n");
-    printf("Sent message: %s\n", sent);
+    printf("--------------------------\n");
+    printf("Sent message: %s", sent);
 
-    // Determine the response options based on the first four characters
-    if (strncmp(sent, "INFO", 4) == 0) {
-        printf("Select a response:\n");
-        for (int i = 0; i < sizeof(infoResponses) / sizeof(infoResponses[0]); i++) {
-            printf("%d: %s\n", i + 1, infoResponses[i]);
-        }
-    } else if (strncmp(sent, "SEND", 4) == 0) {
-        printf("Select a response:\n");
-        for (int i = 0; i < sizeof(sendResponses) / sizeof(sendResponses[0]); i++) {
-            printf("%d: %s\n", i + 1, sendResponses[i]);
-        }
-    } else if (strncmp(sent, "TAKE", 4) == 0) {
-        printf("Select a response:\n");
-        for (int i = 0; i < sizeof(takeResponses) / sizeof(takeResponses[0]); i++) {
-            printf("%d: %s\n", i + 1, takeResponses[i]);
-        }
-    } else {
-        printf("Unknown command type.\n");
-        strncpy(response, "ERR:unknown_command\nLa commande envoyée n’est pas reconnue", 100);
-        return response;
-    }
-
-    // Get user selection
     int choice;
-    printf("Enter your choice (1-%d): ", 
-           (strncmp(sent, "INFO", 4) == 0) ? (sizeof(infoResponses) / sizeof(infoResponses[0])) : 
-           (strncmp(sent, "SEND", 4) == 0) ? (sizeof(sendResponses) / sizeof(sendResponses[0])) : 
-           (sizeof(takeResponses) / sizeof(takeResponses[0])));
-    scanf("%d", &choice);
-    getchar(); // Clear newline character from the buffer
+    if(USER_INPUT) {
+        // Determine the response options based on the first four characters
+        if (strncmp(sent, "INFO", 4) == 0) {
+            printf("Select a response:\n");
+            for (int i = 0; i < sizeof(infoResponses) / sizeof(infoResponses[0]); i++) {
+                printf("%d: %s\n", i + 1, infoResponses[i]);
+            }
+        } else if (strncmp(sent, "SEND", 4) == 0) {
+            printf("Select a response:\n");
+            for (int i = 0; i < sizeof(sendResponses) / sizeof(sendResponses[0]); i++) {
+                printf("%d: %s\n", i + 1, sendResponses[i]);
+            }
+        } else if (strncmp(sent, "TAKE", 4) == 0) {
+            printf("Select a response:\n");
+            for (int i = 0; i < sizeof(takeResponses) / sizeof(takeResponses[0]); i++) {
+                printf("%d: %s\n", i + 1, takeResponses[i]);
+            }
+        } else {
+            printf("Unknown command type.\n");
+            strncpy(response, "ERR:unknown_command\nLa commande envoyée n’est pas reconnue", 100);
+            return response;
+        }
+
+        // Get user selection
+        printf("Enter your choice (1-%d): ", 
+            (strncmp(sent, "INFO", 4) == 0) ? (sizeof(infoResponses) / sizeof(infoResponses[0])) : 
+            (strncmp(sent, "SEND", 4) == 0) ? (sizeof(sendResponses) / sizeof(sendResponses[0])) : 
+            (sizeof(takeResponses) / sizeof(takeResponses[0])));
+        scanf("%d", &choice);
+        getchar(); // Clear newline character from the buffer
+    }
+    else
+        choice = 1;
 
     // Validate choice
     if (choice < 1 || choice > ((strncmp(sent, "INFO", 4) == 0) ? (sizeof(infoResponses) / sizeof(infoResponses[0])) : 
@@ -226,9 +282,11 @@ char* Response_Simulation(char* sent) {
                 break;
             case 'B':
                 snprintf(response, 13, "OK:%i:%i:%i:%i:%i\n", blackbox_pass[0], blackbox_pass[1], blackbox_pass[2], blackbox_pass[3], blackbox_pass[4]);
+                strcat(response, "\n");
                 break;
             case 'S':
                 snprintf(response, 13, "OK:%i:%i:%i:%i:%i\n", curr_station->passengers[0], curr_station->passengers[1], curr_station->passengers[2], curr_station->passengers[3], curr_station->passengers[4]);
+                strcat(response, "\n");
                 break;    
         }
     }
@@ -289,6 +347,14 @@ Station* Color_To_Station(Color c) {
             printf("\nERROR. INVALID PARAMETER | station.c | Color_To_Station(Color)\n\n");
             return &null_station;
     }
+}
+
+int Get_Max_Count(Station* load_station, Station* drop_station) {
+    int available_pass = load_station->passengers[drop_station->color];
+    int available_seats = 5;
+    for(int i = 0; i < 5; i++)
+        available_pass -= blackbox_pass[i];
+    return (available_pass > available_seats) ? available_seats : available_pass;
 }
 
 Color Info_Color() {
