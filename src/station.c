@@ -27,10 +27,9 @@ void Initialize() {
     null_station.color = NONE;
     null_station.state = INACTIVE;
     curr_station = &null_station;  
-}
 
-void Print_Count(char* tag, int* array) {
-    printf("\nPassengers at %s\nRed:%i\nGreen:%i\nBlue:%i\nYellow:%i\nPurple:%i\n", tag, array[0], array[1], array[2], array[3], array[4]);
+    if(DEBUG_MODE)
+        Fictive_State();
 }
 
 int Connect_Station(Color station_color) {
@@ -186,127 +185,11 @@ void Auto_Load_Drop() {
 }
 
 char* Communication(char* sent) {
-    char* response = Response_Simulation(sent);
-    return response;  // Caller must free the memory when done
-}
-
-char* Response_Simulation(char* sent) {
-    char* response = (char*)malloc(100);  // Allocate memory for the response
-
-    if (response == NULL) {  // Check if memory allocation was successful
-        printf("Memory allocation failed.\n");
-        return NULL;
+    if (DEBUG_MODE) {
+        char* response = Response_Simulation(sent);
+        return response;  // Caller must free the memory when done
     }
-
-    const char *infoResponses[] = {
-        "OK",
-        "ERR:command_too_long",
-        "ERR:command_in_progress",
-        "ERR:unknown_command",
-        "ERR:disconnected"
-    };
-
-    const char *sendResponses[] = {
-        "OK",
-        "ERR:invalid_color",
-        "ERR:invalid_count",
-        "ERR:not_enough_people_to_send",
-        "ERR:not_enough_room_at_station"
-    };
-
-    const char *takeResponses[] = {
-        "OK",
-        "ERR:invalid_color",
-        "ERR:invalid_count",
-        "ERR:not_enough_room",
-        "ERR:not_enough_people_at_station"
-    };
-
-    // Display the sent string
-    printf("--------------------------\n");
-    printf("Sent message: %s", sent);
-
-    int choice;
-    if(USER_INPUT) {
-        // Determine the response options based on the first four characters
-        if (strncmp(sent, "INFO", 4) == 0) {
-            printf("Select a response:\n");
-            for (int i = 0; i < sizeof(infoResponses) / sizeof(infoResponses[0]); i++) {
-                printf("%d: %s\n", i + 1, infoResponses[i]);
-            }
-        } else if (strncmp(sent, "SEND", 4) == 0) {
-            printf("Select a response:\n");
-            for (int i = 0; i < sizeof(sendResponses) / sizeof(sendResponses[0]); i++) {
-                printf("%d: %s\n", i + 1, sendResponses[i]);
-            }
-        } else if (strncmp(sent, "TAKE", 4) == 0) {
-            printf("Select a response:\n");
-            for (int i = 0; i < sizeof(takeResponses) / sizeof(takeResponses[0]); i++) {
-                printf("%d: %s\n", i + 1, takeResponses[i]);
-            }
-        } else {
-            printf("Unknown command type.\n");
-            strncpy(response, "ERR:unknown_command\nLa commande envoyée n’est pas reconnue", 100);
-            return response;
-        }
-
-        // Get user selection
-        printf("Enter your choice (1-%d): ", 
-            (strncmp(sent, "INFO", 4) == 0) ? (sizeof(infoResponses) / sizeof(infoResponses[0])) : 
-            (strncmp(sent, "SEND", 4) == 0) ? (sizeof(sendResponses) / sizeof(sendResponses[0])) : 
-            (sizeof(takeResponses) / sizeof(takeResponses[0])));
-        scanf("%d", &choice);
-        getchar(); // Clear newline character from the buffer
-    }
-    else
-        choice = 1;
-
-    // Validate choice
-    if (choice < 1 || choice > ((strncmp(sent, "INFO", 4) == 0) ? (sizeof(infoResponses) / sizeof(infoResponses[0])) : 
-                                 (strncmp(sent, "SEND", 4) == 0) ? (sizeof(sendResponses) / sizeof(sendResponses[0])) : 
-                                 (sizeof(takeResponses) / sizeof(takeResponses[0])))) {
-        printf("Invalid choice.\n");
-        strncpy(response, "ERR:invalid_choice\nChoix invalide.", 100);
-        return response;
-    }
-
-    // Prepare the response based on the user's selection
-    if (strncmp(sent, "INFO", 4) == 0) {
-        strncpy(response, infoResponses[choice - 1], 100);
-        if (response[0] != 'E') {
-        switch(sent[5]) { 
-            case 'C':  
-                strcpy(response, "OK:"); 
-                strcat(response, Color_To_String(curr_station->color)); 
-                strcat(response, "\n");
-                break;
-            case 'B':
-                snprintf(response, 13, "OK:%i:%i:%i:%i:%i\n", blackbox_pass[0], blackbox_pass[1], blackbox_pass[2], blackbox_pass[3], blackbox_pass[4]);
-                strcat(response, "\n");
-                break;
-            case 'S':
-                snprintf(response, 13, "OK:%i:%i:%i:%i:%i\n", curr_station->passengers[0], curr_station->passengers[1], curr_station->passengers[2], curr_station->passengers[3], curr_station->passengers[4]);
-                strcat(response, "\n");
-                break;    
-        }
-    }
-    } else if (strncmp(sent, "SEND", 4) == 0 || strncmp(sent, "TAKE", 4) == 0) {
-        strncpy(response, (strncmp(sent, "SEND", 4) == 0) ? sendResponses[choice - 1] : takeResponses[choice - 1], 100);
-    }
-
-    // Reallocate memory to match the actual response size
-    size_t actualSize = strlen(response) + 1;  // +1 for the null terminator
-    char* temp = realloc(response, actualSize);
-    if (temp == NULL) {
-        // If realloc fails, return the original response
-        printf("Reallocation failed, returning original response.\n");
-        return response;
-    }
-    response = temp;
-
-    // Return the selected response
-    printf("Received message: %s", response);
-    return response;
+    return NULL;
 }
 
 char* Color_To_String(Color c) {
@@ -477,4 +360,187 @@ char* Format_Str(char* comm, Color c, int nb) {
         return NULL;
     }
     return str;
+}
+
+void Fictive_State() {
+    // Blackbox
+    blackbox_pass[0] =  0;          // R
+    blackbox_pass[1] =  0;          // G
+    blackbox_pass[2] =  0;          // B
+    blackbox_pass[3] =  0;          // Y
+    blackbox_pass[4] =  0;          // P
+
+    // Red station
+    r_station.state = ACTIVE;
+    r_station.passengers[1] = 2;    // G
+    r_station.passengers[2] = 2;    // B
+    r_station.passengers[3] = 2;    // Y
+    r_station.passengers[4] = 2;    // P
+
+    // Green station
+    g_station.state = INACTIVE;
+    g_station.passengers[0] = 1;    // R
+    g_station.passengers[2] = 3;    // B
+    g_station.passengers[3] = 4;    // Y
+    g_station.passengers[4] = 0;    // P
+
+    // Blue station
+    b_station.state = ACTIVE;
+    b_station.passengers[0] = 3;    // R
+    b_station.passengers[1] = 2;    // G
+    b_station.passengers[3] = 2;    // Y
+    b_station.passengers[4] = 1;    // P
+
+    // Yellow station
+    y_station.state = ACTIVE;
+    y_station.passengers[0] = 0;    // R
+    y_station.passengers[1] = 0;    // G
+    y_station.passengers[2] = 4;    // B
+    y_station.passengers[4] = 2;    // P
+
+    // Purple station
+    p_station.state = ACTIVE;
+    p_station.passengers[0] = 3;    // R
+    p_station.passengers[1] = 3;    // G
+    p_station.passengers[2] = 1;    // B
+    p_station.passengers[3] = 1;    // Y
+}
+
+char* Response_Simulation(char* sent) {
+
+    // Exit if debug mode is OFF
+    if(!DEBUG_MODE) {
+        printf("\nERROR. Debug mode is OFF.\n");
+        return NULL;
+    }
+
+    // Allocate memory for the response
+    char* response = (char*)malloc(100);  
+    if (response == NULL) {               
+        printf("Memory allocation failed.\n");
+        return NULL;
+    }
+
+    const char *infoResponses[] = {
+        "OK",
+        "ERR:command_too_long",
+        "ERR:command_in_progress",
+        "ERR:unknown_command",
+        "ERR:disconnected"
+    };
+
+    const char *sendResponses[] = {
+        "OK",
+        "ERR:invalid_color",
+        "ERR:invalid_count",
+        "ERR:not_enough_people_to_send",
+        "ERR:not_enough_room_at_station"
+    };
+
+    const char *takeResponses[] = {
+        "OK",
+        "ERR:invalid_color",
+        "ERR:invalid_count",
+        "ERR:not_enough_room",
+        "ERR:not_enough_people_at_station"
+    };
+
+    // Display the sent string
+    printf("--------------------------\n");
+    printf("Sent message: %s", sent);
+
+    int choice;
+    if(USER_INPUT) {
+        // Determine the response options based on the first four characters
+        if (strncmp(sent, "INFO", 4) == 0) {
+            printf("Select a response:\n");
+            for (int i = 0; i < sizeof(infoResponses) / sizeof(infoResponses[0]); i++) {
+                printf("%d: %s\n", i + 1, infoResponses[i]);
+            }
+        } else if (strncmp(sent, "SEND", 4) == 0) {
+            printf("Select a response:\n");
+            for (int i = 0; i < sizeof(sendResponses) / sizeof(sendResponses[0]); i++) {
+                printf("%d: %s\n", i + 1, sendResponses[i]);
+            }
+        } else if (strncmp(sent, "TAKE", 4) == 0) {
+            printf("Select a response:\n");
+            for (int i = 0; i < sizeof(takeResponses) / sizeof(takeResponses[0]); i++) {
+                printf("%d: %s\n", i + 1, takeResponses[i]);
+            }
+        } else {
+            printf("Unknown command type.\n");
+            strncpy(response, "ERR:unknown_command\nLa commande envoyée n’est pas reconnue", 100);
+            return response;
+        }
+
+        // Get user selection
+        printf("Enter your choice (1-%d): ", 
+            (strncmp(sent, "INFO", 4) == 0) ? (sizeof(infoResponses) / sizeof(infoResponses[0])) : 
+            (strncmp(sent, "SEND", 4) == 0) ? (sizeof(sendResponses) / sizeof(sendResponses[0])) : 
+            (sizeof(takeResponses) / sizeof(takeResponses[0])));
+        scanf("%d", &choice);
+        getchar(); // Clear newline character from the buffer
+    }
+    else
+        choice = 1;
+
+    // Validate choice
+    if (choice < 1 || choice > ((strncmp(sent, "INFO", 4) == 0) ? (sizeof(infoResponses) / sizeof(infoResponses[0])) : 
+                                 (strncmp(sent, "SEND", 4) == 0) ? (sizeof(sendResponses) / sizeof(sendResponses[0])) : 
+                                 (sizeof(takeResponses) / sizeof(takeResponses[0])))) {
+        printf("Invalid choice.\n");
+        strncpy(response, "ERR:invalid_choice\nChoix invalide.", 100);
+        return response;
+    }
+
+    // Prepare the response based on the user's selection
+    if (strncmp(sent, "INFO", 4) == 0) {
+        strncpy(response, infoResponses[choice - 1], 100);
+        if (response[0] != 'E') {
+        switch(sent[5]) { 
+            case 'C':  
+                strcpy(response, "OK:"); 
+                strcat(response, Color_To_String(curr_station->color)); 
+                strcat(response, "\n");
+                break;
+            case 'B':
+                snprintf(response, 13, "OK:%i:%i:%i:%i:%i\n", blackbox_pass[0], blackbox_pass[1], blackbox_pass[2], blackbox_pass[3], blackbox_pass[4]);
+                strcat(response, "\n");
+                break;
+            case 'S':
+                snprintf(response, 13, "OK:%i:%i:%i:%i:%i\n", curr_station->passengers[0], curr_station->passengers[1], curr_station->passengers[2], curr_station->passengers[3], curr_station->passengers[4]);
+                strcat(response, "\n");
+                break;    
+        }
+    }
+    } else if (strncmp(sent, "SEND", 4) == 0 || strncmp(sent, "TAKE", 4) == 0) {
+        strncpy(response, (strncmp(sent, "SEND", 4) == 0) ? sendResponses[choice - 1] : takeResponses[choice - 1], 100);
+    }
+
+    // Reallocate memory to match the actual response size
+    size_t actualSize = strlen(response) + 1;  // +1 for the null terminator
+    char* temp = realloc(response, actualSize);
+    if (temp == NULL) {
+        // If realloc fails, return the original response
+        printf("Reallocation failed, returning original response.\n");
+        return response;
+    }
+    response = temp;
+
+    // Return the selected response
+    printf("Received message: %s", response);
+    return response;
+}
+
+void Print_Count(char* tag, int* array) {
+    printf("\nPassengers at %s\nRed:%i\nGreen:%i\nBlue:%i\nYellow:%i\nPurple:%i\n", tag, array[0], array[1], array[2], array[3], array[4]);
+}
+
+void Print_All() {
+    Print_Count("Blackbox", blackbox_pass);
+    Print_Count("RED", r_station.passengers);
+    Print_Count("GREEN", g_station.passengers);
+    Print_Count("BLUE", b_station.passengers);
+    Print_Count("YELLOW", y_station.passengers);
+    Print_Count("PURPLE", p_station.passengers);
 }

@@ -18,17 +18,17 @@
 #include<stdio.h>
 #include<string.h>
 
-// Debugging parameters
-#define ACTIVE_LOOP 1               // 1 is yes       
+// Debugging parameters (1 is yes, 0 is no)
+#define DEBUG_MODE 1
+#define ACTIVE_LOOP 1                      
 #define MAX_ITERATIONS 1000
-#define USER_INPUT 0                // 1 is yes
+#define USER_INPUT 0               
 
+// Enum and struct
 enum color {RED, GREEN, BLUE, YELLOW, PURPLE, NONE};
 typedef enum color Color;
-
 enum state {INACTIVE, ACTIVE};
 typedef enum state State;
-
 typedef struct {
     Color color;        // Station color
     int passengers[5];  // R:G:B:Y:P
@@ -49,7 +49,6 @@ extern int blackbox_pass[5];       // Passenger count for each destination onboa
 
 // Prototypes (station)
 void Initialize();                      // Initialize stations
-void Print_Count(char*, int*);          // Print the number of passenger going to each station from an array of size 5
 int Connect_Station(Color);             // Change current station
 int Drop_Passengers(Color);             // Drop all corresponding passengers onboard to specific station
 int Load_Passengers(Color, int);        // Load a specific number of passengers going to a specific station
@@ -57,13 +56,18 @@ void Auto_Load_Drop();                  // Automates the loading and dropping of
 
 // Prototypes (blackbox)
 char* Communication(char*);             // Returns the message received after sending a specific message
-char* Response_Simulation(char*);       // Lets the user choose the expected response from the blackbox (USED ONLY FOR DEBUGGING)
 char* Color_To_String(Color);           // Get string format from enum Color
 Station* Color_To_Station(Color);       // Get corresponding station from enum Color
-int Get_Max_Count(Station*, Station*);   // Get the maximum number of passengers for boarding from a station depending on blackbox available seats and destination
+int Get_Max_Count(Station*, Station*);  // Get the maximum number of passengers for boarding from a station depending on blackbox available seats and destination
 Color Info_Color();                     // Get current station color
 int Info_Station_Count();               // Update current station passenger array
 int Info_Blackbox_Count();              // Update blackbox passenger array
 char* Format_Str(char*, Color, int);    // Format station attributes and command in a string
+
+// Prototypes (debugging)
+void Fictive_State();                   // Allows the user to set the fictitious state of the model (USED ONLY FOR DEBUGGING)
+char* Response_Simulation(char*);       // Lets the user choose the expected response from the blackbox (USED ONLY FOR DEBUGGING)
+void Print_Count(char*, int*);          // Print the number of passenger going to each station from an array of size 5
+void Print_All();                       // Print the number of passenger going to each station of all stations and blackbox
 
 #endif
