@@ -49,6 +49,7 @@ extern int blackbox_pass[5];       // Passenger count for each destination onboa
 
 // Prototypes (station)
 void Initialize();                      // Initialize stations
+void Wait_For_Two();                    // Waits for two stations to connect before starting auto load/drop
 int Connect_Station(Color);             // Change current station
 int Drop_Passengers(Color);             // Drop all corresponding passengers onboard to specific station
 int Load_Passengers(Color, int);        // Load a specific number of passengers going to a specific station

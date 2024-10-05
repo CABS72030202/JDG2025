@@ -30,6 +30,39 @@ void Initialize() {
 
     if(DEBUG_MODE)
         Fictive_State();
+    else
+        Wait_For_Two();
+}
+
+void Wait_For_Two() {
+    int active_count = 0;
+    while(active_count < 2) {
+        if(Communication(NULL) == "STAT:connected\n") {
+            active_count++;
+
+            // Update station status
+            if(Info_Station_Count() == ERROR)
+                active_count--;
+
+            // Make sure connected to two different stations
+            if(active_count == 2) {
+                active_count = 0;
+                if(r_station.state == ACTIVE)
+                    active_count++;
+                if(g_station.state == ACTIVE)
+                    active_count++;
+                if(b_station.state == ACTIVE)
+                    active_count++;
+                if(y_station.state == ACTIVE)
+                    active_count++;
+                if(p_station.state == ACTIVE)
+                    active_count++;
+            }
+        }
+        else {
+            sleep(1);
+        }
+    }
 }
 
 int Connect_Station(Color station_color) {
@@ -189,6 +222,9 @@ char* Communication(char* sent) {
         char* response = Response_Simulation(sent);
         return response;  // Caller must free the memory when done
     }
+
+    // NOTE : NULL parameter means to wait for message from blackbox
+
     return NULL;
 }
 
