@@ -12,7 +12,8 @@
 #include<stdlib.h>
 #include<stdio.h>
 #include<string.h>
-#include "station.h"
+#include "../lib/station.h"
+#include "../lib/communication.h"
 
 // Prototypes
 

@@ -2,7 +2,7 @@
 // Created on: 2024-09-17
 // Author: Sebastien Cabana
 
-#include "station.h"
+#include "../lib/station.h"
 
 Station r_station;      
 Station g_station;     
