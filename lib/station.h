@@ -17,6 +17,7 @@
 #include<stdlib.h>
 #include<stdio.h>
 #include<string.h>
+#include "../lib/communication.h"
 
 // Debugging parameters (1 is yes, 0 is no)
 #define DEBUG_MODE 1
