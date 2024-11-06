@@ -30,38 +30,31 @@ void Initialize() {
 
     if(DEBUG_MODE)
         Fictive_State();
-    else
+    else {
+        while(Start_Comm())
+            Delay(TIMEOUT);
         Wait_For_Two();
+    }
 }
 
 void Wait_For_Two() {
     int active_count = 0;
     while(active_count < 2) {
-        if(Communication(NULL) == "STAT:connected\n") {
-            active_count++;
-
-            // Update station status
-            if(Info_Station_Count() == ERROR)
-                active_count--;
-
-            // Make sure connected to two different stations
-            if(active_count == 2) {
-                active_count = 0;
-                if(r_station.state == ACTIVE)
-                    active_count++;
-                if(g_station.state == ACTIVE)
-                    active_count++;
-                if(b_station.state == ACTIVE)
-                    active_count++;
-                if(y_station.state == ACTIVE)
-                    active_count++;
-                if(p_station.state == ACTIVE)
-                    active_count++;
-            }
+        if(Try_Connect()) {
+            // Count active stations
+            if(r_station.state == ACTIVE)
+                active_count++;
+            if(g_station.state == ACTIVE)
+                active_count++;
+            if(b_station.state == ACTIVE)
+                active_count++;
+            if(y_station.state == ACTIVE)
+                active_count++;
+            if(p_station.state == ACTIVE)
+                active_count++;
         }
-        else {
-            sleep(1);
-        }
+        else
+            Delay(TIMEOUT);
     }
 }
 
@@ -129,6 +122,9 @@ int Load_Passengers(Color c, int nb) {
         blackbox_pass[c] += nb;
         curr_station->passengers[c] -= nb;
 
+        // Delay to show passengers onboard
+        Delay(TIMEOUT);
+        
         return OK;
     }
 }
@@ -224,6 +220,9 @@ char* Communication(char* sent) {
     }
 
     // NOTE : NULL parameter means to wait for message from blackbox
+    if(Send(sent) == OK)
+        if(Receive(received) == OK)
+            return received;
 
     return NULL;
 }

@@ -1,6 +1,6 @@
 CC = gcc
 CFLAGS = -g -w -Wall
-CXXFLAGS = -Ilib -Isrc -Itest
+CXXFLAGS = -Ilib -Isrc -Itest -lwiringPi
 VPATH = lib:src:test
 LIB = -lm
 
@@ -25,7 +25,7 @@ station.o: ./lib/station.h ./src/station.c ./lib/communication.h ./src/communica
 	$(CC) $(CFLAGS) -c ./src/station.c -o station.o $(CXXFLAGS)
 
 # Object generation from source and header for COMMUNICATION
-communication.o: ./lib/communication.h ./src/communication.c
+communication.o: ./lib/communication.h ./src/communication.c ./lib/station.h ./src/station.c
 	$(CC) $(CFLAGS) -c ./src/communication.c -o communication.o $(CXXFLAGS)	
 
 clean:
