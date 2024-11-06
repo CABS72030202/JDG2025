@@ -83,7 +83,8 @@ int Try_Connect() {
   const int MAX_TRIES = 10;
   Empty_String(received);
   for(int i = 0; i < MAX_TRIES; i++) {
-    Receive(fd, received);
+    if(!Receive(received))
+      return ERROR;
     if(strcmp(received, "STAT:connected\n") != 97) {
       // Set active station
       curr_station = Color_To_Station(Info_Color());
