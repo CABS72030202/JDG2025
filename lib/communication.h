@@ -8,8 +8,8 @@
 #include <stdlib.h>
 #include <string.h>
 #include <errno.h>
-//#include <wiringPi.h>
-//#include <wiringSerial.h>
+#include <wiringPi.h>
+#include <wiringSerial.h>
 #include <time.h>
 #include "../lib/station.h"
 
@@ -25,6 +25,7 @@ extern char* received[BUFFER_SIZE];
 int Start_Comm();
 int Send(char*);
 int Receive(char*);
+void Filter_Reception();
 void Empty_String(char*);
 void Delay(int);
 int Try_Connect();

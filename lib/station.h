@@ -20,7 +20,7 @@
 #include "../lib/communication.h"
 
 // Debugging parameters (1 is yes, 0 is no)
-#define DEBUG_MODE 1
+#define DEBUG_MODE 0
 #define ACTIVE_LOOP 1                      
 #define MAX_ITERATIONS 1000
 #define USER_INPUT 0               

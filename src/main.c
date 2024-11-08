@@ -16,9 +16,34 @@
 #include "../lib/communication.h"
 
 // Prototypes
+void Exit_Error();
 
 int main(void) {
     Initialize();
-    Auto_Load_Drop();
-    return 0;
+    Wait_For_Two();
+    //Auto_Load_Drop();
+
+    while(1) {
+    if(Connect_Station(BLUE) == ERROR)
+        Exit_Error();
+    if(Load_Passengers(YELLOW, 1) == ERROR)
+        Exit_Error();
+    if(Connect_Station(YELLOW) == ERROR)
+        Exit_Error();
+    if(Drop_Passengers(YELLOW) == ERROR)
+        Exit_Error();
+    }
+
+    /*while (Try_Connect() == OK) {
+        Send("INFO:C\n");
+        Receive(received);
+        printf("Received: %s", received);
+    }*/
+
+    return 0; 
+}
+
+void Exit_Error() {
+    printf("Exit with error.\n");
+    exit(1);
 }

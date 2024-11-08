@@ -1,8 +1,8 @@
 CC = gcc
 CFLAGS = -g -w -Wall
-CXXFLAGS = -Ilib -Isrc -Itest -lwiringPi
+CXXFLAGS = -Ilib -Isrc -Itest
 VPATH = lib:src:test
-LIB = -lm
+LIB = -lm -lwiringPi
 
 # Main executable construction
 main: main.o station.o communication.o
@@ -13,7 +13,7 @@ test_unit: test_unit.o
 	$(CC) $(CFLAGS) -o test_unit test_unit.o $(CXXFLAGS) $(LIB)
 
 # Object generation from source and header for MAIN
-main.o: ./src/main.c ./lib/station.h ./lib/communication.h
+main.o: ./src/main.c ./lib/station.h ./src/station.c ./lib/communication.h ./src/communication.c
 	$(CC) $(CFLAGS) -c ./src/main.c -o main.o $(CXXFLAGS)
 
 # Object generation from source and header for TEST_UNIT

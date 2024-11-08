@@ -30,17 +30,16 @@ void Initialize() {
 
     if(DEBUG_MODE)
         Fictive_State();
-    else {
-        while(Start_Comm())
+    else
+        while(Start_Comm()) 
             Delay(TIMEOUT);
-        Wait_For_Two();
-    }
 }
 
 void Wait_For_Two() {
     int active_count = 0;
     while(active_count < 2) {
-        if(Try_Connect()) {
+        if(Try_Connect() == OK) {
+            active_count = 0;
             // Count active stations
             if(r_station.state == ACTIVE)
                 active_count++;
@@ -52,6 +51,7 @@ void Wait_For_Two() {
                 active_count++;
             if(p_station.state == ACTIVE)
                 active_count++;
+            printf("There are currently %i active stations.", active_count);
         }
         else
             Delay(TIMEOUT);
@@ -59,12 +59,16 @@ void Wait_For_Two() {
 }
 
 int Connect_Station(Color station_color) {
+    // Wait until connection is established
+    if(Try_Connect() == ERROR)
+        return ERROR;
+
     // Get corresponding station from specified color
     Station* temp = Color_To_Station(station_color);
 
     // Detect and abord if station is inactive
     if(temp->state == INACTIVE) {
-        printf("Station %s is inactive.", Color_To_String(station_color));
+        printf("Station %s is inactive.\n", Color_To_String(station_color));
         return ERROR; 
     }
 
@@ -243,7 +247,7 @@ char* Color_To_String(Color c) {
     case NONE:
         return "NONE";
     default:
-        printf("\nERROR. INVALID PARAMETER | station.c | Color_To_String(Color)\n\n");
+        printf("ERROR. Invalid parameter in Color_To_String(Color)\n");
         return NULL;
     }
 }
@@ -262,7 +266,7 @@ Station* Color_To_Station(Color c) {
             return &p_station;
         case NONE:
         default:
-            printf("\nERROR. INVALID PARAMETER | station.c | Color_To_Station(Color)\n\n");
+            printf("ERROR. Invalid parameter in Color_To_Station(Color)\n");
             return &null_station;
     }
 }
@@ -300,7 +304,7 @@ Color Info_Color() {
     case 'P':
         return PURPLE;
     default:
-        printf("\nERROR. INVALID COLOR | station.c | Info_Color\n\n");
+        printf("ERROR. Invalid color in Info_Color()\n");
         break;
     }
 }
@@ -339,7 +343,6 @@ int Info_Station_Count() {
     case NONE:
         return ERROR;
     default:
-        printf("\nERROR. INVALID COLOR | station.c | Info_Station_Count\n\n");
         return ERROR;
     }
 }
@@ -391,7 +394,7 @@ char* Format_Str(char* comm, Color c, int nb) {
         sprintf(str, "%s:%s:%i\n", comm, Color_To_String(c), nb);
         break;
     default:
-        printf("\nERROR. INVALID COLOR | station.c | Format_Str\n\n");
+        printf("ERROR. Invalid color in Format_Str(char*, Color, int)\n");
         return NULL;
     }
     return str;
@@ -445,7 +448,7 @@ char* Response_Simulation(char* sent) {
 
     // Exit if debug mode is OFF
     if(!DEBUG_MODE) {
-        printf("\nERROR. Debug mode is OFF.\n");
+        printf("ERROR. Debug mode is OFF.\n");
         return NULL;
     }
 

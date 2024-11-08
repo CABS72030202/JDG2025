@@ -20,10 +20,12 @@ int Start_Comm() {
     fprintf(stdout, "Unable to start wiringPi: %s\n", strerror(errno));
     return ERROR;
   }
+  printf("Started serial communication successfully.\n");
   return OK;
 }
 
 int Send(char* str) {
+  Delay(1);
   printf("Sending: %s", str);
   for (int i = 0; i < strlen(str); i++) 
     serialPutchar(fd, str[i]);
@@ -47,8 +49,12 @@ int Receive(char* str) {
       str[index++] = dat; 
 
       // Exit loop on newline character
-      if (dat == '\n')
+      if (dat == '\n') {
+        printf("Received: %s", str);
+        //Filter_Reception();
+        Delay(1);
         return OK;
+      }
 
       fflush(stdout);
     }
@@ -61,6 +67,12 @@ int Receive(char* str) {
   Empty_String(str);
   strcpy(str, "Timed out.\n");
   return ERROR;
+}
+
+void Filter_Reception() {
+  // Check if disconnected from station
+  if(strcmp(received, "ERR:disconnected\n") == 97 || strcmp(received, "STAT:disconnected\n") == 97)   
+    while(Try_Connect() == ERROR);  // Wait until reconnected
 }
 
 void Empty_String(char* str) { 
@@ -81,20 +93,19 @@ void Delay(int seconds) {
 
 int Try_Connect() {
   const int MAX_TRIES = 10;
-  Empty_String(received);
   for(int i = 0; i < MAX_TRIES; i++) {
-    if(!Receive(received))
-      return ERROR;
-    if(strcmp(received, "STAT:connected\n") != 97) {
+    printf("Waiting for connection. ");
+    Receive(received);
+    if(strcmp(received, "STAT:connected\n") == 97) {
       // Set active station
+      Delay(1);
       curr_station = Color_To_Station(Info_Color());
-      if(curr_station->state == INACTIVE)
-        curr_station->state = ACTIVE;
+      curr_station->state = ACTIVE;
+      printf("Successfully connected to station %s.\n", Color_To_String(curr_station->color));
       return OK;
     }
-    //printf("Received while waiting: %s", received);
-    Delay(1);
   }
+  printf("Could not connect to the station.\n");
   return ERROR;
 }
 
