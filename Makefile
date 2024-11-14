@@ -4,17 +4,25 @@ CXXFLAGS = -Ilib -Isrc -Itest
 VPATH = lib:src:test
 LIB = -lm -lwiringPi
 
-# Main executable construction
-main: main.o station.o communication.o
-	$(CC) $(CFLAGS) -o main main.o station.o communication.o $(LIB)
+# Blackbox executable construction
+blackbox: blackbox.o station.o communication.o
+	$(CC) $(CFLAGS) -o blackbox blackbox.o station.o communication.o $(LIB)
+
+# Controller executable construction
+controller: controller.o
+	$(CC) $(CFLAGS) -o controller controller.o $(LIB)
 
 # Test unit executable construction
 test_unit: test_unit.o
 	$(CC) $(CFLAGS) -o test_unit test_unit.o $(CXXFLAGS) $(LIB)
 
-# Object generation from source and header for MAIN
-main.o: ./src/main.c ./lib/station.h ./src/station.c ./lib/communication.h ./src/communication.c
-	$(CC) $(CFLAGS) -c ./src/main.c -o main.o $(CXXFLAGS)
+# Object generation from source and header for BLACKBOX
+blackbox.o: ./src/blackbox.c ./lib/station.h ./src/station.c ./lib/communication.h ./src/communication.c
+	$(CC) $(CFLAGS) -c ./src/blackbox.c -o blackbox.o $(CXXFLAGS)
+
+# Object generation from source and header for BLACKBOX
+controller.o: ./src/controller.c ./lib/controller.h
+	$(CC) $(CFLAGS) -c ./src/controller.c -o controller.o $(CXXFLAGS)
 
 # Object generation from source and header for TEST_UNIT
 test_unit.o: ./test/test_unit.h ./test/test_unit.c
@@ -29,4 +37,4 @@ communication.o: ./lib/communication.h ./src/communication.c ./lib/station.h ./s
 	$(CC) $(CFLAGS) -c ./src/communication.c -o communication.o $(CXXFLAGS)	
 
 clean:
-	rm -f *.o main test_unit
+	rm -f *.o blackbox controller test_unit
