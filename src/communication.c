@@ -50,8 +50,8 @@ int Receive(char* str) {
 
       // Exit loop on newline character
       if (dat == '\n') {
+        Filter_Reception();
         printf("Received: %s", str);
-        //Filter_Reception();
         Delay(1);
         return OK;
       }
@@ -71,8 +71,10 @@ int Receive(char* str) {
 
 void Filter_Reception() {
   // Check if disconnected from station
-  if(strcmp(received, "ERR:disconnected\n") == 97 || strcmp(received, "STAT:disconnected\n") == 97)   
-    while(Try_Connect() == ERROR);  // Wait until reconnected
+  if(strcmp(received, "ERR:disconnected\n") == 97 || strcmp(received, "STAT:disconnected\n") == 97 || strcmp(received, "STAT:connected\n") == 97) {
+    Delay(1);
+    Receive(received);  // Receive next word without sending anything
+  }
 }
 
 void Empty_String(char* str) { 
@@ -95,15 +97,17 @@ int Try_Connect() {
   const int MAX_TRIES = 10;
   for(int i = 0; i < MAX_TRIES; i++) {
     printf("Waiting for connection. ");
-    Receive(received);
-    if(strcmp(received, "STAT:connected\n") == 97) {
+    //Receive(received);
+    //if(strcmp(received, "STAT:connected\n") == 97) {
+    Color temp = Info_Color();
+    if(temp != NONE) {
       // Set active station
-      Delay(1);
-      curr_station = Color_To_Station(Info_Color());
+      curr_station = Color_To_Station(temp);
       curr_station->state = ACTIVE;
       printf("Successfully connected to station %s.\n", Color_To_String(curr_station->color));
       return OK;
     }
+    Delay(2);
   }
   printf("Could not connect to the station.\n");
   return ERROR;

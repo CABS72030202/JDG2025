@@ -305,7 +305,7 @@ Color Info_Color() {
         return PURPLE;
     default:
         printf("ERROR. Invalid color in Info_Color()\n");
-        break;
+        return NONE;
     }
 }
 

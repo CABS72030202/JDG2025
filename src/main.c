@@ -16,22 +16,69 @@
 #include "../lib/communication.h"
 
 // Prototypes
-void Exit_Error();
 
 int main(void) {
     Initialize();
-    Wait_For_Two();
+    //Wait_For_Two();
     //Auto_Load_Drop();
 
+    r_station.state = ACTIVE;      
+    g_station.state = ACTIVE;
+    b_station.state = ACTIVE; 
+    y_station.state = ACTIVE; 
+    p_station.state = ACTIVE; 
+
     while(1) {
-    if(Connect_Station(BLUE) == ERROR)
-        Exit_Error();
-    if(Load_Passengers(YELLOW, 1) == ERROR)
-        Exit_Error();
-    if(Connect_Station(YELLOW) == ERROR)
-        Exit_Error();
-    if(Drop_Passengers(YELLOW) == ERROR)
-        Exit_Error();
+        if(Connect_Station(BLUE) == ERROR) {
+            printf("Exit with error.\n");
+            return 0;
+        }
+        if(Load_Passengers(YELLOW, 1) == ERROR) {
+            printf("Exit with error.\n");
+            return 0;
+        }
+        if(Connect_Station(YELLOW) == ERROR) {
+            printf("Exit with error.\n");
+            return 0;
+        }
+        if(Drop_Passengers(YELLOW) == ERROR) {
+            printf("Exit with error.\n");
+            return 0;
+        }
+        
+        if(Connect_Station(RED) == ERROR) {
+            printf("Exit with error.\n");
+            return 0;
+        }
+        if(Load_Passengers(GREEN, 1) == ERROR) {
+            printf("Exit with error.\n");
+            return 0;
+        }
+        if(Connect_Station(GREEN) == ERROR) {
+            printf("Exit with error.\n");
+            return 0;
+        }
+        if(Drop_Passengers(GREEN) == ERROR) {
+            printf("Exit with error.\n");
+            return 0;
+        }
+
+        if(Connect_Station(PURPLE) == ERROR) {
+            printf("Exit with error.\n");
+            return 0;
+        }
+        if(Load_Passengers(YELLOW, 1) == ERROR) {
+            printf("Exit with error.\n");
+            return 0;
+        }
+        if(Connect_Station(YELLOW) == ERROR) {
+            printf("Exit with error.\n");
+            return 0;
+        }
+        if(Drop_Passengers(YELLOW) == ERROR) {
+        printf("Exit with error.\n");
+        return 0;
+    }
     }
 
     /*while (Try_Connect() == OK) {
@@ -41,9 +88,4 @@ int main(void) {
     }*/
 
     return 0; 
-}
-
-void Exit_Error() {
-    printf("Exit with error.\n");
-    exit(1);
 }
