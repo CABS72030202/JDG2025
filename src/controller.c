@@ -9,6 +9,15 @@
 #include "../lib/controller.h"
 
 int main() {
+    
+    // Start UART communication
+    int uart_fd = serialOpen(UART, BAUD_RATE);
+    if (uart_fd == -1) {
+        fprintf(stderr, "Unable to open UART: %s\n", strerror(errno));
+        return 1;
+    }
+
+    // Start controller communication
     int fd = open(GAMEPAD_PATH, O_RDONLY);
     if (fd < 0) {
         perror("Failed to open gamepad");
@@ -27,8 +36,15 @@ int main() {
 
         // Process controller event
         Controller_Event(e);   
+
+        // Format message
+        Format_Message();
+
+        // Send message
+        serialPuts(uart_fd, message);
     }
 
+    serialClose(uart_fd);
     close(fd);
     return 0;
 }
@@ -196,7 +212,8 @@ void Controller_Event(struct js_event e) {
     }
 }
 
-void Format_Message(Color robot, int l_speed, int r_speed, Direction arm) {
+void Format_Message() {
+
 /*
  * Message format: a 9-character string structured as follows:
  * <robot>:<left wheel speed>:<right wheel speed>:<arm control>

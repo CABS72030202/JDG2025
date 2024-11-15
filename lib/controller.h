@@ -12,6 +12,8 @@
 #include <unistd.h>
 #include <stdbool.h>
 #include <stdlib.h>
+#include <wiringSerial.h>
+#include <errno.h>
 
 #define GAMEPAD_PATH "/dev/input/js0"
 
@@ -69,13 +71,22 @@ Direction LS_dir = NONE;
 Direction RS_dir = NONE;
 Direction CR_dir = NONE;
 
-// Global constants and variables
+// Global constants
+#define UART "/dev/serial0"
+#define BAUD_RATE 115200
+const int robot_order[] = {7, 0, 1, 2, 3, 4, 5, 6};
+
+// Global variables
 int IS_SLOW = 0;                        // Speed multiplier for constant controls (no range)
 char* message[] = "0:00:00:0\n";        // Format is <Robot>:<Left wheel speed>:<Right wheel speed>:<Arm control>
+Color robot = NONE;
+int l_speed = 0;
+int r_speed = 0;
+Direction arm = DOWN;
 
 // Prototypes
 int Get_Anal_Range(int val);
 Direction Get_Direction(int x, int y);
 char* Direction_Str(Direction dir);
 void Controller_Event(struct js_event);
-void Format_Message(Color robot, int l_speed, int r_speed, Direction arm);
+void Format_Message();
