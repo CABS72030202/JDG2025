@@ -47,6 +47,8 @@
 // Special types
 enum direction {NONE, UP, DOWN, LEFT, RIGHT};
 typedef enum direction Direction;
+enum color {RED, GREEN, BLUE, YELLOW, PURPLE, CONE, NONE};
+typedef enum color Color;
 
 // Axis values 
 int LT_val = 0;
@@ -68,12 +70,12 @@ Direction RS_dir = NONE;
 Direction CR_dir = NONE;
 
 // Global constants and variables
-int IS_SLOW = 0;        // Speed multiplier for constant controls
-char* message[10];      // Format is <Robot>:<Left wheel speed>:<Right wheel speed>:<Arm control>
+int IS_SLOW = 0;                        // Speed multiplier for constant controls (no range)
+char* message[] = "0:00:00:0\n";        // Format is <Robot>:<Left wheel speed>:<Right wheel speed>:<Arm control>
 
 // Prototypes
 int Get_Anal_Range(int val);
 Direction Get_Direction(int x, int y);
 char* Direction_Str(Direction dir);
 void Controller_Event(struct js_event);
-void Format_Message(int robot, int l_speed, int r_speed, int arm);
+void Format_Message(Color robot, int l_speed, int r_speed, Direction arm);

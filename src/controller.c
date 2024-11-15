@@ -196,13 +196,13 @@ void Controller_Event(struct js_event e) {
     }
 }
 
-void Format_Message(int robot, int l_speed, int r_speed, int arm) {
+void Format_Message(Color robot, int l_speed, int r_speed, Direction arm) {
 /*
- * Message format: a 10-character string structured as follows:
+ * Message format: a 9-character string structured as follows:
  * <robot>:<left wheel speed>:<right wheel speed>:<arm control>
  *
  * - The first character represents the robot's color, indicated by the first letter:
- *   'B' (BLUE), 'R' (RED), 'G' (GREEN), 'P' (PURPLE), 'Y' (YELLOW).
+ *   'R' (RED), 'G' (GREEN), 'B' (BLUE), 'Y' (YELLOW), 'P' (PURPLE), 'C' (CONE), 'N' (BOAT).
  *
  * - The next two characters specify the left wheel speed:
  *   - The first character is the direction: '+' for forward, '-' for reverse.
@@ -214,4 +214,62 @@ void Format_Message(int robot, int l_speed, int r_speed, int arm) {
  * - The last character controls the robot arm movement:
  *   'U' to raise the arm and 'D' to lower it.
  */
+
+    // <robot>
+    switch (robot) {
+        case 0:
+            message[0] = 'R';
+            break;
+        case 1:
+            message[0] = 'G';
+            break;
+        case 2:
+            message[0] = 'B';
+            break;
+        case 3:
+            message[0] = 'Y';
+            break;
+        case 4:
+            message[0] = 'P';
+            break;
+        case 5:
+            message[0] = 'C';
+            break;
+        case 6:
+            message[0] = 'N';
+            break;
+        default:
+            printf("ERROR. Invalid color.\n");
+            return;
+    }
+
+    // <left wheel speed>
+    if(l_speed < 0)
+        message[2] = '-';
+    else
+        message[2] = '+';
+    message[3] = abs(l_speed);
+
+    // <right wheel speed>
+    if(r_speed < 0)
+        message[5] = '-';
+    else
+        message[5] = '+';
+    message[6] = abs(r_speed);
+
+    // <arm control>
+    switch (dir) {
+        case 1:
+            message[8] = 'U';
+            break;
+        case 2:
+            message[8] = 'D';
+            break;
+        case 0:
+        case 3:
+        case 4:
+        default:
+            printf("ERROR. Invalid direction.\n");
+            return;
+    }
 }
