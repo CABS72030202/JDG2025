@@ -161,8 +161,8 @@ void Controller_Event(struct js_event e) {
                 temp_range = Get_Anal_Range(LT_val);
                 if(LT_range != temp_range) {
                     LT_range = temp_range;
-                    if(LT_range > 0)
-                        printf("LT pressed. Range is %i.\n", LT_range);
+                printf("Pressed button LT: Frontspin left wheel with factor %i\n", LT_range);
+                l_speed = LT_range;
                 }
                 break;
             case RT_BUTTON:
@@ -170,8 +170,8 @@ void Controller_Event(struct js_event e) {
                 temp_range = Get_Anal_Range(RT_val);
                 if(RT_range != temp_range) {
                     RT_range = temp_range;
-                    if(RT_range > 0)
-                        printf("RT pressed. Range is %i.\n", RT_range);
+                printf("Pressed button RT: Frontspin right wheel with factor %i\n", RT_range);
+                r_speed = RT_range;
                 }
                 break;
             case L_STICK_X:
