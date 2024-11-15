@@ -195,3 +195,23 @@ void Controller_Event(struct js_event e) {
         }
     }
 }
+
+void Format_Message(int robot, int l_speed, int r_speed, int arm) {
+/*
+ * Message format: a 10-character string structured as follows:
+ * <robot>:<left wheel speed>:<right wheel speed>:<arm control>
+ *
+ * - The first character represents the robot's color, indicated by the first letter:
+ *   'B' (BLUE), 'R' (RED), 'G' (GREEN), 'P' (PURPLE), 'Y' (YELLOW).
+ *
+ * - The next two characters specify the left wheel speed:
+ *   - The first character is the direction: '+' for forward, '-' for reverse.
+ *   - The second character is the base speed multiplier: '0' stops the wheel, '1' for low speed, etc.
+ *
+ * - The next two characters specify the right wheel speed, using the same format as the left:
+ *   direction ('+' or '-') and speed multiplier.
+ *
+ * - The last character controls the robot arm movement:
+ *   'U' to raise the arm and 'D' to lower it.
+ */
+}
