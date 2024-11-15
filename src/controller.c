@@ -89,7 +89,7 @@ void Controller_Event(struct js_event e) {
     Direction temp_dir = NONE;
 
     // Check if button pressed
-    if(e.type == JS_EVENT_BUTTON && e.value) {     // 1 is pressed, 0 is released
+    if(e.type == JS_EVENT_BUTTON && e.value)     // 1 is pressed, 0 is released
         switch(e.number) {
             case A_BUTTON:
                 //printf("Pressed button A\n");
@@ -102,12 +102,18 @@ void Controller_Event(struct js_event e) {
                 break;
             case Y_BUTTON:
                 printf("Pressed button Y\n");
+                if(constant_speed != AXIS_RANGE_COUNT - 1)      // Change to fast mode
+                    constant_speed = AXIS_RANGE_COUNT - 1;
+                else                                            // Change to slow mode
+                    constant_speed = 1;
                 break;
             case LB_BUTTON:
                 printf("Pressed button LB\n");
+                l_speed = -constant_speed;
                 break;
             case RB_BUTTON:
                 printf("Pressed button RB\n");
+                r_speed = -constant_speed;
                 break;
             case BACK_BUTTON:
                 printf("Pressed button BACK\n");
@@ -130,10 +136,25 @@ void Controller_Event(struct js_event e) {
                 printf("ERROR. Invalid button.\n");
                 break;
         }
-    }
+
+    // Check if button released
+    if(e.type == JS_EVENT_BUTTON && !e.value)
+        switch(e.number) {
+            case LB_BUTTON:
+                printf("Released button LB\n");
+                l_speed = 0;
+                break;
+            case RB_BUTTON:
+                printf("Released button RB\n");
+                r_speed = 0;
+                break;
+            default:
+                printf("ERROR. Invalid button.\n");
+                break;
+        }
 
     // Check if axis moved
-    else if(e.type == JS_EVENT_AXIS) {
+    else if(e.type == JS_EVENT_AXIS)
         switch (e.number) {
             case LT_BUTTON:
                 LT_val = e.value;
@@ -194,8 +215,8 @@ void Controller_Event(struct js_event e) {
                 temp_dir = Get_Direction(CX_val, CY_val);
                 if(CR_dir != temp_dir) {
                     CR_dir = temp_dir;
-                    if(CR_dir != NONE)
-                        printf("Cross used. Direction is %s.\n", Direction_Str(CR_dir));
+                printf("Cross used. Direction is %s.\n", Direction_Str(CR_dir));
+                Get_Speed_From_Dir(CR_dir);
                 }
                 break;
             case CROSS_Y:
@@ -203,15 +224,14 @@ void Controller_Event(struct js_event e) {
                 temp_dir = Get_Direction(CX_val, CY_val);
                 if(CR_dir != temp_dir) {
                     CR_dir = temp_dir;
-                    if(CR_dir != NONE)
-                        printf("Cross used. Direction is %s.\n", Direction_Str(CR_dir));
+                printf("Cross used. Direction is %s.\n", Direction_Str(CR_dir));
+                Get_Speed_From_Dir(CR_dir);
                 }
                 break;
             default:
                 printf("ERROR. Invalid axis.\n");
                 break;
         }
-    }
 }
 
 void Format_Message() {
@@ -309,4 +329,32 @@ void Cycle_Robot(int i) {   // -1 is previous, 1 is next
 
     // Change current robot
     robot = robot_order[new_robot_pos];
+}
+
+void Get_Speed_From_Dir(Direction dir) {
+    switch (dir)
+    {
+    case NONE:
+        l_speed = 0;
+        r_speed = 0;
+        break;
+    case UP:
+        l_speed = constant_speed;
+        r_speed = constant_speed;
+        break;
+    case DOWN:
+        l_speed = -constant_speed;
+        r_speed = -constant_speed;
+        break;
+    case LEFT:
+        l_speed = -constant_speed;
+        r_speed = constant_speed;
+        break;
+    case RIGHT:
+        l_speed = constant_speed;
+        r_speed = -constant_speed;
+        break;
+    default:
+        break;
+    }
 }

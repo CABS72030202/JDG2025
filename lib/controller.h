@@ -77,7 +77,7 @@ Direction CR_dir = NONE;
 const int robot_order[] = {7, 0, 1, 2, 3, 4, 5, 6};
 
 // Global variables
-int IS_SLOW = 0;                        // Speed multiplier for constant controls (no range)
+int constant_speed = 1;                  // Speed multiplier for constant controls (no range)
 char* message[] = "0:00:00:0\n";        // Format is <Robot>:<Left wheel speed>:<Right wheel speed>:<Arm control>
 Color robot = NONE;
 int l_speed = 0;
@@ -91,3 +91,4 @@ char* Direction_Str(Direction dir);
 void Controller_Event(struct js_event);
 void Format_Message();
 void Cycle_Robot(int i);                // -1 is previous, 1 is next
+void Get_Speed_From_Dir(Direction dir);
