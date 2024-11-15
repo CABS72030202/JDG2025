@@ -92,13 +92,13 @@ void Controller_Event(struct js_event e) {
     if(e.type == JS_EVENT_BUTTON && e.value) {     // 1 is pressed, 0 is released
         switch(e.number) {
             case A_BUTTON:
-                printf("Pressed button A\n");
+                //printf("Pressed button A\n");
                 break;
             case B_BUTTON:
-                printf("Pressed button B\n");
+                //printf("Pressed button B\n");
                 break;
             case X_BUTTON:
-                printf("Pressed button X\n");
+                //printf("Pressed button X\n");
                 break;
             case Y_BUTTON:
                 printf("Pressed button Y\n");
@@ -111,18 +111,20 @@ void Controller_Event(struct js_event e) {
                 break;
             case BACK_BUTTON:
                 printf("Pressed button BACK\n");
+                Cycle_Robot(-1);
                 break;
             case START_BUTTON:
                 printf("Pressed button START\n");
+                Cycle_Robot(1);
                 break;
             case HOME_BUTTON:
                 printf("Pressed button HOME\n");
                 break;
             case L_STICK_PRESS:
-                printf("Pressed LEFT STICK\n");
+                //printf("Pressed LEFT STICK\n");
                 break;
             case R_STICK_PRESS:
-                printf("Pressed RIGHT STICK\n");
+                //printf("Pressed RIGHT STICK\n");
                 break;
             default:
                 printf("ERROR. Invalid button.\n");
@@ -157,7 +159,7 @@ void Controller_Event(struct js_event e) {
                 if(LS_dir != temp_dir) {
                     LS_dir = temp_dir;
                     if(LS_dir != NONE)
-                        printf("Left stick used. Direction is %s.\n", Direction_Str(LS_dir));
+                        //printf("Left stick used. Direction is %s.\n", Direction_Str(LS_dir));
                 }
                 break;
             case L_STICK_Y:
@@ -166,7 +168,7 @@ void Controller_Event(struct js_event e) {
                 if(LS_dir != temp_dir) {
                     LS_dir = temp_dir;
                     if(LS_dir != NONE)
-                        printf("Left stick used. Direction is %s.\n", Direction_Str(LS_dir));
+                        //printf("Left stick used. Direction is %s.\n", Direction_Str(LS_dir));
                 }
                 break;
             case R_STICK_X:
@@ -175,7 +177,7 @@ void Controller_Event(struct js_event e) {
                 if(RS_dir != temp_dir) {
                     RS_dir = temp_dir;
                     if(RS_dir != NONE)
-                        printf("Right stick used. Direction is %s.\n", Direction_Str(RS_dir));
+                        //printf("Right stick used. Direction is %s.\n", Direction_Str(RS_dir));
                 }
                 break;
             case R_STICK_Y:
@@ -184,7 +186,7 @@ void Controller_Event(struct js_event e) {
                 if(RS_dir != temp_dir) {
                     RS_dir = temp_dir;
                     if(RS_dir != NONE)
-                        printf("Right stick used. Direction is %s.\n", Direction_Str(RS_dir));
+                        //printf("Right stick used. Direction is %s.\n", Direction_Str(RS_dir));
                 }
                 break;
             case CROSS_X:
@@ -289,4 +291,22 @@ void Format_Message() {
             printf("ERROR. Invalid direction.\n");
             return;
     }
+}
+
+void Cycle_Robot(int i) {   // -1 is previous, 1 is next
+    // Find current robot position in order
+    int curr_robot_pos;
+    for(curr_robot_pos = 0; curr_robot_pos < 8; curr_robot_pos++)
+        if(robot == robot_order[curr_robot_pos])
+            break;
+    
+    // Get new robot order position
+    int new_robot_pos = curr_robot_pos + i;
+    if(new_robot_pos == -1)
+        new_robot_pos = 7;
+    if(new_robot_pos == 8)
+        new_robot_pos = 0;
+
+    // Change current robot
+    robot = robot_order[new_robot_pos];
 }

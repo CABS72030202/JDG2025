@@ -90,3 +90,4 @@ Direction Get_Direction(int x, int y);
 char* Direction_Str(Direction dir);
 void Controller_Event(struct js_event);
 void Format_Message();
+void Cycle_Robot(int i);                // -1 is previous, 1 is next
