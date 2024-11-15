@@ -101,27 +101,27 @@ void Controller_Event(struct js_event e) {
                 //printf("Pressed button X\n");
                 break;
             case Y_BUTTON:
-                printf("Pressed button Y\n");
                 if(constant_speed != AXIS_RANGE_COUNT - 1)      // Change to fast mode
                     constant_speed = AXIS_RANGE_COUNT - 1;
                 else                                            // Change to slow mode
                     constant_speed = 1;
+                printf("Pressed button Y: Changing constant speed to %s\n", (constant_speed > 1) ? "FAST" : "SLOW");
                 break;
             case LB_BUTTON:
-                printf("Pressed button LB\n");
+                printf("Pressed button LB: Backspin left wheel\n");
                 l_speed = -constant_speed;
                 break;
             case RB_BUTTON:
-                printf("Pressed button RB\n");
+                printf("Pressed button RB: Backspin right wheel\n");
                 r_speed = -constant_speed;
                 break;
             case BACK_BUTTON:
-                printf("Pressed button BACK\n");
                 Cycle_Robot(-1);
+                printf("Pressed button BACK: Switched to robot %i\n", robot);
                 break;
             case START_BUTTON:
-                printf("Pressed button START\n");
                 Cycle_Robot(1);
+                printf("Pressed button START: Switched to robot %i\n", robot);
                 break;
             case HOME_BUTTON:
                 printf("Pressed button HOME\n");
@@ -141,11 +141,11 @@ void Controller_Event(struct js_event e) {
     if(e.type == JS_EVENT_BUTTON && !e.value)
         switch(e.number) {
             case LB_BUTTON:
-                printf("Released button LB\n");
+                printf("Released button LB: Stopping left wheel\n");
                 l_speed = 0;
                 break;
             case RB_BUTTON:
-                printf("Released button RB\n");
+                printf("Released button RB: Stopping right wheel\n");
                 r_speed = 0;
                 break;
             default:
