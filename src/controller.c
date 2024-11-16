@@ -133,8 +133,7 @@ void Controller_Event(struct js_event e) {
                 //printf("Pressed RIGHT STICK\n");
                 break;
             default:
-                printf("ERROR. Invalid button.\n");
-                break;
+                return;
         }
 
     // Check if button released
@@ -149,8 +148,7 @@ void Controller_Event(struct js_event e) {
                 r_speed = 0;
                 break;
             default:
-                printf("ERROR. Invalid button.\n");
-                break;
+                return;
         }
 
     // Check if axis moved
@@ -179,8 +177,8 @@ void Controller_Event(struct js_event e) {
                 temp_dir = Get_Direction(LSX_val, LSY_val);
                 if(LS_dir != temp_dir) {
                     LS_dir = temp_dir;
-                    if(LS_dir != NONE)
-                        //printf("Left stick used. Direction is %s.\n", Direction_Str(LS_dir));
+                    if(LS_dir != NONE && 0)     // DEACTIVATED
+                        printf("Left stick used. Direction is %s.\n", Direction_Str(LS_dir));
                 }
                 break;
             case L_STICK_Y:
@@ -188,8 +186,8 @@ void Controller_Event(struct js_event e) {
                 temp_dir = Get_Direction(LSX_val, LSY_val);
                 if(LS_dir != temp_dir) {
                     LS_dir = temp_dir;
-                    if(LS_dir != NONE)
-                        //printf("Left stick used. Direction is %s.\n", Direction_Str(LS_dir));
+                    if(LS_dir != NONE && 0)     // DEACTIVATED
+                        printf("Left stick used. Direction is %s.\n", Direction_Str(LS_dir));
                 }
                 break;
             case R_STICK_X:
@@ -197,8 +195,8 @@ void Controller_Event(struct js_event e) {
                 temp_dir = Get_Direction(RSX_val, RSY_val);
                 if(RS_dir != temp_dir) {
                     RS_dir = temp_dir;
-                    if(RS_dir != NONE)
-                        //printf("Right stick used. Direction is %s.\n", Direction_Str(RS_dir));
+                    if(RS_dir != NONE && 0)     // DEACTIVATED
+                        printf("Right stick used. Direction is %s.\n", Direction_Str(RS_dir));
                 }
                 break;
             case R_STICK_Y:
@@ -206,8 +204,8 @@ void Controller_Event(struct js_event e) {
                 temp_dir = Get_Direction(RSX_val, RSY_val);
                 if(RS_dir != temp_dir) {
                     RS_dir = temp_dir;
-                    if(RS_dir != NONE)
-                        //printf("Right stick used. Direction is %s.\n", Direction_Str(RS_dir));
+                    if(RS_dir != NONE && 0)     // DEACTIVATED
+                        printf("Right stick used. Direction is %s.\n", Direction_Str(RS_dir));
                 }
                 break;
             case CROSS_X:
@@ -229,8 +227,7 @@ void Controller_Event(struct js_event e) {
                 }
                 break;
             default:
-                printf("ERROR. Invalid axis.\n");
-                break;
+                return;
         }
 }
 
@@ -241,7 +238,7 @@ void Format_Message() {
  * <robot>:<left wheel speed>:<right wheel speed>:<arm control>
  *
  * - The first character represents the robot's color, indicated by the first letter:
- *   'R' (RED), 'G' (GREEN), 'B' (BLUE), 'Y' (YELLOW), 'P' (PURPLE), 'C' (CONE), 'N' (BOAT).
+ *   'R' (RED), 'G' (GREEN), 'B' (BLUE), 'Y' (YELLOW), 'P' (PURPLE), 'C' (CONE), 'S' (SHIP).
  *
  * - The next two characters specify the left wheel speed:
  *   - The first character is the direction: '+' for forward, '-' for reverse.
@@ -275,7 +272,7 @@ void Format_Message() {
             message[0] = 'C';
             break;
         case 6:
-            message[0] = 'N';
+            message[0] = 'S';
             break;
         default:
             printf("ERROR. Invalid color.\n");
@@ -297,18 +294,15 @@ void Format_Message() {
     message[6] = abs(r_speed);
 
     // <arm control>
-    switch (dir) {
-        case 1:
+    switch (arm) {
+        case UP:
             message[8] = 'U';
             break;
-        case 2:
+        case DOWN:
             message[8] = 'D';
             break;
-        case 0:
-        case 3:
-        case 4:
         default:
-            printf("ERROR. Invalid direction.\n");
+            printf("ERROR. Invalid arm direction.\n");
             return;
     }
 }
@@ -316,15 +310,15 @@ void Format_Message() {
 void Cycle_Robot(int i) {   // -1 is previous, 1 is next
     // Find current robot position in order
     int curr_robot_pos;
-    for(curr_robot_pos = 0; curr_robot_pos < 8; curr_robot_pos++)
+    for(curr_robot_pos = 0; curr_robot_pos < 7; curr_robot_pos++)
         if(robot == robot_order[curr_robot_pos])
             break;
     
     // Get new robot order position
     int new_robot_pos = curr_robot_pos + i;
     if(new_robot_pos == -1)
-        new_robot_pos = 7;
-    if(new_robot_pos == 8)
+        new_robot_pos = 6;
+    if(new_robot_pos == 7)
         new_robot_pos = 0;
 
     // Change current robot

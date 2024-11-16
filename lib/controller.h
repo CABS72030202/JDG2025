@@ -6,16 +6,23 @@
  * 
  */
 
+#ifndef CONTROLLER_H
+#define CONTROLLER_H    
 #include <stdio.h>
 #include <fcntl.h>
 #include <linux/joystick.h>
 #include <unistd.h>
 #include <stdbool.h>
 #include <stdlib.h>
+#include <wiringPi.h>
 #include <wiringSerial.h>
 #include <errno.h>
 
+// Global constants
 #define GAMEPAD_PATH "/dev/input/js0"
+#define UART "/dev/ttyUSB0"
+#define BAUD_RATE 115200
+const int robot_order[] = {6, 0, 4, 3, 1, 5, 2};
 
 // Digital button IDs
 #define A_BUTTON 0                  // 
@@ -49,7 +56,7 @@
 // Special types
 enum direction {NONE, UP, DOWN, LEFT, RIGHT};
 typedef enum direction Direction;
-enum color {RED, GREEN, BLUE, YELLOW, PURPLE, CONE, NONE};
+enum color {RED, GREEN, BLUE, YELLOW, PURPLE, CONE, SHIP};
 typedef enum color Color;
 
 // Axis values 
@@ -71,14 +78,9 @@ Direction LS_dir = NONE;
 Direction RS_dir = NONE;
 Direction CR_dir = NONE;
 
-// Global constants
-#define UART "/dev/serial0"
-#define BAUD_RATE 115200
-const int robot_order[] = {7, 0, 1, 2, 3, 4, 5, 6};
-
 // Global variables
-int constant_speed = 1;                  // Speed multiplier for constant controls (no range)
-char* message[] = "0:00:00:0\n";        // Format is <Robot>:<Left wheel speed>:<Right wheel speed>:<Arm control>
+int constant_speed = 1;                // Speed multiplier for constant controls (no range)
+char message[] = "0:00:00:0\n";        // Format is <Robot>:<Left wheel speed>:<Right wheel speed>:<Arm control>
 Color robot = NONE;
 int l_speed = 0;
 int r_speed = 0;
@@ -92,3 +94,5 @@ void Controller_Event(struct js_event);
 void Format_Message();
 void Cycle_Robot(int i);                // -1 is previous, 1 is next
 void Get_Speed_From_Dir(Direction dir);
+
+#endif

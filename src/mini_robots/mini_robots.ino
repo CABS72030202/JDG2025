@@ -84,7 +84,7 @@ void Decode_UART() {
  * <robot>:<left wheel speed>:<right wheel speed>:<arm control>
  *
  * - The first character represents the robot's color, indicated by the first letter:
- *   'R' (RED), 'G' (GREEN), 'B' (BLUE), 'Y' (YELLOW), 'P' (PURPLE), 'C' (CONE), 'N' (BOAT).
+ *   'R' (RED), 'G' (GREEN), 'B' (BLUE), 'Y' (YELLOW), 'P' (PURPLE), 'C' (CONE), 'S' (SHIP).
  *
  * - The next two characters specify the left wheel speed:
  *   - The first character is the direction: '+' for forward, '-' for reverse.
@@ -117,7 +117,7 @@ void Decode_UART() {
     case 'C':
       robot = 5;
       break;
-    case 'N':
+    case 'S':
       robot = 6;
       break;
     default:
