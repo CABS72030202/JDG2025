@@ -10,11 +10,17 @@
 
 int main() {
     
-    // Start UART communication
+    // Open the serial port
     int uart_fd = serialOpen(UART, BAUD_RATE);
-    if (uart_fd == -1) {
-        fprintf(stderr, "Unable to open UART: %s\n", strerror(errno));
-        return 1;
+    if (uart_fd < 0) {
+        fprintf(stderr, "Unable to open serial device: %s\n", strerror(errno));
+    return 1;
+    }
+
+    // Initialize wiringPi
+    if (wiringPiSetup() == -1) {
+        fprintf(stdout, "Unable to start wiringPi: %s\n", strerror(errno));
+    return 1;
     }
 
     // Start controller communication
@@ -41,7 +47,8 @@ int main() {
         Format_Message();
 
         // Send message
-        serialPuts(uart_fd, message);
+        for (int i = 0; i < strlen(message); i++) 
+            serialPutchar(uart_fd, message[i]);
     }
 
     serialClose(uart_fd);
@@ -284,14 +291,14 @@ void Format_Message() {
         message[2] = '-';
     else
         message[2] = '+';
-    message[3] = abs(l_speed);
+    message[3] = abs(l_speed) + 48;
 
     // <right wheel speed>
     if(r_speed < 0)
         message[5] = '-';
     else
         message[5] = '+';
-    message[6] = abs(r_speed);
+    message[6] = abs(r_speed) + 48;
 
     // <arm control>
     switch (arm) {

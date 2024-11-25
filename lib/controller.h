@@ -3,7 +3,7 @@
 // Author: Sebastien Cabana
 
 /* 
- * 
+ * Source : https://www.electronicwings.com/raspberry-pi/raspberry-pi-uart-communication-using-python-and-c
  */
 
 #ifndef CONTROLLER_H
@@ -17,10 +17,11 @@
 #include <wiringPi.h>
 #include <wiringSerial.h>
 #include <errno.h>
+#include <string.h>
 
 // Global constants
 #define GAMEPAD_PATH "/dev/input/js0"
-#define UART "/dev/ttyUSB0"
+#define UART "/dev/serial0"
 #define BAUD_RATE 115200
 const int robot_order[] = {6, 0, 4, 3, 1, 5, 2};
 
@@ -80,7 +81,7 @@ Direction CR_dir = NONE;
 
 // Global variables
 int constant_speed = 1;                // Speed multiplier for constant controls (no range)
-char message[] = "0:00:00:0\n";        // Format is <Robot>:<Left wheel speed>:<Right wheel speed>:<Arm control>
+char message[] = "0:00:00:0\r\n";        // Format is <Robot>:<Left wheel speed>:<Right wheel speed>:<Arm control>
 Color robot = NONE;
 int l_speed = 0;
 int r_speed = 0;

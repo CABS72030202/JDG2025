@@ -176,8 +176,9 @@ void Move() {
     analogWrite(DC_BR_PIN, r_speed);
 
   // Write on front pins if positive speed
-  if(l_speed > 0)
-    analogWrite(DC_FL_PIN, l_speed);
+  if(l_speed > 0) 
+    //analogWrite(DC_FL_PIN, l_speed);
+    digitalWrite(DC_FL_PIN, HIGH);
 
   if(r_speed > 0)
     analogWrite(DC_FR_PIN, r_speed);
