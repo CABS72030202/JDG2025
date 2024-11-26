@@ -53,10 +53,10 @@ void setup() {
   myServo.attach(SERVO_PIN);
 
   // Set Timer 1 (16-bit, controls D9 and D10) to ~2 kHz
-  TCCR1B = TCCR1B & B11111000 | B00000010;  // Set prescaler to 8
+  //TCCR1B = TCCR1B & B11111000 | B00000010;  // Set prescaler to 8
   
   // Set Timer 2 (8-bit, controls D3 and D11) to ~2 kHz
-  TCCR2B = TCCR2B & B11111000 | B00000010;  // Set prescaler to 8
+  //TCCR2B = TCCR2B & B11111000 | B00000010;  // Set prescaler to 8
 
   // Set serial communication
   Serial.begin(115200);
@@ -70,12 +70,15 @@ void loop() {
 }
 
 void Get_Message() {
+  message = "";
   while (Serial.available() > 0) {
     char received_char = Serial.read();
     message += received_char;
-    if(received_char == '\n');
+    if(received_char == '\r')
       break;
   }
+  Serial.write("Received message: ");
+  
 }
 
 void Decode_UART() {
