@@ -12,6 +12,7 @@
 #include<stdlib.h>
 #include<stdio.h>
 #include<string.h>
+#include<unistd.h>
 #include "../lib/station.h"
 #include "../lib/communication.h"
 
@@ -28,7 +29,19 @@ int main(void) {
     y_station.state = ACTIVE; 
     p_station.state = ACTIVE; 
 
-    while(1) {
+    // Testing GPIO
+    Arm_Control(RED, INACTIVE);
+    sleep(2);
+    Arm_Control(GREEN, INACTIVE);
+    sleep(2);
+    Arm_Control(BLUE, INACTIVE);
+    sleep(2);
+    Arm_Control(YELLOW, INACTIVE);
+    sleep(2);
+    Arm_Control(PURPLE, INACTIVE);
+    sleep(2);
+
+    /*while(1) {
         if(Connect_Station(BLUE) == ERROR) {
             printf("Exit with error.\n");
             return 0;

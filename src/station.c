@@ -34,6 +34,14 @@ void Initialize() {
     null_station.arm_state = INACTIVE;
     curr_station = &null_station;  
 
+    // Initialize WiringPi
+    if (wiringPiSetup() == -1) {
+        printf("WiringPi setup failed\n");
+        return -1;
+    }
+
+    Initialize_GPIO();
+
     if(DEBUG_MODE)
         Fictive_State();
     else
@@ -65,6 +73,9 @@ void Wait_For_Two() {
 }
 
 int Connect_Station(Color station_color) {
+    // Lift up corresponding arm
+    Arm_Control(station_color, ACTIVE);
+
     // Wait until connection is established
     if(Try_Connect() == ERROR)
         return ERROR;
@@ -220,6 +231,41 @@ void Auto_Load_Drop() {
         drop_station_id = load_station_id + 1;
         if(drop_station_id >= 5)
             drop_station_id = 0;
+    }
+}
+
+void Arm_Control(Color station_color, State toggle) {
+    
+    // Deactivate all
+    Control_From_DEC(DOWN_ALL);
+    r_station.arm_state = INACTIVE;
+    g_station.arm_state = INACTIVE;
+    b_station.arm_state = INACTIVE;
+    y_station.arm_state = INACTIVE;
+    p_station.arm_state = INACTIVE;
+
+    // Activate only one
+    Color_To_Station(station_color)->arm_state = toggle;
+    switch(station_color) {
+        case RED:
+            toggle == ACTIVE ? Control_From_DEC(RED_UP) : Control_From_DEC(RED_DOWN);
+            break;
+        case GREEN:
+            toggle == ACTIVE ? Control_From_DEC(GREEN_UP) : Control_From_DEC(GREEN_DOWN);
+            break;
+        case BLUE:
+            toggle == ACTIVE ? Control_From_DEC(BLUE_UP) : Control_From_DEC(BLUE_DOWN);
+            break;
+        case YELLOW:
+            toggle == ACTIVE ? Control_From_DEC(YELLOW_UP) : Control_From_DEC(YELLOW_DOWN);
+            break;
+        case PURPLE:
+            toggle == ACTIVE ? Control_From_DEC(PURPLE_UP) : Control_From_DEC(PURPLE_DOWN);
+            break;
+        case NONE:
+        default:
+            printf("ERROR. Invalid parameter in Arm_Control(State))\n");
+            break;
     }
 }
 

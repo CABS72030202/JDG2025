@@ -18,9 +18,10 @@
 #include<stdio.h>
 #include<string.h>
 #include "../lib/communication.h"
+#include "../lib/gpio.h"
 
 // Debugging parameters (1 is yes, 0 is no)
-#define DEBUG_MODE 0
+#define DEBUG_MODE 1
 #define ACTIVE_LOOP 1                      
 #define MAX_ITERATIONS 1000
 #define USER_INPUT 0               
@@ -56,6 +57,7 @@ int Connect_Station(Color);             // Change current station
 int Drop_Passengers(Color);             // Drop all corresponding passengers onboard to specific station
 int Load_Passengers(Color, int);        // Load a specific number of passengers going to a specific station
 void Auto_Load_Drop();                  // Automates the loading and dropping off of passengers at ACTIVE locations
+void Arm_Control(Color, State);         // Control mini robot arms using GPIOs
 
 // Prototypes (blackbox)
 char* Communication(char*);             // Returns the message received after sending a specific message
