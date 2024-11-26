@@ -15,17 +15,23 @@ int blackbox_pass[5];
 
 void Initialize() {
     r_station.color = RED;
-    r_station.state = INACTIVE;      
+    r_station.state = INACTIVE; 
+    r_station.arm_state = INACTIVE;      
     g_station.color = GREEN;
     g_station.state = INACTIVE;
+    g_station.arm_state = INACTIVE;
     b_station.color = BLUE;
     b_station.state = INACTIVE; 
+    b_station.arm_state = INACTIVE;
     y_station.color = YELLOW;
     y_station.state = INACTIVE; 
+    y_station.arm_state = INACTIVE;
     p_station.color = PURPLE;
     p_station.state = INACTIVE; 
+    p_station.arm_state = INACTIVE;
     null_station.color = NONE;
     null_station.state = INACTIVE;
+    null_station.arm_state = INACTIVE;
     curr_station = &null_station;  
 
     if(DEBUG_MODE)

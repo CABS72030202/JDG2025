@@ -33,7 +33,8 @@ typedef enum state State;
 typedef struct {
     Color color;        // Station color
     int passengers[5];  // R:G:B:Y:P
-    State state;        // ACTIVE when connected
+    State state;        // ACTIVE when operational
+    State arm_state;    // ACTIVE when connected
 } Station;
 
 // Global variables and constants
