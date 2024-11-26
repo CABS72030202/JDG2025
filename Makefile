@@ -9,8 +9,8 @@ blackbox: blackbox.o station.o communication.o gpio.o
 	$(CC) $(CFLAGS) -o blackbox blackbox.o station.o communication.o gpio.o $(LIB)
 
 # Controller executable construction
-controller: controller.o
-	$(CC) $(CFLAGS) -o controller controller.o $(LIB)
+controller: controller.o gpio.o
+	$(CC) $(CFLAGS) -o controller controller.o gpio.o $(LIB)
 
 # Test unit executable construction
 test_unit: test_unit.o
@@ -21,7 +21,7 @@ blackbox.o: ./src/blackbox.c ./lib/station.h ./src/station.c ./lib/communication
 	$(CC) $(CFLAGS) -c ./src/blackbox.c -o blackbox.o $(CXXFLAGS)
 
 # Object generation from source and header for BLACKBOX
-controller.o: ./src/controller.c ./lib/controller.h
+controller.o: ./src/controller.c ./lib/controller.h ./lib/gpio.h ./src/gpio.c
 	$(CC) $(CFLAGS) -c ./src/controller.c -o controller.o $(CXXFLAGS)
 
 # Object generation from source and header for TEST_UNIT

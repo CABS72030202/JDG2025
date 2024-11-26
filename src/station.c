@@ -237,7 +237,7 @@ void Auto_Load_Drop() {
 void Arm_Control(Color station_color, State toggle) {
     
     // Deactivate all
-    Control_From_DEC(DOWN_ALL);
+    Write_Arm_DEC(DOWN_ALL);
     r_station.arm_state = INACTIVE;
     g_station.arm_state = INACTIVE;
     b_station.arm_state = INACTIVE;
@@ -248,19 +248,19 @@ void Arm_Control(Color station_color, State toggle) {
     Color_To_Station(station_color)->arm_state = toggle;
     switch(station_color) {
         case RED:
-            toggle == ACTIVE ? Control_From_DEC(RED_UP) : Control_From_DEC(RED_DOWN);
+            toggle == ACTIVE ? Write_Arm_DEC(RED_UP) : Write_Arm_DEC(RED_DOWN);
             break;
         case GREEN:
-            toggle == ACTIVE ? Control_From_DEC(GREEN_UP) : Control_From_DEC(GREEN_DOWN);
+            toggle == ACTIVE ? Write_Arm_DEC(GREEN_UP) : Write_Arm_DEC(GREEN_DOWN);
             break;
         case BLUE:
-            toggle == ACTIVE ? Control_From_DEC(BLUE_UP) : Control_From_DEC(BLUE_DOWN);
+            toggle == ACTIVE ? Write_Arm_DEC(BLUE_UP) : Write_Arm_DEC(BLUE_DOWN);
             break;
         case YELLOW:
-            toggle == ACTIVE ? Control_From_DEC(YELLOW_UP) : Control_From_DEC(YELLOW_DOWN);
+            toggle == ACTIVE ? Write_Arm_DEC(YELLOW_UP) : Write_Arm_DEC(YELLOW_DOWN);
             break;
         case PURPLE:
-            toggle == ACTIVE ? Control_From_DEC(PURPLE_UP) : Control_From_DEC(PURPLE_DOWN);
+            toggle == ACTIVE ? Write_Arm_DEC(PURPLE_UP) : Write_Arm_DEC(PURPLE_DOWN);
             break;
         case NONE:
         default:

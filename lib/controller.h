@@ -18,6 +18,7 @@
 #include <wiringSerial.h>
 #include <errno.h>
 #include <string.h>
+#include "../lib/gpio.h"
 
 // Global constants
 #define GAMEPAD_PATH "/dev/input/js0"
@@ -81,11 +82,12 @@ Direction CR_dir = NONE;
 
 // Global variables
 int constant_speed = 1;                // Speed multiplier for constant controls (no range)
-char message[] = "0:00:00:0\r\n";        // Format is <Robot>:<Left wheel speed>:<Right wheel speed>:<Arm control>
+char message[] = "0:00:00:0\r\n";      // Format is <Robot>:<Left wheel speed>:<Right wheel speed>:<Arm control>
 Color robot = NONE;
 int l_speed = 0;
 int r_speed = 0;
 Direction arm = DOWN;
+int GPIO_command = 0;
 
 // Prototypes
 int Get_Anal_Range(int val);
@@ -95,5 +97,7 @@ void Controller_Event(struct js_event);
 void Format_Message();
 void Cycle_Robot(int i);                // -1 is previous, 1 is next
 void Get_Speed_From_Dir(Direction dir);
+int Check_GPIO_Command();               // 1 if change occured
+void Change_Arm_State(int);
 
 #endif

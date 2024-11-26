@@ -30,15 +30,15 @@ int main(void) {
     p_station.state = ACTIVE; 
 
     // Testing GPIO
-    Arm_Control(RED, INACTIVE);
+    Arm_Control(RED, ACTIVE);
     sleep(2);
-    Arm_Control(GREEN, INACTIVE);
+    Arm_Control(GREEN, ACTIVE);
     sleep(2);
-    Arm_Control(BLUE, INACTIVE);
+    Arm_Control(BLUE, ACTIVE);
     sleep(2);
-    Arm_Control(YELLOW, INACTIVE);
+    Arm_Control(YELLOW, ACTIVE);
     sleep(2);
-    Arm_Control(PURPLE, INACTIVE);
+    Arm_Control(PURPLE, ACTIVE);
     sleep(2);
 
     /*while(1) {

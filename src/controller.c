@@ -30,25 +30,32 @@ int main() {
         return 1;
     }
     
+    // Set the gamepad file descriptor to non-blocking mode
+    if (fcntl(fd, F_SETFL, fcntl(fd, F_GETFL) | O_NONBLOCK) == -1) {
+        perror("Failed to set non-blocking mode");
+        close(fd);
+        return 1;
+    }
+
     struct js_event e;
     
     while(1) {
-        // Read controller event
-        if(read(fd, &e, sizeof(struct js_event)) != sizeof(struct js_event)) {
-            perror("Failed to read gamepad event. Exit with error 1.\n");
-            close(fd);
-            return 1;
-        }
-
-        // Process controller event
-        Controller_Event(e);   
+        // Attempt to read controller event
+        ssize_t bytes_read = read(fd, &e, sizeof(struct js_event));
+        if (bytes_read == sizeof(struct js_event))
+            // Process controller event if available
+            Controller_Event(e);   
 
         // Format message
-        Format_Message();
+        Format_Message(robot, l_speed, r_speed, arm);
 
         // Send message
         for (int i = 0; i < strlen(message); i++) 
-            serialPutchar(uart_fd, message[i]);
+            serialPutchar(uart_fd, message[i]);*/
+
+        // Execute GPIO commands if change occured
+        if(Check_GPIO_Command()) 
+            Change_Arm_State(uart_fd);
     }
 
     serialClose(uart_fd);
@@ -238,7 +245,7 @@ void Controller_Event(struct js_event e) {
         }
 }
 
-void Format_Message() {
+void Format_Message(Color c, int l, int r, Direction a) {
 
 /*
  * Message format: a 9-character string structured as follows:
@@ -259,7 +266,7 @@ void Format_Message() {
  */
 
     // <robot>
-    switch (robot) {
+    switch (c) {
         case 0:
             message[0] = 'R';
             break;
@@ -287,21 +294,21 @@ void Format_Message() {
     }
 
     // <left wheel speed>
-    if(l_speed < 0)
+    if(l < 0)
         message[2] = '-';
     else
         message[2] = '+';
-    message[3] = abs(l_speed) + 48;
+    message[3] = abs(l) + 48;
 
     // <right wheel speed>
-    if(r_speed < 0)
+    if(r < 0)
         message[5] = '-';
     else
         message[5] = '+';
-    message[6] = abs(r_speed) + 48;
+    message[6] = abs(r) + 48;
 
     // <arm control>
-    switch (arm) {
+    switch (a) {
         case UP:
             message[8] = 'U';
             break;
@@ -358,4 +365,72 @@ void Get_Speed_From_Dir(Direction dir) {
     default:
         break;
     }
+}
+
+int Check_GPIO_Command() {
+    int temp = Read_Arm_BIN();
+    if(temp == GPIO_command)
+        return 0;     // No change
+    else {
+        GPIO_command = temp;
+        return 1;
+    }
+}
+
+void Change_Arm_State(int uart_fd) {
+    message[2] = '+';
+    message[3] = '0';
+    message[5] = '+';
+    message[6] = '0';
+    message[8] = 'D';
+    switch (GPIO_command)
+    {
+    case DOWN_ALL:
+        message[0] = 'R';
+        for (int i = 0; i < strlen(message); i++) 
+            serialPutchar(uart_fd, message[i]);
+        message[0] = 'G';
+        for (int i = 0; i < strlen(message); i++) 
+            serialPutchar(uart_fd, message[i]);
+        message[0] = 'B';
+        for (int i = 0; i < strlen(message); i++) 
+            serialPutchar(uart_fd, message[i]);
+        message[0] = 'Y';
+        for (int i = 0; i < strlen(message); i++) 
+            serialPutchar(uart_fd, message[i]);
+        message[0] = 'P';
+        for (int i = 0; i < strlen(message); i++) 
+            serialPutchar(uart_fd, message[i]);
+        return;
+    case RED_UP:
+        message[8] = 'U';
+    case RED_DOWN:
+        message[0] = 'R';
+        break;
+    case GREEN_UP:
+        message[8] = 'U';
+    case GREEN_DOWN:
+        message[0] = 'G';
+        break;
+    case BLUE_UP:
+        message[8] = 'U';
+    case BLUE_DOWN:
+        message[0] = 'B';
+        break;
+    case YELLOW_UP:
+        message[8] = 'U';
+    case YELLOW_DOWN:
+        message[0] = 'Y';
+        break;
+    case PURPLE_UP:
+        message[8] = 'U';
+    case PURPLE_DOWN:
+        message[0] = 'P';
+        break;
+    default:
+        printf("ERROR. Invalid option in Change_Arm_State(int).\n");
+        return;
+    }
+    for (int i = 0; i < strlen(message); i++) 
+        serialPutchar(uart_fd, message[i]);
 }
