@@ -78,7 +78,6 @@ void Get_Message() {
       break;
   }
   Serial.write("Received message: ");
-  
 }
 
 void Decode_UART() {

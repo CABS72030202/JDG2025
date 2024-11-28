@@ -30,12 +30,13 @@ int main() {
         return 1;
     }
     
-    // Set the gamepad file descriptor to non-blocking mode
-    if (fcntl(fd, F_SETFL, fcntl(fd, F_GETFL) | O_NONBLOCK) == -1) {
-        perror("Failed to set non-blocking mode");
-        close(fd);
-        return 1;
-    }
+    if(!BLOCKING_MODE)
+        // Set the gamepad file descriptor to non-blocking mode
+        if (fcntl(fd, F_SETFL, fcntl(fd, F_GETFL) | O_NONBLOCK) == -1) {
+            perror("Failed to set non-blocking mode");
+            close(fd);
+            return 1;
+        }
 
     struct js_event e;
     
@@ -51,7 +52,7 @@ int main() {
 
         // Send message
         for (int i = 0; i < strlen(message); i++) 
-            serialPutchar(uart_fd, message[i]);*/
+            serialPutchar(uart_fd, message[i]);
 
         // Execute GPIO commands if change occured
         if(Check_GPIO_Command()) 

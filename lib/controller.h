@@ -24,6 +24,7 @@
 #define GAMEPAD_PATH "/dev/input/js0"
 #define UART "/dev/serial0"
 #define BAUD_RATE 115200
+#define BLOCKING_MODE 1         // 1 = Wait for update on controller
 const int robot_order[] = {6, 0, 4, 3, 1, 5, 2};
 
 // Digital button IDs
