@@ -9,6 +9,7 @@ LiquidCrystal_I2C lcd(0x27, 16, 2);
 volatile bool resetLCDFlag = false;
 #define RESET_TIMER 10     // in ms
 
+#define ROBOT_ID 0
 String message = "0:00:00:0\r\n"; // Format is <Robot>:<Left wheel speed>:<Right wheel speed>:<Arm control>
 int robot = 0;                  // RED is 0, GREEN is 1, BLUE is 2, YELLOW is 3, PURPLE is 4, CONE is 5, BOAT is 6
 int l_speed = 0;                // Analog left wheel speed value
@@ -93,6 +94,7 @@ void Clear() {
 }
 
 void Get_Message() {
+  message = "";
   while (Serial.available() > 0) {
     char received_char = Serial.read();
     message += received_char;
@@ -121,68 +123,42 @@ void Decode_UART() {
  */
 
  // Return if invalid format
- if(message[10] != '\n')
+ if(message[10] != '\n' || message == "")
   return;
 
- // <robot>
+  // <robot>
   switch (message[0]) {
-    case '0':
-      robot = -1;
-      break;
-    case 'R':
-      robot = 0;
-      break;
-    case 'G':
-      robot = 1;
-      break;
-    case 'B':
-      robot = 2;
-      break;
-    case 'Y':
-      robot = 3;
-      break;
-    case 'P':
-      robot = 4;
-      break;
-    case 'C':
-      robot = 5;
-      break;
-    case 'S':
-      robot = 6;
-      break;
-    default:
-      printf("ERROR. Invalid color.\n");
-      return;
+    case '0': robot = -1; break;
+    case 'R': robot = 0; break;
+    case 'G': robot = 1; break;
+    case 'B': robot = 2; break;
+    case 'Y': robot = 3; break;
+    case 'P': robot = 4; break;
+    case 'C': robot = 5; break;
+    case 'S': robot = 6; break;
+    default: return;  // Invalid robot, return early
   }
 
+  // Exit if adressing other robot
+  if(robot != ROBOT_ID)
+    return;
+
   // <left wheel speed>
-  l_speed = message[3] - 48;
-  if(message[2] == '-')
-    l_speed *= -1;
-  else
-    l_speed = abs(l_speed);
+  l_speed = message[3] - '0';
+  if (message[2] == '-') l_speed *= -1;
+  else l_speed = abs(l_speed);
 
   // <right wheel speed>
-  r_speed = message[6] - 48;
-  if(message[5] == '-')
-    r_speed *= -1;
-  else
-    r_speed = abs(r_speed);
+  r_speed = message[6] - '0';
+  if (message[5] == '-') r_speed *= -1;
+  else r_speed = abs(r_speed);
 
   // <arm control>
   switch (message[8]) {
-    case '0':
-      arm_state = -1;
-      break;
-    case 'U':
-      arm_state = 1;
-      break;
-    case 'D':
-      arm_state = 0;
-      break;
-    default:
-      printf("ERROR. Invalid arm direction.\n");
-      return;
+    case '0': arm_state = -1; break;
+    case 'U': arm_state = 1; break;
+    case 'D': arm_state = 0; break;
+    default: return;  // Invalid arm control
   }
 
   // Reset message
