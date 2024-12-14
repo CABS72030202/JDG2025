@@ -1,6 +1,6 @@
 /*
  * ----------------------------------------------------------------------------
- * File Name: serial_loop.c
+ * File Name: brute_force.c
  *
  * Description:
  * This program attempts to brute-force find a predefined secret word by
