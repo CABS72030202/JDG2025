@@ -25,8 +25,8 @@
 #define SERVO_PIN 5
 
 // Global constants
-#define BASE_SPEED 50           // Base speed 
 #define ROBOT_ID 0              // Unique ID to each Arduino : RED is 0, GREEN is 1, BLUE is 2, YELLOW is 3, PURPLE is 4, CONE is 5, BOAT is 6
+#define BASE_SPEED 50           // Base speed 
 #define ARM_ANGLE_UP 45
 #define ARM_ANGLE_DOWN 0
 
@@ -77,7 +77,6 @@ void Get_Message() {
     if(received_char == '\r')
       break;
   }
-  Serial.write("Received message: ");
 }
 
 void Decode_UART() {
@@ -99,59 +98,43 @@ void Decode_UART() {
  *   'U' to raise the arm and 'D' to lower it.
  */
 
- // <robot>
+ // Return if invalid format
+ if(message[10] != '\n' || message == "")
+  return;
+
+  // <robot>
   switch (message[0]) {
-    case 'R':
-      robot = 0;
-      break;
-    case 'G':
-      robot = 1;
-      break;
-    case 'B':
-      robot = 2;
-      break;
-    case 'Y':
-      robot = 3;
-      break;
-    case 'P':
-      robot = 4;
-      break;
-    case 'C':
-      robot = 5;
-      break;
-    case 'S':
-      robot = 6;
-      break;
-    default:
-      printf("ERROR. Invalid color.\n");
-      return;
+    case '0': robot = -1; break;
+    case 'R': robot = 0; break;
+    case 'G': robot = 1; break;
+    case 'B': robot = 2; break;
+    case 'Y': robot = 3; break;
+    case 'P': robot = 4; break;
+    case 'C': robot = 5; break;
+    case 'S': robot = 6; break;
+    default: return;  // Invalid robot, return early
   }
 
+  // Exit if adressing other robot
+  if(robot != ROBOT_ID)
+    return;
+
   // <left wheel speed>
-  l_speed = atoi(message[3]);
-  if(message[2] == '-')
-    l_speed *= -1;
-  else
-    l_speed = abs(l_speed);
+  l_speed = message[3] - '0';
+  if (message[2] == '-') l_speed *= -1;
+  else l_speed = abs(l_speed);
 
   // <right wheel speed>
-  r_speed = atoi(message[6]);
-  if(message[5] == '-')
-    r_speed *= -1;
-  else
-    r_speed = abs(l_speed);
+  r_speed = message[6] - '0';
+  if (message[5] == '-') r_speed *= -1;
+  else r_speed = abs(r_speed);
 
   // <arm control>
   switch (message[8]) {
-    case 'U':
-      arm_state = 1;
-      break;
-    case 'D':
-      arm_state = 0;
-      break;
-    default:
-      printf("ERROR. Invalid arm direction.\n");
-      return;
+    case '0': arm_state = -1; break;
+    case 'U': arm_state = 1; break;
+    case 'D': arm_state = 0; break;
+    default: return;  // Invalid arm control
   }
 
   // Reset message
