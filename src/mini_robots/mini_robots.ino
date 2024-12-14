@@ -26,7 +26,7 @@
 
 // Global constants
 #define ROBOT_ID 0              // Unique ID to each Arduino : RED is 0, GREEN is 1, BLUE is 2, YELLOW is 3, PURPLE is 4, CONE is 5, BOAT is 6
-#define BASE_SPEED 50           // Base speed 
+#define BASE_SPEED 80           // Base speed 
 #define ARM_ANGLE_UP 45
 #define ARM_ANGLE_DOWN 0
 
@@ -144,29 +144,28 @@ void Decode_UART() {
 void Move() {
   // Write LOW on both pins if null speed
   if(l_speed == 0) {
-    digitalWrite(DC_FL_PIN, LOW);
-    digitalWrite(DC_BL_PIN, LOW);
+    analogWrite(DC_FL_PIN, 0);
+    analogWrite(DC_BL_PIN, 0);
   }
 
   if(r_speed == 0) {
-    digitalWrite(DC_FR_PIN, LOW);
-    digitalWrite(DC_BR_PIN, LOW);
+    analogWrite(DC_FR_PIN, 0);
+    analogWrite(DC_BR_PIN, 0);
   }
 
   // Write on back pins if negative speed
   if(l_speed < 0)
-    analogWrite(DC_BL_PIN, l_speed);
+    analogWrite(DC_BL_PIN, l_speed * BASE_SPEED);
 
   if(r_speed < 0)
-    analogWrite(DC_BR_PIN, r_speed);
+    analogWrite(DC_BR_PIN, r_speed * BASE_SPEED);
 
   // Write on front pins if positive speed
   if(l_speed > 0) 
-    //analogWrite(DC_FL_PIN, l_speed);
-    digitalWrite(DC_FL_PIN, HIGH);
+    analogWrite(DC_FL_PIN, l_speed * BASE_SPEED);
 
   if(r_speed > 0)
-    analogWrite(DC_FR_PIN, r_speed);
+    analogWrite(DC_FR_PIN, r_speed * BASE_SPEED);
 }
 
 void Arm() {
