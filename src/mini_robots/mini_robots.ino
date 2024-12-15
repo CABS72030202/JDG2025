@@ -28,9 +28,11 @@
 
 // Global constants
 #define ROBOT_ID 4              // Unique ID to each Arduino : RED is 0, GREEN is 1, BLUE is 2, YELLOW is 3, PURPLE is 4, CONE is 5, BOAT is 6
-#define BASE_SPEED 80           // Base speed 
-#define ARM_ANGLE_UP 45
-#define ARM_ANGLE_DOWN 0
+#define MAX_SPEED 3             
+const int LEFT_SPEEDS[MAX_SPEED] = {180, 210, 240};
+const int RIGHT_SPEEDS[MAX_SPEED] = {120, 150, 180};
+#define ARM_ANGLE_UP 20
+#define ARM_ANGLE_DOWN 60
 
 // Global variables
 String message = "0:00:00:0\r\n"; // Format is <Robot>:<Left wheel speed>:<Right wheel speed>:<Arm control>
@@ -155,17 +157,17 @@ void Move() {
 
   // Write on back pins if negative speed
   if(l_speed < 0)
-    analogWrite(DC_BL_PIN, l_speed * BASE_SPEED);
+    analogWrite(DC_BL_PIN, LEFT_SPEEDS[abs(l_speed) - 1]);
 
   if(r_speed < 0)
-    analogWrite(DC_BR_PIN, r_speed * BASE_SPEED);
+    analogWrite(DC_BR_PIN, RIGHT_SPEEDS[abs(r_speed) - 1]);
 
   // Write on front pins if positive speed
   if(l_speed > 0) 
-    analogWrite(DC_FL_PIN, l_speed * BASE_SPEED);
+    analogWrite(DC_FL_PIN, LEFT_SPEEDS[l_speed - 1]);
 
   if(r_speed > 0)
-    analogWrite(DC_FR_PIN, r_speed * BASE_SPEED);
+    analogWrite(DC_FR_PIN, RIGHT_SPEEDS[r_speed - 1]);
 }
 
 void Arm() {

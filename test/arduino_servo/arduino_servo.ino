@@ -15,8 +15,8 @@
 #define SERVO_PIN 9
 
 // Global constants 
-#define ARM_ANGLE_UP 60
-#define ARM_ANGLE_DOWN 20
+#define ARM_ANGLE_UP 20
+#define ARM_ANGLE_DOWN 60
 
 // Global variables
 int arm_state = 0;              // 0 is DOWN, 1 is UP
