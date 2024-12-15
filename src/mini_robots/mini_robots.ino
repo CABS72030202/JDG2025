@@ -31,7 +31,6 @@
 #define BASE_SPEED 80           // Base speed 
 #define ARM_ANGLE_UP 45
 #define ARM_ANGLE_DOWN 0
-#define SCREEN_ON 1
 
 // Global variables
 String message = "0:00:00:0\r\n"; // Format is <Robot>:<Left wheel speed>:<Right wheel speed>:<Arm control>
@@ -56,18 +55,15 @@ void setup() {
   pinMode(DC_BR_PIN, OUTPUT);
   myServo.attach(SERVO_PIN);
   Serial.begin(115200);
-  if(SCREEN_ON) {
-    lcd.init();
-    lcd.backlight();
-    lcd.setCursor(0, 0);
-  }
+  lcd.init();
+  lcd.backlight();
+  lcd.setCursor(0, 0);
 }
 
 void loop() {
   Get_Message();
   Decode_UART();
-  if(SCREEN_ON)
-    Print_LCD();
+  Print_LCD();
   Move();
   Arm();
 }
@@ -141,6 +137,7 @@ void Decode_UART() {
   }
 
   // Reset message
+  Serial.print(message);
   message = "";
 }
 
