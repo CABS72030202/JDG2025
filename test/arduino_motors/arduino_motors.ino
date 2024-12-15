@@ -3,13 +3,9 @@
 // Author: Sebastien Cabana
 
 /* 
- * 
+ * Code to control two DC motors with three speed levels.
+ * Assumes external motor driver handles direction.
  */
-
-// Includes
-#include <stdlib.h>
-#include <string.h>
-#include <math.h>
 
 // Define pins
 #define DC_FL_PIN 5             // Front left DC motor drive
@@ -18,15 +14,16 @@
 #define DC_BR_PIN 11            // Back right DC motor drive
 
 // Global constants
-#define BASE_SPEED 80           // Base speed (tested with 7V)
-#define MAX_SPEED 3             // Max speed
+#define MAX_SPEED 3             
+const int LEFT_SPEEDS[MAX_SPEED] = {180, 210, 240};
+const int RIGHT_SPEEDS[MAX_SPEED] = {120, 150, 180};
 
 // Global variables
 int l_speed = 0;                // Analog left wheel speed value
 int r_speed = 0;                // Analog right wheel speed value
 int speed = 0;                  // Speed factor
 
-// Prototypes
+// Function prototypes
 void Forward(int);
 void Backward(int);
 void Right(int);
@@ -41,63 +38,60 @@ void setup() {
 }
 
 void loop() {
-  // Increment speed factor
-  speed+=1;
-
+  // Cycle through speeds
   Forward(speed);
-  delay(3000);
+  delay(2000);
 
   Backward(speed);
-  delay(3000);
+  delay(2000);
 
   Right(speed);
-  delay(3000);
+  delay(2000);
 
   Left(speed);
-  delay(3000);
+  delay(2000);
 
   Stop();
-  delay(5000);
+  delay(3000);
 
-  // Reset speed after reaching max speed
-  if(speed == MAX_SPEED)
-    speed = 0;
+  // Increment speed factor and reset if it exceeds MAX_SPEED
+  speed = (speed + 1) % MAX_SPEED;
 }
 
 void Forward(int speed) {
-  l_speed = speed;
-  r_speed = speed;
+  l_speed = LEFT_SPEEDS[speed];
+  r_speed = RIGHT_SPEEDS[speed];
   analogWrite(DC_BL_PIN, 0);
   analogWrite(DC_BR_PIN, 0);
-  analogWrite(DC_FL_PIN, l_speed * BASE_SPEED);
-  analogWrite(DC_FR_PIN, r_speed * BASE_SPEED);
+  analogWrite(DC_FL_PIN, l_speed);
+  analogWrite(DC_FR_PIN, r_speed);
 }
 
 void Backward(int speed) {
-  l_speed = speed;
-  r_speed = speed;
+  l_speed = LEFT_SPEEDS[speed];
+  r_speed = RIGHT_SPEEDS[speed];
   analogWrite(DC_FL_PIN, 0);
   analogWrite(DC_FR_PIN, 0);
-  analogWrite(DC_BL_PIN, l_speed * BASE_SPEED);
-  analogWrite(DC_BR_PIN, r_speed * BASE_SPEED);
+  analogWrite(DC_BL_PIN, l_speed);
+  analogWrite(DC_BR_PIN, r_speed);
 }
 
 void Right(int speed) {
-  l_speed = speed;
-  r_speed = speed;
+  l_speed = LEFT_SPEEDS[speed];
+  r_speed = RIGHT_SPEEDS[speed];
   analogWrite(DC_BL_PIN, 0);
   analogWrite(DC_FR_PIN, 0);
-  analogWrite(DC_FL_PIN, l_speed * BASE_SPEED);
-  analogWrite(DC_BR_PIN, r_speed * BASE_SPEED);
+  analogWrite(DC_FL_PIN, l_speed);
+  analogWrite(DC_BR_PIN, r_speed);
 }
 
 void Left(int speed) {
-  l_speed = speed;
-  r_speed = speed;
+  l_speed = LEFT_SPEEDS[speed];
+  r_speed = RIGHT_SPEEDS[speed];
   analogWrite(DC_FL_PIN, 0);
   analogWrite(DC_BR_PIN, 0);
-  analogWrite(DC_BL_PIN, l_speed * BASE_SPEED);
-  analogWrite(DC_FR_PIN, r_speed * BASE_SPEED);
+  analogWrite(DC_BL_PIN, l_speed);
+  analogWrite(DC_FR_PIN, r_speed);
 }
 
 void Stop() {
