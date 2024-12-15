@@ -236,13 +236,28 @@ void Auto_Load_Drop() {
 
 void Arm_Control(Color station_color, State toggle) {
     
-    // Deactivate all
-    Write_Arm_DEC(DOWN_ALL);
-    r_station.arm_state = INACTIVE;
-    g_station.arm_state = INACTIVE;
-    b_station.arm_state = INACTIVE;
-    y_station.arm_state = INACTIVE;
-    p_station.arm_state = INACTIVE;
+    // Deactivate any active arm
+    if(r_station.arm_state == ACTIVE) {
+        Write_Arm_DEC(RED_DOWN);
+        r_station.arm_state = INACTIVE;
+    }
+    if(g_station.arm_state == ACTIVE) {
+        Write_Arm_DEC(GREEN_DOWN);
+        g_station.arm_state = INACTIVE;
+    }
+    if(b_station.arm_state == ACTIVE) {
+        Write_Arm_DEC(BLUE_DOWN);
+        b_station.arm_state = INACTIVE;
+    }
+    if(y_station.arm_state == ACTIVE) {
+        Write_Arm_DEC(YELLOW_DOWN);
+        y_station.arm_state = INACTIVE;
+    }
+    if(p_station.arm_state == ACTIVE) {
+        Write_Arm_DEC(PURPLE_DOWN);
+        p_station.arm_state = INACTIVE;
+    }
+    Delay(1);
 
     // Activate only one
     Color_To_Station(station_color)->arm_state = toggle;

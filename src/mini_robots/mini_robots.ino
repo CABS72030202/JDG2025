@@ -12,6 +12,8 @@
  */
 
 // Includes
+#include <Wire.h>
+#include <LiquidCrystal_I2C.h>
 #include <stdlib.h>
 #include <string.h>
 #include <Servo.h>
@@ -25,46 +27,47 @@
 #define SERVO_PIN 5
 
 // Global constants
-#define ROBOT_ID 0              // Unique ID to each Arduino : RED is 0, GREEN is 1, BLUE is 2, YELLOW is 3, PURPLE is 4, CONE is 5, BOAT is 6
+#define ROBOT_ID 4              // Unique ID to each Arduino : RED is 0, GREEN is 1, BLUE is 2, YELLOW is 3, PURPLE is 4, CONE is 5, BOAT is 6
 #define BASE_SPEED 80           // Base speed 
 #define ARM_ANGLE_UP 45
 #define ARM_ANGLE_DOWN 0
+#define SCREEN_ON 1
 
 // Global variables
-String message = "0:00:00:0\n"; // Format is <Robot>:<Left wheel speed>:<Right wheel speed>:<Arm control>
+String message = "0:00:00:0\r\n"; // Format is <Robot>:<Left wheel speed>:<Right wheel speed>:<Arm control>
 int robot = 0;                  // RED is 0, GREEN is 1, BLUE is 2, YELLOW is 3, PURPLE is 4, CONE is 5, BOAT is 6
 int l_speed = 0;                // Analog left wheel speed value
 int r_speed = 0;                // Analog right wheel speed value
 int arm_state = 0;              // 0 is DOWN, 1 is UP
 Servo myServo;
+LiquidCrystal_I2C lcd(0x27, 16, 2);
 
 // Prototypes
 void Get_Message();
 void Decode_UART();
 void Move();
 void Arm();
+void Print_LCD();
 
 void setup() {
-  // Set pins
   pinMode(DC_FL_PIN, OUTPUT);
   pinMode(DC_FR_PIN, OUTPUT);
   pinMode(DC_BL_PIN, OUTPUT);
   pinMode(DC_BR_PIN, OUTPUT);
   myServo.attach(SERVO_PIN);
-
-  // Set Timer 1 (16-bit, controls D9 and D10) to ~2 kHz
-  //TCCR1B = TCCR1B & B11111000 | B00000010;  // Set prescaler to 8
-  
-  // Set Timer 2 (8-bit, controls D3 and D11) to ~2 kHz
-  //TCCR2B = TCCR2B & B11111000 | B00000010;  // Set prescaler to 8
-
-  // Set serial communication
   Serial.begin(115200);
+  if(SCREEN_ON) {
+    lcd.init();
+    lcd.backlight();
+    lcd.setCursor(0, 0);
+  }
 }
 
 void loop() {
   Get_Message();
   Decode_UART();
+  if(SCREEN_ON)
+    Print_LCD();
   Move();
   Arm();
 }
@@ -74,7 +77,7 @@ void Get_Message() {
   while (Serial.available() > 0) {
     char received_char = Serial.read();
     message += received_char;
-    if(received_char == '\r')
+    if(received_char == '\n')
       break;
   }
 }
@@ -174,3 +177,29 @@ void Arm() {
   else
     myServo.write(ARM_ANGLE_DOWN);
 }
+
+void Print_LCD() {
+  char buffer[8];
+
+  // Print robot
+  sprintf(buffer, "ID: %i ", robot);            
+  lcd.setCursor(0, 0);
+  lcd.print(buffer);
+
+  // Print arm
+  sprintf(buffer, "ARM: %i ", arm_state);
+  lcd.setCursor(8, 0);
+  lcd.print(buffer);
+
+  // Print left
+  sprintf(buffer, "L:  %i ", l_speed);
+  lcd.setCursor(0, 1);
+  lcd.print(buffer);
+
+  // Print right
+  sprintf(buffer, "R:   %i ", r_speed);
+  lcd.setCursor(8, 1);
+  lcd.print(buffer);
+}
+
+

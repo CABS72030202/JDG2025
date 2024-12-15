@@ -31,15 +31,16 @@ int main(void) {
 
     // Testing GPIO
     Arm_Control(RED, ACTIVE);
-    sleep(2);
+    Delay(2);
     Arm_Control(GREEN, ACTIVE);
-    sleep(2);
+    Delay(2);
     Arm_Control(BLUE, ACTIVE);
-    sleep(2);
+    Delay(2);
     Arm_Control(YELLOW, ACTIVE);
-    sleep(2);
+    Delay(2);
     Arm_Control(PURPLE, ACTIVE);
-    sleep(2);
+    Delay(2);
+    Arm_Control(PURPLE, INACTIVE);
 
     /*while(1) {
         if(Connect_Station(BLUE) == ERROR) {

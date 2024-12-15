@@ -43,20 +43,23 @@ int main() {
     while(1) {
         // Attempt to read controller event
         ssize_t bytes_read = read(fd, &e, sizeof(struct js_event));
-        if (bytes_read == sizeof(struct js_event))
+        if (bytes_read == sizeof(struct js_event)) {
             // Process controller event if available
             Controller_Event(e);   
 
-        // Format message
-        Format_Message(robot, l_speed, r_speed, arm);
-
-        // Send message
-        for (int i = 0; i < strlen(message); i++) 
-            serialPutchar(uart_fd, message[i]);
+            // Format message
+            Format_Message(robot, l_speed, r_speed, arm);
+            
+            // Send message
+            for (int i = 0; i < strlen(message); i++) 
+                serialPutchar(uart_fd, message[i]);
+        }
 
         // Execute GPIO commands if change occured
-        if(Check_GPIO_Command()) 
+        if(Check_GPIO_Command()) {
             Change_Arm_State(uart_fd);
+            Format_Message(robot, l_speed, r_speed, arm);
+        }
     }
 
     serialClose(uart_fd);
@@ -270,18 +273,28 @@ void Format_Message(Color c, int l, int r, Direction a) {
     switch (c) {
         case 0:
             message[0] = 'R';
+            if(Read_Arm_BIN() == RED_UP && a == DOWN)
+                a = UP;
             break;
         case 1:
             message[0] = 'G';
+            if(Read_Arm_BIN() == GREEN_UP && a == DOWN)
+                a = UP;
             break;
         case 2:
             message[0] = 'B';
+            if(Read_Arm_BIN() == BLUE_UP && a == DOWN)
+                a = UP;
             break;
         case 3:
             message[0] = 'Y';
+            if(Read_Arm_BIN() == YELLOW_UP && a == DOWN)
+                a = UP;
             break;
         case 4:
             message[0] = 'P';
+            if(Read_Arm_BIN() == PURPLE_UP && a == DOWN)
+                a = UP;
             break;
         case 5:
             message[0] = 'C';
