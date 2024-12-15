@@ -25,7 +25,6 @@ int Start_Comm() {
 }
 
 int Send(char* str) {
-  Delay(1);
   printf("Sending: %s", str);
   for (int i = 0; i < strlen(str); i++) 
     serialPutchar(fd, str[i]);
@@ -52,7 +51,6 @@ int Receive(char* str) {
       if (dat == '\n') {
         Filter_Reception();
         printf("Received: %s", str);
-        Delay(1);
         return OK;
       }
 
@@ -91,26 +89,6 @@ void Delay(int seconds) {
     if(difftime(current_time, start_time) >= seconds)
       break;
   }
-}
-
-int Try_Connect() {
-  const int MAX_TRIES = 10;
-  for(int i = 0; i < MAX_TRIES; i++) {
-    printf("Waiting for connection. ");
-    //Receive(received);
-    //if(strcmp(received, "STAT:connected\n") == 97) {
-    Color temp = Info_Color();
-    if(temp != NONE) {
-      // Set active station
-      curr_station = Color_To_Station(temp);
-      curr_station->state = ACTIVE;
-      printf("Successfully connected to station %s.\n", Color_To_String(curr_station->color));
-      return OK;
-    }
-    Delay(2);
-  }
-  printf("Could not connect to the station.\n");
-  return ERROR;
 }
 
 /*void Test_Word(int fd, char* buffer, char* received) {

@@ -28,6 +28,5 @@ int Receive(char*);
 void Filter_Reception();
 void Empty_String(char*);
 void Delay(int);
-int Try_Connect();
 
 #endif

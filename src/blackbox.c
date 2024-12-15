@@ -30,7 +30,7 @@ int main(void) {
     p_station.state = ACTIVE; 
 
     // Testing GPIO
-    Arm_Control(RED, ACTIVE);
+    /*Arm_Control(RED, ACTIVE);
     Delay(2);
     Arm_Control(GREEN, ACTIVE);
     Delay(2);
@@ -40,9 +40,9 @@ int main(void) {
     Delay(2);
     Arm_Control(PURPLE, ACTIVE);
     Delay(2);
-    Arm_Control(PURPLE, INACTIVE);
+    Arm_Control(PURPLE, INACTIVE);*/
 
-    /*while(1) {
+    while(1) {
         if(Connect_Station(BLUE) == ERROR) {
             printf("Exit with error.\n");
             return 0;

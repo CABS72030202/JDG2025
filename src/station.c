@@ -12,6 +12,7 @@ Station p_station;
 Station null_station;
 Station* curr_station;
 int blackbox_pass[5];
+int active_count = 0;
 
 void Initialize() {
     r_station.color = RED;
@@ -42,17 +43,20 @@ void Initialize() {
 
     Initialize_GPIO();
 
-    if(DEBUG_MODE)
+    if(DEBUG_MODE) {
+        printf("WARNING. DEBUG MODE IS ON.\n");
         Fictive_State();
+        Delay(TIMEOUT);
+    }
     else
         while(Start_Comm()) 
             Delay(TIMEOUT);
 }
 
 void Wait_For_Two() {
-    int active_count = 0;
     while(active_count < 2) {
-        if(Try_Connect() == OK) {
+        //if(Try_Connect() == OK) {
+        if(1) {
             active_count = 0;
             // Count active stations
             if(r_station.state == ACTIVE)
@@ -73,15 +77,12 @@ void Wait_For_Two() {
 }
 
 int Connect_Station(Color station_color) {
-    // Lift up corresponding arm
-    Arm_Control(station_color, ACTIVE);
-
-    // Wait until connection is established
-    if(Try_Connect() == ERROR)
-        return ERROR;
-
     // Get corresponding station from specified color
     Station* temp = Color_To_Station(station_color);
+
+    // Wait until connection is established
+    if(Try_Connect(temp) == ERROR)
+        return ERROR;
 
     // Detect and abord if station is inactive
     if(temp->state == INACTIVE) {
@@ -92,6 +93,32 @@ int Connect_Station(Color station_color) {
     // Change current station
     curr_station = temp;
     return OK;
+}
+
+int Try_Connect(Station* s) {
+  printf("Trying to connect to station %s. ", Color_To_String(s->color));
+  for(int i = 0; i < MAX_ITERATIONS; i++) {
+    
+    // Lift up corresponding arm
+    Arm_Control(s->color, ACTIVE);
+    Delay(1);
+    
+    // Get color if successful
+    Color temp = Info_Color();
+    if(temp != NONE) {
+      // Set active station
+      curr_station = Color_To_Station(temp);
+      curr_station->state = ACTIVE;
+      printf("Successfully connected to station %s.\n", Color_To_String(curr_station->color));
+      return OK;
+    }
+
+    // Try again after delay if unsuccessful
+    Arm_Control(s->color, INACTIVE);
+    Delay(2);
+  }
+  printf("Could not connect to the station.\n");
+  return ERROR;
 }
 
 int Drop_Passengers(Color drop_station) {
