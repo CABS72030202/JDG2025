@@ -20,11 +20,11 @@
 #include <math.h>
 
 // Define pins
-#define DC_FL_PIN 9             // Front left DC motor drive
+#define DC_FL_PIN 5             // Front left DC motor drive
 #define DC_FR_PIN 3             // Front right DC motor drive
-#define DC_BL_PIN 10            // Back left DC motor drive
+#define DC_BL_PIN 6             // Back left DC motor drive
 #define DC_BR_PIN 11            // Back right DC motor drive
-#define SERVO_PIN 5
+#define SERVO_PIN 9
 
 // Global constants
 #define ROBOT_ID 4              // Unique ID to each Arduino : RED is 0, GREEN is 1, BLUE is 2, YELLOW is 3, PURPLE is 4, CONE is 5, BOAT is 6

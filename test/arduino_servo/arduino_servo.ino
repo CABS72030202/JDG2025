@@ -12,7 +12,7 @@
 #include <Servo.h>
 
 // Define pins
-#define SERVO_PIN 5
+#define SERVO_PIN 9
 
 // Global constants 
 #define ARM_ANGLE_UP 60

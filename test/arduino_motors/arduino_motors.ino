@@ -12,9 +12,9 @@
 #include <math.h>
 
 // Define pins
-#define DC_FL_PIN 9             // Front left DC motor drive
+#define DC_FL_PIN 5             // Front left DC motor drive
 #define DC_FR_PIN 3             // Front right DC motor drive
-#define DC_BL_PIN 10            // Back left DC motor drive
+#define DC_BL_PIN 6             // Back left DC motor drive
 #define DC_BR_PIN 11            // Back right DC motor drive
 
 // Global constants
