@@ -40,9 +40,9 @@ void setup() {
 void loop() {
   // Cycle through speeds
   Forward(speed);
-  delay(2000);
+  delay(5000);
 
-  Backward(speed);
+ /* Backward(speed);
   delay(2000);
 
   Right(speed);
@@ -52,7 +52,7 @@ void loop() {
   delay(2000);
 
   Stop();
-  delay(3000);
+  delay(3000);*/
 
   // Increment speed factor and reset if it exceeds MAX_SPEED
   speed = (speed + 1) % MAX_SPEED;

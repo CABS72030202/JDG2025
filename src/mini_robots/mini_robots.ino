@@ -9,6 +9,10 @@
  * simultaneous communication with all robots. This command is then processed to determine which 
  * robot should move and according to what parameters. Control of the robotic arm, which enables 
  * the robot to connect to stations, also follows this command structure.
+ * 
+ * Hardware :
+ *   - Use 220 ohms resistors with LEDs
+ *   - Use two 3.7V batteries in series
  */
 
 // Includes
@@ -25,9 +29,11 @@
 #define DC_BL_PIN 6             // Back left DC motor drive
 #define DC_BR_PIN 11            // Back right DC motor drive
 #define SERVO_PIN 9
+#define ARM_LED_PIN 7           // Lights up when arm is active
+#define ROBOT_LED_PIN 8         // Lights up when robot is being controlled
 
 // Global constants
-#define ROBOT_ID 4              // Unique ID to each Arduino : RED is 0, GREEN is 1, BLUE is 2, YELLOW is 3, PURPLE is 4, CONE is 5, BOAT is 6
+#define ROBOT_ID 1              // Unique ID to each Arduino : RED is 0, GREEN is 1, BLUE is 2, YELLOW is 3, PURPLE is 4, CONE is 5, BOAT is 6
 #define MAX_SPEED 3             
 const int LEFT_SPEEDS[MAX_SPEED] = {180, 210, 240};
 const int RIGHT_SPEEDS[MAX_SPEED] = {120, 150, 180};
@@ -49,12 +55,15 @@ void Decode_UART();
 void Move();
 void Arm();
 void Print_LCD();
+void LED_Control();
 
 void setup() {
   pinMode(DC_FL_PIN, OUTPUT);
   pinMode(DC_FR_PIN, OUTPUT);
   pinMode(DC_BL_PIN, OUTPUT);
   pinMode(DC_BR_PIN, OUTPUT);
+  pinMode(ARM_LED_PIN, OUTPUT);
+  pinMode(ROBOT_LED_PIN, OUTPUT);
   myServo.attach(SERVO_PIN);
   Serial.begin(115200);
   lcd.init();
@@ -65,6 +74,7 @@ void setup() {
 void loop() {
   Get_Message();
   Decode_UART();
+  LED_Control();
   Print_LCD();
   Move();
   Arm();
@@ -201,4 +211,13 @@ void Print_LCD() {
   lcd.print(buffer);
 }
 
-
+void LED_Control() {
+  if(robot == ROBOT_ID)
+    digitalWrite(ROBOT_LED_PIN, HIGH);
+  else if (!arm_state)
+    digitalWrite(ROBOT_LED_PIN, LOW);
+  if(arm_state)
+    digitalWrite(ARM_LED_PIN, HIGH);
+  else  
+    digitalWrite(ARM_LED_PIN, LOW);
+}
