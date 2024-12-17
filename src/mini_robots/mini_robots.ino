@@ -29,11 +29,11 @@
 #define DC_BL_PIN 6             // Back left DC motor drive
 #define DC_BR_PIN 11            // Back right DC motor drive
 #define SERVO_PIN 9
-#define ARM_LED_PIN 7           // Lights up when arm is active
-#define ROBOT_LED_PIN 8         // Lights up when robot is being controlled
+#define ARM_LED_PIN 12           // Lights up when arm is active
+#define ROBOT_LED_PIN 13         // Lights up when robot is being controlled
 
 // Global constants
-#define ROBOT_ID 1              // Unique ID to each Arduino : RED is 0, GREEN is 1, BLUE is 2, YELLOW is 3, PURPLE is 4, CONE is 5, BOAT is 6
+#define ROBOT_ID 5              // Unique ID to each Arduino : RED is 0, GREEN is 1, BLUE is 2, YELLOW is 3, PURPLE is 4, CONE is 5, BOAT is 6
 #define MAX_SPEED 3             
 const int LEFT_SPEEDS[MAX_SPEED] = {180, 210, 240};
 const int RIGHT_SPEEDS[MAX_SPEED] = {120, 150, 180};

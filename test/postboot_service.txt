@@ -1,0 +1,67 @@
+Steps to Create and Run a C Script that Logs Date and Time on Raspberry Pi
+
+__________________________________________________________________________
+### Step 1: Create the C Script
+1. Open a terminal on your Raspberry Pi.
+
+2. Create a new C file:
+   nano date_time_printer.c
+
+3. Write the code
+
+__________________________________________________________________________
+### Step 2: Compile the C Script
+1. Compile the program:
+   gcc -o date_time_printer date_time_printer.c
+
+__________________________________________________________________________
+### Step 3: Update Permissions for the Log File
+1. Create the log file (if it doesn't exist) and set the appropriate permissions:
+   sudo touch /var/log/date_time_printer.log
+   sudo chown admin:admin /var/log/date_time_printer.log
+
+__________________________________________________________________________
+### Step 4: Create a Systemd Service to Run the Script at Boot
+1. Create a new service file:
+   sudo nano /etc/systemd/system/date_time_printer.service
+
+2. Add the following content (update path and user):
+   [Unit]
+   Description=Date and Time Printer Service
+   After=multi-user.target
+
+   [Service]
+   ExecStart=<path>/date_time_printer
+   Restart=always
+   User=admin
+
+   [Install]
+   WantedBy=multi-user.target
+
+__________________________________________________________________________
+### Step 5: Enable and Start the Service
+1. Reload the systemd daemon:
+   sudo systemctl daemon-reload
+
+2. Enable the service:
+   sudo systemctl enable date_time_printer.service
+
+3. Start the service:
+   sudo systemctl start date_time_printer.service
+
+__________________________________________________________________________
+### Step 6: Check the Service Status
+To check if your service is running:
+sudo systemctl status date_time_printer.service
+
+__________________________________________________________________________
+### Step 7: View Output
+To view the output, check the log file:
+cat /var/log/date_time_printer.log
+
+__________________________________________________________________________
+### Step 8: Reboot and Test
+Reboot your Raspberry Pi to test if the script starts automatically:
+sudo reboot
+
+After rebooting, check the log file to ensure it is appending the date and time entries.

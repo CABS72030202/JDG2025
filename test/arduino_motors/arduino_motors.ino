@@ -9,14 +9,14 @@
 
 // Define pins
 #define DC_FL_PIN 5             // Front left DC motor drive
-#define DC_FR_PIN 3             // Front right DC motor drive
+#define DC_FR_PIN 11            // Front right DC motor drive
 #define DC_BL_PIN 6             // Back left DC motor drive
-#define DC_BR_PIN 11            // Back right DC motor drive
+#define DC_BR_PIN 3             // Back right DC motor drive
 
 // Global constants
 #define MAX_SPEED 3             
 const int LEFT_SPEEDS[MAX_SPEED] = {180, 210, 240};
-const int RIGHT_SPEEDS[MAX_SPEED] = {120, 150, 180};
+const int RIGHT_SPEEDS[MAX_SPEED] = {150, 180, 210};
 
 // Global variables
 int l_speed = 0;                // Analog left wheel speed value
@@ -39,7 +39,7 @@ void setup() {
 
 void loop() {
   // Cycle through speeds
-  Forward(speed);
+  Backward(speed);
   delay(5000);
 
  /* Backward(speed);
