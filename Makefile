@@ -29,8 +29,8 @@ controller.o: ./src/controller.c ./lib/controller.h ./lib/gpio.h ./src/gpio.c ./
 	$(CC) $(CFLAGS) -c ./src/controller.c -o controller.o $(CXXFLAGS)
 
 # Object generation from source and header for MINI_RPI
-mini_rpi.o: ./src/mini_robots/mini_rpi.c ./lib/rpi_bluetooth.h ./src/rpi_bluetooth.c
-	$(CC) $(CFLAGS) -c ./src/mini_robots/mini_rpi.c -o mini_rpi.o $(CXXFLAGS)
+mini_rpi.o: ./src/mini_rpi.c ./lib/rpi_bluetooth.h ./src/rpi_bluetooth.c
+	$(CC) $(CFLAGS) -c ./src/mini_rpi.c -o mini_rpi.o $(CXXFLAGS)
 
 # Object generation from source and header for RPI_BLUETOOTH
 rpi_bluetooth.o: ./src/rpi_bluetooth.c ./lib/rpi_bluetooth.h
