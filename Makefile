@@ -9,12 +9,12 @@ blackbox: blackbox.o station.o communication.o gpio.o
 	$(CC) $(CFLAGS) -o blackbox blackbox.o station.o communication.o gpio.o $(LIB)
 
 # Controller executable construction
-controller: controller.o gpio.o
-	$(CC) $(CFLAGS) -o controller controller.o gpio.o $(LIB)
+controller: controller.o gpio.o rpi_bluetooth.o
+	$(CC) $(CFLAGS) -o controller controller.o gpio.o rpi_bluetooth.o $(LIB)
 
 # Bluetooth receiver executable construction
-bluetooth: rpi_bluetooth.o
-	$(CC) $(CFLAGS) -o bluetooth rpi_bluetooth.o $(LIB)
+mini_rpi: mini_rpi.o rpi_bluetooth.o
+	$(CC) $(CFLAGS) -o mini_rpi mini_rpi.o rpi_bluetooth.o $(LIB)
 
 # Test unit executable construction
 test_unit: test_unit.o
@@ -25,8 +25,12 @@ blackbox.o: ./src/blackbox.c ./lib/station.h ./src/station.c ./lib/communication
 	$(CC) $(CFLAGS) -c ./src/blackbox.c -o blackbox.o $(CXXFLAGS)
 
 # Object generation from source and header for BLACKBOX
-controller.o: ./src/controller.c ./lib/controller.h ./lib/gpio.h ./src/gpio.c
+controller.o: ./src/controller.c ./lib/controller.h ./lib/gpio.h ./src/gpio.c ./lib/rpi_bluetooth.h ./src/rpi_bluetooth.c
 	$(CC) $(CFLAGS) -c ./src/controller.c -o controller.o $(CXXFLAGS)
+
+# Object generation from source and header for MINI_RPI
+mini_rpi.o: ./src/mini_robots/mini_rpi.c ./lib/rpi_bluetooth.h ./src/rpi_bluetooth.c
+	$(CC) $(CFLAGS) -c ./src/mini_robots/mini_rpi.c -o mini_rpi.o $(CXXFLAGS)
 
 # Object generation from source and header for RPI_BLUETOOTH
 rpi_bluetooth.o: ./src/rpi_bluetooth.c ./lib/rpi_bluetooth.h

@@ -19,6 +19,7 @@
 #include <errno.h>
 #include <string.h>
 #include "../lib/gpio.h"
+#include "../lib/rpi_bluetooth.h"
 
 // Global constants
 #define GAMEPAD_PATH "/dev/input/js0"

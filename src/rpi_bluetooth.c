@@ -4,74 +4,6 @@
 
 #include "../lib/rpi_bluetooth.h"
 
-int main(int argc, char *argv[]) {
-    if (argc < 2) {
-        printf("Usage: %s server|client [bluetooth_address]\n", argv[0]);
-        return 1;
-    }
-
-    int server = 0;
-    char *remote_address = NULL;
-
-    if (strcmp(argv[1], "server") == 0) {
-        server = 1;
-    } else if (strcmp(argv[1], "client") == 0) {
-        if (argc < 3) {
-            printf("Client mode requires a Bluetooth address.\n");
-            return 1;
-        }
-        remote_address = argv[2];
-    } else {
-        printf("Invalid mode. Use 'server' or 'client'.\n");
-        return 1;
-    }
-
-    int sock = bt_init(server, remote_address);
-    if (sock < 0) return 1;
-
-    int client_sock = sock; // For server, this will be updated after accepting
-
-    if (server) {
-        struct sockaddr_rc client_addr = { 0 };
-        socklen_t opt = sizeof(client_addr);
-
-        // Accept connection
-        client_sock = accept(sock, (struct sockaddr *)&client_addr, &opt);
-        if (client_sock < 0) {
-            perror("Failed to accept connection");
-            close(sock);
-            return 1;
-        }
-
-        char client_address[18] = { 0 };
-        ba2str(&client_addr.rc_bdaddr, client_address);
-        printf("Accepted connection from %s\n", client_address);
-    }
-
-    // Send and receive a string
-    const char *message = "Hello from Raspberry Pi!";
-    char buffer[BUFFER_SIZE];
-
-    // Send message
-    if (bt_send(client_sock, message) < 0) {
-        close(client_sock);
-        return 1;
-    }
-
-    // Receive message
-    if (bt_receive(client_sock, buffer, BUFFER_SIZE) < 0) {
-        close(client_sock);
-        return 1;
-    }
-
-    printf("Communication complete.\n");
-
-    close(client_sock);
-    if (server) close(sock);
-
-    return 0;
-}
-
 /**
  * Initialize the Bluetooth RFCOMM server or client socket.
  * @param server: A boolean flag (1 for server mode, 0 for client mode).
@@ -143,8 +75,6 @@ int bt_send(int sock, const char *message) {
         perror("Failed to send message");
         return -1;
     }
-
-    printf("Sent: %s\n", message);
     return 0;
 }
 
@@ -162,7 +92,6 @@ int bt_receive(int sock, char *buffer, int buffer_size) {
         perror("Failed to receive message");
         return -1;
     }
-
-    printf("Received: %s\n", buffer);
+    printf("Received: %s", buffer);
     return 0;
 }

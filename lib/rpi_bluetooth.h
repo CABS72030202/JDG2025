@@ -15,6 +15,7 @@
 // Global constants
 #define CHANNEL 1           // RFCOMM Channel
 #define BUFFER_SIZE 32
+#define SERVER_ADR "B8:27:EB:A9:8C:AB"
 
 // Prototypes
 int bt_init(int server, const char *dest);

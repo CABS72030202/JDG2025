@@ -14,14 +14,30 @@ int main() {
     int uart_fd = serialOpen(UART, BAUD_RATE);
     if (uart_fd < 0) {
         fprintf(stderr, "Unable to open serial device: %s\n", strerror(errno));
-    return 1;
+        return 1;
     }
 
     // Initialize wiringPi
     if (wiringPiSetup() == -1) {
         fprintf(stdout, "Unable to start wiringPi: %s\n", strerror(errno));
-    return 1;
+        return 1;
     }
+
+    // Initialize Bluetooth communication as server
+    int server_sock = bt_init(1, NULL);
+    if (server_sock < 0) return 1;
+    int client_sock = server_sock;
+    struct sockaddr_rc client_addr = { 0 };
+    socklen_t opt = sizeof(client_addr);
+    client_sock = accept(server_sock, (struct sockaddr *)&client_addr, &opt);
+    if (client_sock < 0) {
+        perror("Failed to accept connection");
+        close(server_sock);
+        return 1;
+    }
+    char client_address[18] = { 0 };
+    ba2str(&client_addr.rc_bdaddr, client_address);
+    printf("Accepted connection from %s\n", client_address);
 
     // Start controller communication
     int fd = open(GAMEPAD_PATH, O_RDONLY);
@@ -50,9 +66,15 @@ int main() {
             // Format message
             Format_Message(robot, l_speed, r_speed, arm);
             
-            // Send message
+            // Send message via UART
             for (int i = 0; i < strlen(message); i++) 
                 serialPutchar(uart_fd, message[i]);
+
+            // Send message via Bluetooth
+            if (bt_send(client_sock, message) < 0) {
+                close(client_sock);
+                return 1;
+            }
         }
 
         // Execute GPIO commands if change occured
@@ -64,6 +86,8 @@ int main() {
 
     serialClose(uart_fd);
     close(fd);
+    close(client_sock);
+    close(server_sock);
     return 0;
 }
 
