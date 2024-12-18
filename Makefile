@@ -2,7 +2,7 @@ CC = gcc
 CFLAGS = -g -w -Wall
 CXXFLAGS = -Ilib -Isrc -Itest
 VPATH = lib:src:test
-LIB = -lm -lwiringPi
+LIB = -lm -lwiringPi -lbluetooth
 
 # Blackbox executable construction
 blackbox: blackbox.o station.o communication.o gpio.o
@@ -11,6 +11,10 @@ blackbox: blackbox.o station.o communication.o gpio.o
 # Controller executable construction
 controller: controller.o gpio.o
 	$(CC) $(CFLAGS) -o controller controller.o gpio.o $(LIB)
+
+# Bluetooth receiver executable construction
+bluetooth: rpi_bluetooth.o
+	$(CC) $(CFLAGS) -o bluetooth rpi_bluetooth.o $(LIB)
 
 # Test unit executable construction
 test_unit: test_unit.o
@@ -23,6 +27,10 @@ blackbox.o: ./src/blackbox.c ./lib/station.h ./src/station.c ./lib/communication
 # Object generation from source and header for BLACKBOX
 controller.o: ./src/controller.c ./lib/controller.h ./lib/gpio.h ./src/gpio.c
 	$(CC) $(CFLAGS) -c ./src/controller.c -o controller.o $(CXXFLAGS)
+
+# Object generation from source and header for RPI_BLUETOOTH
+rpi_bluetooth.o: ./src/rpi_bluetooth.c ./lib/rpi_bluetooth.h
+	$(CC) $(CFLAGS) -c ./src/rpi_bluetooth.c -o rpi_bluetooth.o $(CXXFLAGS)
 
 # Object generation from source and header for TEST_UNIT
 test_unit.o: ./test/test_unit.h ./test/test_unit.c

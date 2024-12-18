@@ -10,14 +10,17 @@
  * - Send and receive messages over Bluetooth connections.
  * - Simple API for seamless integration.
  *
- * Compile:
- * - gcc rpi_bluetooth.c -lbluetooth -o rpi_bluetooth
- * 
- * Run the server on one RPI:
- * - ./rpi_bluetooth server
- * 
- * Run the client on the other RPI (use server Bluetooth address):
- * - ./rpi_bluetooth client XX:XX:XX:XX:XX:XX
+ * How to use:
+ *   1. Compile:
+ *      - gcc rpi_bluetooth.c -lbluetooth -o rpi_bluetooth
+ *   2. Get the server Bluetooth address :
+ *      - hcitool dev
+ *   3. Ensure that the server's Bluetooth is discoverable:
+ *      - sudo hciconfig hci0 piscan
+ *   4. Run the server on one RPI:
+ *      - ./rpi_bluetooth server
+ *   5. Run the client on the other RPI (use server Bluetooth address):
+ *      - ./rpi_bluetooth client XX:XX:XX:XX:XX:XX
  *
  * Dependencies:
  * - Bluetooth development libraries (libbluetooth-dev)
