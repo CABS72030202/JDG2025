@@ -18,9 +18,10 @@
 #include<stdio.h>
 #include<string.h>
 #include "../lib/communication.h"
+#include "../lib/gpio.h"
 
 // Debugging parameters (1 is yes, 0 is no)
-#define DEBUG_MODE 1
+#define DEBUG_MODE 0
 #define ACTIVE_LOOP 1                      
 #define MAX_ITERATIONS 1000
 #define USER_INPUT 0               
@@ -33,7 +34,8 @@ typedef enum state State;
 typedef struct {
     Color color;        // Station color
     int passengers[5];  // R:G:B:Y:P
-    State state;        // ACTIVE when connected
+    State state;        // ACTIVE when operational
+    State arm_state;    // ACTIVE when connected
 } Station;
 
 // Global variables and constants
@@ -47,14 +49,17 @@ extern Station p_station;
 extern Station null_station;
 extern Station* curr_station;
 extern int blackbox_pass[5];       // Passenger count for each destination onboard
+extern int active_count;
 
 // Prototypes (station)
 void Initialize();                      // Initialize stations
 void Wait_For_Two();                    // Waits for two stations to connect before starting auto load/drop
 int Connect_Station(Color);             // Change current station
+int Try_Connect(Station*);
 int Drop_Passengers(Color);             // Drop all corresponding passengers onboard to specific station
 int Load_Passengers(Color, int);        // Load a specific number of passengers going to a specific station
 void Auto_Load_Drop();                  // Automates the loading and dropping off of passengers at ACTIVE locations
+void Arm_Control(Color, State);         // Control mini robot arms using GPIOs
 
 // Prototypes (blackbox)
 char* Communication(char*);             // Returns the message received after sending a specific message

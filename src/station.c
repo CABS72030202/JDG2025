@@ -12,56 +12,67 @@ Station p_station;
 Station null_station;
 Station* curr_station;
 int blackbox_pass[5];
+int active_count = 0;
 
 void Initialize() {
     r_station.color = RED;
-    r_station.state = INACTIVE;      
+    r_station.state = INACTIVE; 
+    r_station.arm_state = INACTIVE;      
     g_station.color = GREEN;
     g_station.state = INACTIVE;
+    g_station.arm_state = INACTIVE;
     b_station.color = BLUE;
     b_station.state = INACTIVE; 
+    b_station.arm_state = INACTIVE;
     y_station.color = YELLOW;
     y_station.state = INACTIVE; 
+    y_station.arm_state = INACTIVE;
     p_station.color = PURPLE;
     p_station.state = INACTIVE; 
+    p_station.arm_state = INACTIVE;
     null_station.color = NONE;
     null_station.state = INACTIVE;
+    null_station.arm_state = INACTIVE;
     curr_station = &null_station;  
 
-    if(DEBUG_MODE)
+    // Initialize WiringPi
+    if (wiringPiSetup() == -1) {
+        printf("WiringPi setup failed\n");
+        return -1;
+    }
+
+    Initialize_GPIO();
+
+    if(DEBUG_MODE) {
+        printf("WARNING. DEBUG MODE IS ON.\n");
         Fictive_State();
+        Delay(TIMEOUT);
+    }
     else
-        Wait_For_Two();
+        while(Start_Comm()) 
+            Delay(TIMEOUT);
 }
 
 void Wait_For_Two() {
-    int active_count = 0;
     while(active_count < 2) {
-        if(Communication(NULL) == "STAT:connected\n") {
-            active_count++;
-
-            // Update station status
-            if(Info_Station_Count() == ERROR)
-                active_count--;
-
-            // Make sure connected to two different stations
-            if(active_count == 2) {
-                active_count = 0;
-                if(r_station.state == ACTIVE)
-                    active_count++;
-                if(g_station.state == ACTIVE)
-                    active_count++;
-                if(b_station.state == ACTIVE)
-                    active_count++;
-                if(y_station.state == ACTIVE)
-                    active_count++;
-                if(p_station.state == ACTIVE)
-                    active_count++;
-            }
+        //if(Try_Connect() == OK) {
+        if(1) {
+            active_count = 0;
+            // Count active stations
+            if(r_station.state == ACTIVE)
+                active_count++;
+            if(g_station.state == ACTIVE)
+                active_count++;
+            if(b_station.state == ACTIVE)
+                active_count++;
+            if(y_station.state == ACTIVE)
+                active_count++;
+            if(p_station.state == ACTIVE)
+                active_count++;
+            printf("There are currently %i active stations.", active_count);
         }
-        else {
-            sleep(1);
-        }
+        else
+            Delay(TIMEOUT);
     }
 }
 
@@ -69,15 +80,45 @@ int Connect_Station(Color station_color) {
     // Get corresponding station from specified color
     Station* temp = Color_To_Station(station_color);
 
+    // Wait until connection is established
+    if(Try_Connect(temp) == ERROR)
+        return ERROR;
+
     // Detect and abord if station is inactive
     if(temp->state == INACTIVE) {
-        printf("Station %s is inactive.", Color_To_String(station_color));
+        printf("Station %s is inactive.\n", Color_To_String(station_color));
         return ERROR; 
     }
 
     // Change current station
     curr_station = temp;
     return OK;
+}
+
+int Try_Connect(Station* s) {
+  printf("Trying to connect to station %s. ", Color_To_String(s->color));
+  for(int i = 0; i < MAX_ITERATIONS; i++) {
+    
+    // Lift up corresponding arm
+    Arm_Control(s->color, ACTIVE);
+    Delay(1);
+    
+    // Get color if successful
+    Color temp = Info_Color();
+    if(temp != NONE) {
+      // Set active station
+      curr_station = Color_To_Station(temp);
+      curr_station->state = ACTIVE;
+      printf("Successfully connected to station %s.\n", Color_To_String(curr_station->color));
+      return OK;
+    }
+
+    // Try again after delay if unsuccessful
+    Arm_Control(s->color, INACTIVE);
+    Delay(2);
+  }
+  printf("Could not connect to the station.\n");
+  return ERROR;
 }
 
 int Drop_Passengers(Color drop_station) {
@@ -129,6 +170,9 @@ int Load_Passengers(Color c, int nb) {
         blackbox_pass[c] += nb;
         curr_station->passengers[c] -= nb;
 
+        // Delay to show passengers onboard
+        Delay(TIMEOUT);
+        
         return OK;
     }
 }
@@ -217,6 +261,56 @@ void Auto_Load_Drop() {
     }
 }
 
+void Arm_Control(Color station_color, State toggle) {
+    
+    // Deactivate any active arm
+    if(r_station.arm_state == ACTIVE) {
+        Write_Arm_DEC(RED_DOWN);
+        r_station.arm_state = INACTIVE;
+    }
+    if(g_station.arm_state == ACTIVE) {
+        Write_Arm_DEC(GREEN_DOWN);
+        g_station.arm_state = INACTIVE;
+    }
+    if(b_station.arm_state == ACTIVE) {
+        Write_Arm_DEC(BLUE_DOWN);
+        b_station.arm_state = INACTIVE;
+    }
+    if(y_station.arm_state == ACTIVE) {
+        Write_Arm_DEC(YELLOW_DOWN);
+        y_station.arm_state = INACTIVE;
+    }
+    if(p_station.arm_state == ACTIVE) {
+        Write_Arm_DEC(PURPLE_DOWN);
+        p_station.arm_state = INACTIVE;
+    }
+    Delay(1);
+
+    // Activate only one
+    Color_To_Station(station_color)->arm_state = toggle;
+    switch(station_color) {
+        case RED:
+            toggle == ACTIVE ? Write_Arm_DEC(RED_UP) : Write_Arm_DEC(RED_DOWN);
+            break;
+        case GREEN:
+            toggle == ACTIVE ? Write_Arm_DEC(GREEN_UP) : Write_Arm_DEC(GREEN_DOWN);
+            break;
+        case BLUE:
+            toggle == ACTIVE ? Write_Arm_DEC(BLUE_UP) : Write_Arm_DEC(BLUE_DOWN);
+            break;
+        case YELLOW:
+            toggle == ACTIVE ? Write_Arm_DEC(YELLOW_UP) : Write_Arm_DEC(YELLOW_DOWN);
+            break;
+        case PURPLE:
+            toggle == ACTIVE ? Write_Arm_DEC(PURPLE_UP) : Write_Arm_DEC(PURPLE_DOWN);
+            break;
+        case NONE:
+        default:
+            printf("ERROR. Invalid parameter in Arm_Control(State))\n");
+            break;
+    }
+}
+
 char* Communication(char* sent) {
     if (DEBUG_MODE) {
         char* response = Response_Simulation(sent);
@@ -224,6 +318,9 @@ char* Communication(char* sent) {
     }
 
     // NOTE : NULL parameter means to wait for message from blackbox
+    if(Send(sent) == OK)
+        if(Receive(received) == OK)
+            return received;
 
     return NULL;
 }
@@ -244,7 +341,7 @@ char* Color_To_String(Color c) {
     case NONE:
         return "NONE";
     default:
-        printf("\nERROR. INVALID PARAMETER | station.c | Color_To_String(Color)\n\n");
+        printf("ERROR. Invalid parameter in Color_To_String(Color)\n");
         return NULL;
     }
 }
@@ -263,7 +360,7 @@ Station* Color_To_Station(Color c) {
             return &p_station;
         case NONE:
         default:
-            printf("\nERROR. INVALID PARAMETER | station.c | Color_To_Station(Color)\n\n");
+            printf("ERROR. Invalid parameter in Color_To_Station(Color)\n");
             return &null_station;
     }
 }
@@ -301,8 +398,8 @@ Color Info_Color() {
     case 'P':
         return PURPLE;
     default:
-        printf("\nERROR. INVALID COLOR | station.c | Info_Color\n\n");
-        break;
+        printf("ERROR. Invalid color in Info_Color()\n");
+        return NONE;
     }
 }
 
@@ -340,7 +437,6 @@ int Info_Station_Count() {
     case NONE:
         return ERROR;
     default:
-        printf("\nERROR. INVALID COLOR | station.c | Info_Station_Count\n\n");
         return ERROR;
     }
 }
@@ -392,7 +488,7 @@ char* Format_Str(char* comm, Color c, int nb) {
         sprintf(str, "%s:%s:%i\n", comm, Color_To_String(c), nb);
         break;
     default:
-        printf("\nERROR. INVALID COLOR | station.c | Format_Str\n\n");
+        printf("ERROR. Invalid color in Format_Str(char*, Color, int)\n");
         return NULL;
     }
     return str;
@@ -446,7 +542,7 @@ char* Response_Simulation(char* sent) {
 
     // Exit if debug mode is OFF
     if(!DEBUG_MODE) {
-        printf("\nERROR. Debug mode is OFF.\n");
+        printf("ERROR. Debug mode is OFF.\n");
         return NULL;
     }
 
