@@ -8,14 +8,14 @@
 #include <stdio.h>
 
 // GPIO pins
-#define ARM_OUT_PIN_0 22        // GPIO PIN 31
-#define ARM_OUT_PIN_1 23        // GPIO PIN 33
-#define ARM_OUT_PIN_2 24        // GPIO PIN 35
-#define ARM_OUT_PIN_3 25        // GPIO PIN 37
-#define ARM_IN_PIN_0 26         // GPIO PIN 32
-#define ARM_IN_PIN_1 27         // GPIO PIN 36
-#define ARM_IN_PIN_2 28         // GPIO PIN 38
-#define ARM_IN_PIN_3 29         // GPIO PIN 40
+#define ARM_OUT_PIN_0 0         // GPIO 0 - PIN 11
+#define ARM_OUT_PIN_1 3         // GPIO 3 - PIN 15
+#define ARM_OUT_PIN_2 5         // GPIO 5 - PIN 18
+#define ARM_OUT_PIN_3 6         // GPIO 6 - PIN 22
+#define ARM_IN_PIN_0 2          // GPIO 2 - PIN 13
+#define ARM_IN_PIN_1 4          // GPIO 4 - PIN 16
+#define ARM_IN_PIN_2 25         // GPIO 25 - PIN 37
+#define ARM_IN_PIN_3 27         // GPIO 27 - PIN 36
 
 // State IDs
 #define DOWN_ALL 15

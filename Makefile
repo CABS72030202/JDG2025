@@ -16,10 +16,6 @@ controller: controller.o gpio.o rpi_bluetooth.o
 mini_rpi: mini_rpi.o rpi_bluetooth.o
 	$(CC) $(CFLAGS) -o mini_rpi mini_rpi.o rpi_bluetooth.o $(LIB)
 
-# Test unit executable construction
-test_unit: test_unit.o
-	$(CC) $(CFLAGS) -o test_unit test_unit.o $(CXXFLAGS) $(LIB)
-
 # Object generation from source and header for BLACKBOX
 blackbox.o: ./src/blackbox.c ./lib/station.h ./src/station.c ./lib/communication.h ./src/communication.c ./lib/gpio.h ./src/gpio.c
 	$(CC) $(CFLAGS) -c ./src/blackbox.c -o blackbox.o $(CXXFLAGS)
@@ -35,10 +31,6 @@ mini_rpi.o: ./src/mini_rpi.c ./lib/rpi_bluetooth.h ./src/rpi_bluetooth.c
 # Object generation from source and header for RPI_BLUETOOTH
 rpi_bluetooth.o: ./src/rpi_bluetooth.c ./lib/rpi_bluetooth.h
 	$(CC) $(CFLAGS) -c ./src/rpi_bluetooth.c -o rpi_bluetooth.o $(CXXFLAGS)
-
-# Object generation from source and header for TEST_UNIT
-test_unit.o: ./test/test_unit.h ./test/test_unit.c
-	$(CC) $(CFLAGS) -c ./test/test_unit.c -o test_unit.o $(CXXFLAGS)	
 
 # Object generation from source and header for STATION
 station.o: ./lib/station.h ./src/station.c ./lib/communication.h ./src/communication.c ./lib/gpio.h ./src/gpio.c
