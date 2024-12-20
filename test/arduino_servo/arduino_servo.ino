@@ -13,14 +13,14 @@
 
 // Global constants
 #define ANGLE_STEP 2
-#define OPEN_BOUND 0
-#define CLOSE_BOUND 180
-#define UP_BOUND 200
-#define DOWN_BOUND 0
+#define OPEN_BOUND 180    // Grip touches backwards
+#define CLOSE_BOUND 0     // Grip radius smaller than cone contact point radius
+#define UP_BOUND 200      // Arm just above rear wheel
+#define DOWN_BOUND 0      // Grip just above ground
 
 // Global variables
-int grip_angle = 5;      // Starting angle
-int height_angle = 20;
+int grip_angle = 5;      // Starting angle : completely closed
+int height_angle = 20;   // Starting angle : grip parallel to ground
 Servo grip;
 Servo height;
 
@@ -38,14 +38,14 @@ void setup() {
 }
 
 void loop() {
-  for(int i = 0; i < 10; i++) {
+  /*for(int i = 0; i < 10; i++) {
     Close();
     Delay(500);
   }
   for(int i = 0; i < 10; i++) {
     Open();
     Delay(500);
-  }
+  }*/
 }
 
 void Open() {
