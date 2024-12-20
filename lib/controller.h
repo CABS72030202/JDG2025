@@ -29,6 +29,9 @@
 #include "../lib/gpio.h"
 #include "../lib/rpi_bluetooth.h"
 
+// Debug Constants
+#define SKIP_BLUETOOTH     1                     // Set to 1 to disable Bluetooth initialization
+
 // Global Constants
 #define GAMEPAD_PATH       "/dev/input/js0"      // Path to the gamepad device
 #define UART               "/dev/serial0"        // UART device path

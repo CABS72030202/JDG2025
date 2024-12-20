@@ -24,20 +24,25 @@ int main() {
     }
 
     // Initialize Bluetooth communication as server
-    int server_sock = bt_init(1, NULL);
-    if (server_sock < 0) return 1;
-    int client_sock = server_sock;
-    struct sockaddr_rc client_addr = { 0 };
-    socklen_t opt = sizeof(client_addr);
-    client_sock = accept(server_sock, (struct sockaddr *)&client_addr, &opt);
-    if (client_sock < 0) {
-        perror("Failed to accept connection");
-        close(server_sock);
-        return 1;
+    int server_sock, client_sock;
+    if(SKIP_BLUETOOTH) 
+        printf("WARNING. BLUETOOTH SERVER IS DISABLED.\n");
+    else {
+        server_sock = bt_init(1, NULL);
+        if (server_sock < 0) return 1;
+        client_sock = server_sock;
+        struct sockaddr_rc client_addr = { 0 };
+        socklen_t opt = sizeof(client_addr);
+        client_sock = accept(server_sock, (struct sockaddr *)&client_addr, &opt);
+        if (client_sock < 0) {
+            perror("Failed to accept connection");
+            close(server_sock);
+            return 1;
+        }
+        char client_address[18] = { 0 };
+        ba2str(&client_addr.rc_bdaddr, client_address);
+        printf("Accepted connection from %s\n", client_address);
     }
-    char client_address[18] = { 0 };
-    ba2str(&client_addr.rc_bdaddr, client_address);
-    printf("Accepted connection from %s\n", client_address);
 
     // Start controller communication
     int fd = open(GAMEPAD_PATH, O_RDONLY);
@@ -71,7 +76,7 @@ int main() {
                 serialPutchar(uart_fd, message[i]);
 
             // Send message via Bluetooth
-            if (bt_send(client_sock, message) < 0) {
+            if (!SKIP_BLUETOOTH && (client_sock, message) < 0) {
                 close(client_sock);
                 return 1;
             }
@@ -228,7 +233,7 @@ void Controller_Event(struct js_event e) {
                 temp_dir = Get_Direction(LSX_val, LSY_val);
                 if(LS_dir != temp_dir) {
                     LS_dir = temp_dir;
-                    if(LS_dir != NONE && 0)     // DEACTIVATED
+                    if(LS_dir != NONE && 1)     // ACTIVATED
                         printf("Left stick used. Direction is %s.\n", Direction_Str(LS_dir));
                 }
                 break;
@@ -246,7 +251,7 @@ void Controller_Event(struct js_event e) {
                 temp_dir = Get_Direction(RSX_val, RSY_val);
                 if(RS_dir != temp_dir) {
                     RS_dir = temp_dir;
-                    if(RS_dir != NONE && 0)     // DEACTIVATED
+                    if(RS_dir != NONE && 1)     // ACTIVATED
                         printf("Right stick used. Direction is %s.\n", Direction_Str(RS_dir));
                 }
                 break;
