@@ -12,15 +12,15 @@
 #define HEIGHT_PIN 10
 
 // Global constants
-#define ANGLE_STEP 2
+#define ANGLE_STEP 10
 #define OPEN_BOUND 180    // Grip touches backwards
-#define CLOSE_BOUND 0     // Grip radius smaller than cone contact point radius
+#define CLOSE_BOUND 30    // Grip radius smaller than cone contact point radius
 #define UP_BOUND 200      // Arm just above rear wheel
 #define DOWN_BOUND 0      // Grip just above ground
 
 // Global variables
-int grip_angle = 5;      // Starting angle : completely closed
-int height_angle = 20;   // Starting angle : grip parallel to ground
+int grip_angle = OPEN_BOUND;      // Starting angle : completely open
+int height_angle = 20;            // Starting angle : grip parallel to ground
 Servo grip;
 Servo height;
 
@@ -38,32 +38,33 @@ void setup() {
 }
 
 void loop() {
-  /*for(int i = 0; i < 10; i++) {
+  for(int i = 0; i < 20; i++) {
     Close();
-    Delay(500);
+    delay(100);
   }
-  for(int i = 0; i < 10; i++) {
+  delay(5000);
+  for(int i = 0; i < 20; i++) {
     Open();
-    Delay(500);
-  }*/
+    delay(100);
+  }
 }
 
 void Open() {
-  if((grip_angle - ANGLE_STEP) < OPEN_BOUND)
+  if((grip_angle - ANGLE_STEP) > OPEN_BOUND)
     return;
-  grip_angle -= ANGLE_STEP;
+  grip_angle += ANGLE_STEP;
   grip.write(grip_angle);
 }
 
 void Close() {
-  if((grip_angle + ANGLE_STEP) > CLOSE_BOUND)
+  if((grip_angle + ANGLE_STEP) < CLOSE_BOUND)
     return;
-  grip_angle += ANGLE_STEP;
+  grip_angle -= ANGLE_STEP;
   grip.write(grip_angle);
 }
 
 void Up() {
 }
 
-void Close() {
+void Down() {
 }
