@@ -21,7 +21,7 @@
 #define ARM_LED_PIN     12      // Pin for arm activity LED
 #define ROBOT_LED_PIN   13      // Pin for robot control status LED
 
-// Global Constants
+// Robot Specific Global Constants
 #define ROBOT_ID        0       // Unique ID to each Arduino : RED is 0, GREEN is 1, BLUE is 2, YELLOW is 3, PURPLE is 4, CONE is 5, BOAT is 6
 #define MAX_SPEED       3       // Maximum speed multiplier for the robot
 

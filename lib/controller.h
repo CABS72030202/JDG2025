@@ -30,7 +30,7 @@
 #include "../lib/rpi_bluetooth.h"
 
 // Debug Constants
-#define SKIP_BLUETOOTH     1                     // Set to 1 to disable Bluetooth initialization
+#define SKIP_BLUETOOTH     0                     // Set to 1 to disable Bluetooth initialization
 
 // Global Constants
 #define GAMEPAD_PATH       "/dev/input/js0"      // Path to the gamepad device
@@ -97,11 +97,14 @@ Direction CR_dir = NONE;                        // Current direction of cross in
 // Global Variables
 int constant_speed = 1;                         // Speed multiplier for constant controls
 char message[] = "0:00:00:0\r\n";               // Formatted message for robot control
+char gripper_message[] = "[0:0]\r\n";           // Formatted message for gripper arm control
 Color robot = NONE;                             // Current selected robot
 int l_speed = 0;                                // Current left wheel speed
 int r_speed = 0;                                // Current right wheel speed
 Direction arm = DOWN;                           // Arm control direction
 int GPIO_command = 0;                           // Current GPIO command
+int server_sock;                                // Bluetooth server socket
+int client_sock;                                // Bluetooth client socket
 
 // Prototypes
 int Get_Anal_Range(int);                       // Get the range of an analog input value
@@ -113,5 +116,6 @@ void Cycle_Robot(int);                         // Cycle to the next or previous 
 void Get_Speed_From_Dir(Direction);            // Set wheel speeds based on direction
 int Check_GPIO_Command();                      // Check if a GPIO command has changed
 void Change_Arm_State(int);                    // Change the arm state (e.g., UP/DOWN)
+void Control_Gripper();                        // Send gripper arm (0) or caw (1) instructions over Bluetooth to cone robot
 
 #endif

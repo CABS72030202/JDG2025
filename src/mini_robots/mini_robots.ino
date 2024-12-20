@@ -19,42 +19,53 @@
  */
 
 // Includes
-#include <Wire.h>
-#include <LiquidCrystal_I2C.h>
-#include <stdlib.h>
-#include <string.h>
-#include <Servo.h>
-#include <math.h>
+#include "gripper.h"
 
 /* INCLUDE CORRESPONDING HEADER FILE */
-#include "blue.h"
+#include "cone.h"
 
 // Global Variables
-String message = "0:00:00:0\r\n"; // Incoming command message format
-int robot = 0;                  // Current robot ID
-int l_speed = 0;                // Left wheel speed
-int r_speed = 0;                // Right wheel speed
-int arm_state = 0;              // Arm state: 0 = down, 1 = up
-Servo myServo;                  // Servo motor object for arm control
-LiquidCrystal_I2C lcd(0x27, 16, 2); // LCD object for display
+Servo arm;                            // Servo motor object for arm control
+LiquidCrystal_I2C lcd(0x27, 16, 2);   // LCD object for display
+String message = "0:00:00:0\r\n";     // Incoming command message format for robot control
+int robot = 0;                        // Current robot ID
+int l_speed = 0;                      // Left wheel speed
+int r_speed = 0;                      // Right wheel speed
+int arm_state = 0;                    // Arm state: 0 = down, 1 = up
 
 // Prototypes
-void Get_Message();             // Receive and construct the command message via UART
-void Decode_UART();             // Decode the command message and extract control values
-void Move();                    // Control the movement of the robot's wheels
-void Arm();                     // Control the robotic arm
-void Print_LCD();               // Display the robot's status on the LCD
-void LED_Control();             // Control the LEDs based on robot and arm status
+void Get_Message();                   // Receive and construct the command message via UART
+void Decode_Message();                // Decode the command message and extract robot control values
+void Move();                          // Control the movement of the robot's wheels
+void Arm();                           // Control the robotic arm
+void Print_LCD();                     // Display the robot's status on the LCD
+void LED_Control();                   // Control the LEDs based on robot and arm status
 
 void setup() {
+  // DC motors
   pinMode(DC_FL_PIN, OUTPUT);
   pinMode(DC_FR_PIN, OUTPUT);
   pinMode(DC_BL_PIN, OUTPUT);
   pinMode(DC_BR_PIN, OUTPUT);
+
+  // LEDs
   pinMode(ARM_LED_PIN, OUTPUT);
   pinMode(ROBOT_LED_PIN, OUTPUT);
-  myServo.attach(SERVO_PIN);
+
+  // Servo motors
+  if(ROBOT_ID == CONE_ROBOT_ID) {
+    grip_claw.attach(CLAW_PIN);
+    grip_claw.write(claw_angle);
+    grip_arm.attach(ARM_PIN);
+    grip_arm.write(arm_angle);
+  }
+  else
+    arm.attach(SERVO_PIN);
+
+  // UART
   Serial.begin(115200);
+
+  // LCD screen
   lcd.init();
   lcd.backlight();
   lcd.setCursor(0, 0);
@@ -62,7 +73,7 @@ void setup() {
 
 void loop() {
   Get_Message();
-  Decode_UART();
+  Decode_Message();
   LED_Control();
   Print_LCD();
   Move();
@@ -78,7 +89,34 @@ void Get_Message() {
   }
 }
 
-void Decode_UART() {
+void Decode_Message() {
+
+/*
+ * Message format: a 9-character string structured as follows:
+ * <robot>:<left wheel speed>:<right wheel speed>:<arm control>
+ *
+ * - The first character represents the robot's color, indicated by the first letter:
+ *   'R' (RED), 'G' (GREEN), 'B' (BLUE), 'Y' (YELLOW), 'P' (PURPLE), 'C' (CONE), 'S' (SHIP).
+ *
+ * - The next two characters specify the left wheel speed:
+ *   - The first character is the direction: '+' for forward, '-' for reverse.
+ *   - The second character is the base speed multiplier: '0' stops the wheel, '1' for low speed, etc.
+ *
+ * - The next two characters specify the right wheel speed, using the same format as the left:
+ *   direction ('+' or '-') and speed multiplier.
+ *
+ * - The last character controls the robot arm movement:
+ *   'U' to raise the arm and 'D' to lower it.
+ */
+
+  // Test for gripper message format
+  if(message[0] == '[') {
+    gripper_message = message;
+    message = "";
+    Decode_Gripper();
+    return;
+  }
+
   // Validate message length
   if (message.length() != 10 || message[9] != '\n') return;
 
@@ -109,8 +147,53 @@ void Decode_UART() {
   // Decode arm state
   arm_state = (message[8] == 'U') ? 1 : (message[8] == 'D') ? 0 : -1;
 
-  Serial.print(message);
   message = "";
+}
+
+void Decode_Gripper() {
+
+/*
+ * Message format: a 5-character string structured as follows:
+ * [<arm>:<claw>]
+ *
+ * Possible values for <arm> and <claw> are as follows :
+ *   - '+' to increment the angle
+ *   - '-' to decrement the angle
+ *   - '0' to keep current angle
+ */
+
+  // Exit if this robot is not the cone robot
+  if (ROBOT_ID != CONE_ROBOT_ID) return;
+
+  // Execute command
+  Gripper_Control();
+}
+
+void Gripper_Control() {
+
+  /* Arm control
+   *   - '+' to lift (increment the angle)
+   *   - '-' to drop (decrement the angle)
+   */ 
+  switch(gripper_message[1]) {
+    case '+': if(arm_angle + ANGLE_STEP <= UP_BOUND) arm_angle += ANGLE_STEP; break;
+    case '-': if(arm_angle - ANGLE_STEP >= DOWN_BOUND) arm_angle -= ANGLE_STEP; break;
+    case '0': break;
+    default:  return;
+  }
+  grip_arm.write(arm_angle); 
+
+  /* Claw control
+   *   - '+' to close (decrement the angle)
+   *   - '-' to open (increment the angle)
+   */ 
+  switch(gripper_message[3]) {
+    case '+': if(claw_angle - ANGLE_STEP >= CLOSE_BOUND) claw_angle -= ANGLE_STEP; break;
+    case '-': if(claw_angle + ANGLE_STEP <= OPEN_BOUND) claw_angle += ANGLE_STEP; break;
+    case '0': break;
+    default:  return;
+  }
+  grip_claw.write(claw_angle); 
 }
 
 void Move() {
@@ -134,7 +217,7 @@ void Move() {
 }
 
 void Arm() {
-  myServo.write(arm_state ? ARM_ANGLE_UP : ARM_ANGLE_DOWN);
+  arm.write(arm_state ? ARM_ANGLE_UP : ARM_ANGLE_DOWN);
 }
 
 void Print_LCD() {

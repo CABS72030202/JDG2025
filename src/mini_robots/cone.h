@@ -17,11 +17,11 @@
 #define DC_FR_PIN       3       // Pin for front-right DC motor drive
 #define DC_BL_PIN       6       // Pin for back-left DC motor drive
 #define DC_BR_PIN       11      // Pin for back-right DC motor drive
-#define SERVO_PIN       9       // Pin for servo motor control
+#define SERVO_PIN       0       // Disabled pin
 #define ARM_LED_PIN     12      // Pin for arm activity LED
 #define ROBOT_LED_PIN   13      // Pin for robot control status LED
 
-// Global Constants
+// Robot Specific Global Constants
 #define ROBOT_ID        5       // Unique ID to each Arduino : RED is 0, GREEN is 1, BLUE is 2, YELLOW is 3, PURPLE is 4, CONE is 5, BOAT is 6
 #define MAX_SPEED       3       // Maximum speed multiplier for the robot
 

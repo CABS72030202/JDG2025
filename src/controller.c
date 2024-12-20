@@ -24,7 +24,6 @@ int main() {
     }
 
     // Initialize Bluetooth communication as server
-    int server_sock, client_sock;
     if(SKIP_BLUETOOTH) 
         printf("WARNING. BLUETOOTH SERVER IS DISABLED.\n");
     else {
@@ -76,7 +75,7 @@ int main() {
                 serialPutchar(uart_fd, message[i]);
 
             // Send message via Bluetooth
-            if (!SKIP_BLUETOOTH && (client_sock, message) < 0) {
+            if (!SKIP_BLUETOOTH && bt_send(client_sock, message) < 0) {
                 close(client_sock);
                 return 1;
             }
@@ -206,8 +205,8 @@ void Controller_Event(struct js_event e) {
                 temp_range = Get_Anal_Range(LT_val);
                 if(LT_range != temp_range) {
                     LT_range = temp_range;
-                printf("Pressed button LT: Frontspin left wheel with factor %i\n", LT_range);
-                l_speed = LT_range;
+                    printf("Pressed button LT: Frontspin left wheel with factor %i\n", LT_range);
+                    l_speed = LT_range;
                 }
                 break;
             case RT_BUTTON:
@@ -215,8 +214,8 @@ void Controller_Event(struct js_event e) {
                 temp_range = Get_Anal_Range(RT_val);
                 if(RT_range != temp_range) {
                     RT_range = temp_range;
-                printf("Pressed button RT: Frontspin right wheel with factor %i\n", RT_range);
-                r_speed = RT_range;
+                    printf("Pressed button RT: Frontspin right wheel with factor %i\n", RT_range);
+                    r_speed = RT_range;
                 }
                 break;
             case L_STICK_X:
@@ -233,8 +232,10 @@ void Controller_Event(struct js_event e) {
                 temp_dir = Get_Direction(LSX_val, LSY_val);
                 if(LS_dir != temp_dir) {
                     LS_dir = temp_dir;
-                    if(LS_dir != NONE && 1)     // ACTIVATED
+                    if(LS_dir != NONE && robot == CONE) {    // ACTIVATED ONLY IF CONE IS SELECTED
                         printf("Left stick used. Direction is %s.\n", Direction_Str(LS_dir));
+                        Control_Gripper();
+                    }
                 }
                 break;
             case R_STICK_X:
@@ -251,8 +252,10 @@ void Controller_Event(struct js_event e) {
                 temp_dir = Get_Direction(RSX_val, RSY_val);
                 if(RS_dir != temp_dir) {
                     RS_dir = temp_dir;
-                    if(RS_dir != NONE && 1)     // ACTIVATED
+                    if(RS_dir != NONE && robot == CONE) {    // ACTIVATED ONLY IF CONE IS SELECTED
                         printf("Right stick used. Direction is %s.\n", Direction_Str(RS_dir));
+                        Control_Gripper();
+                    }
                 }
                 break;
             case CROSS_X:
@@ -260,8 +263,8 @@ void Controller_Event(struct js_event e) {
                 temp_dir = Get_Direction(CX_val, CY_val);
                 if(CR_dir != temp_dir) {
                     CR_dir = temp_dir;
-                printf("Cross used. Direction is %s.\n", Direction_Str(CR_dir));
-                Get_Speed_From_Dir(CR_dir);
+                    printf("Cross used. Direction is %s.\n", Direction_Str(CR_dir));
+                    Get_Speed_From_Dir(CR_dir);
                 }
                 break;
             case CROSS_Y:
@@ -269,8 +272,8 @@ void Controller_Event(struct js_event e) {
                 temp_dir = Get_Direction(CX_val, CY_val);
                 if(CR_dir != temp_dir) {
                     CR_dir = temp_dir;
-                printf("Cross used. Direction is %s.\n", Direction_Str(CR_dir));
-                Get_Speed_From_Dir(CR_dir);
+                    printf("Cross used. Direction is %s.\n", Direction_Str(CR_dir));
+                    Get_Speed_From_Dir(CR_dir);
                 }
                 break;
             default:
@@ -476,4 +479,41 @@ void Change_Arm_State(int uart_fd) {
     }
     for (int i = 0; i < strlen(message); i++) 
         serialPutchar(uart_fd, message[i]);
+}
+
+void Control_Gripper() {
+
+/*
+ * Message format: a 5-character string structured as follows:
+ * [<arm>:<claw>]
+ *
+ * Possible values for <arm> and <claw> are as follows :
+ *   - '+' to increment the angle
+ *   - '-' to decrement the angle
+ *   - '0' to keep current angle
+ */
+
+    // Return early if Bluetooth is disabled
+    if(SKIP_BLUETOOTH)
+        return;
+
+    // Return early if invalid robot
+    if(robot != CONE)
+        return;
+
+    // Format message
+    switch(LS_dir) {
+        case UP:   gripper_message[1] = '+'; break;
+        case DOWN: gripper_message[1] = '-'; break;
+        default:   gripper_message[1] = '0'; break;
+    }
+    switch(RS_dir) {
+        case UP:   gripper_message[3] = '+'; break;
+        case DOWN: gripper_message[3] = '-'; break;
+        default:   gripper_message[3] = '0'; break;
+    }
+    
+    // Send message via Bluetooth
+    if (!SKIP_BLUETOOTH)
+        bt_send(client_sock, gripper_message);
 }

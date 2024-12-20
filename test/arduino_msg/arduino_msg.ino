@@ -19,7 +19,7 @@ int arm_state = 0;              // 0 is DOWN, 1 is UP
 void Print_LCD();
 void Clear();
 void Get_Message();
-void Decode_UART();
+void Decode_Message();
 
 void setup() {
   lcd.init();
@@ -51,7 +51,7 @@ ISR(TIMER1_COMPA_vect) {
 
 void loop() {
   Get_Message();
-  Decode_UART();
+  Decode_Message();
   Print_LCD();
 }
 
@@ -103,7 +103,7 @@ void Get_Message() {
   }
 }
 
-void Decode_UART() {
+void Decode_Message() {
 /*
  * Message format: a 9-character string structured as follows:
  * <robot>:<left wheel speed>:<right wheel speed>:<arm control>
