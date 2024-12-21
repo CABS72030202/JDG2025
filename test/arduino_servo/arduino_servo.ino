@@ -7,64 +7,90 @@
 #include <string.h>
 #include <Servo.h>
 
-// Define pins
-#define GRIP_PIN 9
-#define HEIGHT_PIN 10
+// Pin Definitions
+#define ARM_PIN        9        // Pin for arm servo motor control
+#define CLAW_PIN       10       // Pin for claw servo motor control
 
-// Global constants
-#define ANGLE_STEP 10
-#define OPEN_BOUND 180    // Grip touches backwards
-#define CLOSE_BOUND 30    // Grip radius smaller than cone contact point radius
-#define UP_BOUND 200      // Arm just above rear wheel
-#define DOWN_BOUND 0      // Grip just above ground
+// Debug Constants
+#define LOOP_CNT       50
+#define DELAY          50       // In milliseconds
 
-// Global variables
-int grip_angle = OPEN_BOUND;      // Starting angle : completely open
-int height_angle = 20;            // Starting angle : grip parallel to ground
-Servo grip;
-Servo height;
+// Gripper Specific Global Constants
+#define CONE_ROBOT_ID  5        // ID corresponding to the robot equipped with a gripper
+
+// Servo Angles
+#define ANGLE_STEP     5        // Increment for angle adjustments
+#define OPEN_BOUND     180      // Maximum open angle for the claw
+#define CLOSE_BOUND    10       // Minimum closed angle for the claw
+#define UP_BOUND       180      // Arm angle for position above the rear wheel
+#define DOWN_BOUND     0        // Arm angle for position just above the ground
+
+// Global Variables
+String gripper_message = "[0:0]\r\n";  // Incoming command message for gripper control
+int claw_angle         = CLOSE_BOUND;   // Initial claw angle: fully closed
+int arm_angle          = 20;           // Initial arm angle: parallel to the ground
+Servo grip_claw;
+Servo grip_arm;
 
 // Prototypes
-void Open();
-void Close();
-void Up();
-void Down();
+void Gripper_Control();
 
 void setup() {
-  grip.attach(GRIP_PIN);
-  grip.write(grip_angle);
-  height.attach(HEIGHT_PIN);
-  height.write(height_angle);
+  grip_claw.attach(CLAW_PIN);
+  grip_claw.write(claw_angle);
+  grip_arm.attach(ARM_PIN);
+  grip_arm.write(arm_angle);
 }
 
 void loop() {
-  for(int i = 0; i < 20; i++) {
-    Close();
-    delay(100);
+  for(int i = 0; i < LOOP_CNT; i++) {
+    gripper_message = "[+:0]\r\n";
+    Gripper_Control();
+    delay(DELAY);
   }
-  delay(5000);
-  for(int i = 0; i < 20; i++) {
-    Open();
-    delay(100);
+
+  for(int i = 0; i < LOOP_CNT; i++) {
+    gripper_message = "[-:0]\r\n";
+    Gripper_Control();
+    delay(DELAY);
+  }
+
+  for(int i = 0; i < LOOP_CNT; i++) {
+    gripper_message = "[0:+]\r\n";
+    Gripper_Control();
+    delay(DELAY);
+  }
+
+  for(int i = 0; i < LOOP_CNT; i++) {
+    gripper_message = "[0:-]\r\n";
+    Gripper_Control();
+    delay(DELAY);
   }
 }
 
-void Open() {
-  if((grip_angle - ANGLE_STEP) > OPEN_BOUND)
-    return;
-  grip_angle += ANGLE_STEP;
-  grip.write(grip_angle);
-}
+void Gripper_Control() {
 
-void Close() {
-  if((grip_angle + ANGLE_STEP) < CLOSE_BOUND)
-    return;
-  grip_angle -= ANGLE_STEP;
-  grip.write(grip_angle);
-}
+  /* Arm control
+   *   - '+' to lift (increment the angle)
+   *   - '-' to drop (decrement the angle)
+   */ 
+  switch(gripper_message[1]) {
+    case '+': if(arm_angle + ANGLE_STEP <= UP_BOUND) arm_angle += ANGLE_STEP; break;
+    case '-': if(arm_angle - ANGLE_STEP >= DOWN_BOUND) arm_angle -= ANGLE_STEP; break;
+    case '0': break;
+    default:  return;
+  }
+  grip_arm.write(arm_angle); 
 
-void Up() {
-}
-
-void Down() {
+  /* Claw control
+   *   - '+' to close (decrement the angle)
+   *   - '-' to open (increment the angle)
+   */ 
+  switch(gripper_message[3]) {
+    case '-': if(claw_angle - ANGLE_STEP >= CLOSE_BOUND) claw_angle -= ANGLE_STEP; break;
+    case '+': if(claw_angle + ANGLE_STEP <= OPEN_BOUND) claw_angle += ANGLE_STEP; break;
+    case '0': break;
+    default:  return;
+  }
+  grip_claw.write(claw_angle); 
 }
