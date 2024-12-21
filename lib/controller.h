@@ -16,16 +16,8 @@
 #define CONTROLLER_H    
 
 // Includes
-#include <stdio.h>
 #include <fcntl.h>
 #include <linux/joystick.h>
-#include <unistd.h>
-#include <stdbool.h>
-#include <stdlib.h>
-#include <wiringPi.h>
-#include <wiringSerial.h>
-#include <errno.h>
-#include <string.h>
 #include "../lib/gpio.h"
 #include "../lib/rpi_bluetooth.h"
 
@@ -34,8 +26,6 @@
 
 // Global Constants
 #define GAMEPAD_PATH       "/dev/input/js0"      // Path to the gamepad device
-#define UART               "/dev/serial0"        // UART device path
-#define BAUD_RATE          115200                // UART baud rate
 #define BLOCKING_MODE      0                     // Set to 1 to wait for controller updates
 const int robot_order[] = {6, 0, 4, 3, 1, 5, 2}; // Order of robot selection
 
@@ -111,7 +101,7 @@ int Get_Anal_Range(int);                       // Get the range of an analog inp
 Direction Get_Direction(int, int);             // Get the direction based on x and y axis values
 char* Direction_Str(Direction);                // Convert a direction to its string representation
 void Controller_Event(struct js_event);        // Handle a controller event
-void Format_Message();                         // Format the robot control message
+int Format_Message();                          // Format the robot control message if a change in commands occurred (1)
 void Cycle_Robot(int);                         // Cycle to the next or previous robot (-1 or 1)
 void Get_Speed_From_Dir(Direction);            // Set wheel speeds based on direction
 int Check_GPIO_Command();                      // Check if a GPIO command has changed

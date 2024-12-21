@@ -2,10 +2,6 @@
 // Created on: 2024-11-14
 // Author: Sebastien Cabana
 
-/* 
- * 
- */
-
 #include "../lib/controller.h"
 
 int main() {
@@ -68,16 +64,17 @@ int main() {
             Controller_Event(e);   
 
             // Format message
-            Format_Message(robot, l_speed, r_speed, arm);
-            
-            // Send message via UART
-            for (int i = 0; i < strlen(message); i++) 
-                serialPutchar(uart_fd, message[i]);
+            if(Format_Message(robot, l_speed, r_speed, arm)) {
 
-            // Send message via Bluetooth
-            if (!SKIP_BLUETOOTH && bt_send(client_sock, message) < 0) {
-                close(client_sock);
-                return 1;
+                // Send message via UART
+                for (int i = 0; i < strlen(message); i++) 
+                    serialPutchar(uart_fd, message[i]);
+
+                // Send message via Bluetooth
+                if (!SKIP_BLUETOOTH && bt_send(client_sock, message) < 0) {
+                    close(client_sock);
+                    return 1;
+                }
             }
         }
 
@@ -281,7 +278,7 @@ void Controller_Event(struct js_event e) {
         }
 }
 
-void Format_Message(Color c, int l, int r, Direction a) {
+int Format_Message(Color c, int l, int r, Direction a) {
 
 /*
  * Message format: a 9-character string structured as follows:
@@ -301,69 +298,79 @@ void Format_Message(Color c, int l, int r, Direction a) {
  *   'U' to raise the arm and 'D' to lower it.
  */
 
+    char temp[] = "0:00:00:0\r\n";
+
     // <robot>
     switch (c) {
         case 0:
-            message[0] = 'R';
+            temp[0] = 'R';
             if(Read_Arm_BIN() == RED_UP && a == DOWN)
                 a = UP;
             break;
         case 1:
-            message[0] = 'G';
+            temp[0] = 'G';
             if(Read_Arm_BIN() == GREEN_UP && a == DOWN)
                 a = UP;
             break;
         case 2:
-            message[0] = 'B';
+            temp[0] = 'B';
             if(Read_Arm_BIN() == BLUE_UP && a == DOWN)
                 a = UP;
             break;
         case 3:
-            message[0] = 'Y';
+            temp[0] = 'Y';
             if(Read_Arm_BIN() == YELLOW_UP && a == DOWN)
                 a = UP;
             break;
         case 4:
-            message[0] = 'P';
+            temp[0] = 'P';
             if(Read_Arm_BIN() == PURPLE_UP && a == DOWN)
                 a = UP;
             break;
         case 5:
-            message[0] = 'C';
+            temp[0] = 'C';
             break;
         case 6:
-            message[0] = 'S';
+            temp[0] = 'S';
             break;
         default:
             printf("ERROR. Invalid color.\n");
-            return;
+            return 0;
     }
 
     // <left wheel speed>
     if(l < 0)
-        message[2] = '-';
+        temp[2] = '-';
     else
-        message[2] = '+';
-    message[3] = abs(l) + 48;
+        temp[2] = '+';
+    temp[3] = abs(l) + 48;
 
     // <right wheel speed>
     if(r < 0)
-        message[5] = '-';
+        temp[5] = '-';
     else
-        message[5] = '+';
-    message[6] = abs(r) + 48;
+        temp[5] = '+';
+    temp[6] = abs(r) + 48;
 
     // <arm control>
     switch (a) {
         case UP:
-            message[8] = 'U';
+            temp[8] = 'U';
             break;
         case DOWN:
-            message[8] = 'D';
+            temp[8] = 'D';
             break;
         default:
             printf("ERROR. Invalid arm direction.\n");
-            return;
+            return 0;
+    }
+
+    // Change message only if change occurred
+    if(strcmp(message, temp) == 0)
+        return 0;
+    else {
+        strcpy(message, temp);
+        return 1;
     }
 }
 
