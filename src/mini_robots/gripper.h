@@ -28,7 +28,7 @@
 #define CONE_ROBOT_ID  5        // ID corresponding to the robot equipped with a gripper
 
 // Servo Angles
-#define ANGLE_STEP     10       // Increment for angle adjustments
+#define ANGLE_STEP     5        // Increment for angle adjustments
 #define OPEN_BOUND     180      // Maximum open angle for the claw
 #define CLOSE_BOUND    10       // Minimum closed angle for the claw
 #define UP_BOUND       200      // Arm angle for position above the rear wheel
@@ -36,7 +36,7 @@
 
 // Global Variables
 String gripper_message = "[0:0]\r\n";  // Incoming command message for gripper control
-int claw_angle         = CLOSE_BOUND;   // Initial claw angle: fully open
+int claw_angle         = OPEN_BOUND;   // Initial claw angle: fully open
 int arm_angle          = 20;           // Initial arm angle: parallel to the ground
 Servo grip_claw;
 Servo grip_arm;

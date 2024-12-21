@@ -72,10 +72,24 @@ void setup() {
 }
 
 void loop() {
+
+  // Receive message over UART
   Get_Message();
+
+  // Convert message to command values
   Decode_Message();
+
+  // Test for gripper format and convert message to command values
+  if(gripper_message != "[0:0]\r\n")
+    Decode_Gripper();
+
+  // Manage LEDs from command values
   LED_Control();
+
+  // Print command values on LCD screen
   Print_LCD();
+
+  // Execute commands 
   Move();
   Arm();
 }
@@ -113,7 +127,6 @@ void Decode_Message() {
   if(message[0] == '[') {
     gripper_message = message;
     message = "";
-    Decode_Gripper();
     return;
   }
 

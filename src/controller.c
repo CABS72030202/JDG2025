@@ -229,7 +229,7 @@ void Controller_Event(struct js_event e) {
                 temp_dir = Get_Direction(LSX_val, LSY_val);
                 if(LS_dir != temp_dir) {
                     LS_dir = temp_dir;
-                    if(LS_dir != NONE && robot == CONE) {    // ACTIVATED ONLY IF CONE IS SELECTED
+                    if(robot == CONE) {    // ACTIVATED ONLY IF CONE IS SELECTED
                         printf("Left stick used. Direction is %s.\n", Direction_Str(LS_dir));
                         Control_Gripper();
                     }
@@ -249,7 +249,7 @@ void Controller_Event(struct js_event e) {
                 temp_dir = Get_Direction(RSX_val, RSY_val);
                 if(RS_dir != temp_dir) {
                     RS_dir = temp_dir;
-                    if(RS_dir != NONE && robot == CONE) {    // ACTIVATED ONLY IF CONE IS SELECTED
+                    if(robot == CONE) {    // ACTIVATED ONLY IF CONE IS SELECTED
                         printf("Right stick used. Direction is %s.\n", Direction_Str(RS_dir));
                         Control_Gripper();
                     }
