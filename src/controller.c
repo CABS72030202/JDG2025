@@ -494,9 +494,9 @@ void Control_Gripper() {
  * Message format: a 5-character string structured as follows:
  * [<arm>:<claw>]
  *
- * Possible values for <arm> and <claw> are as follows :
- *   - '+' to increment the angle
- *   - '-' to decrement the angle
+ * Possible values for <arm> and <claw> are as follows (inverted angles) :
+ *   - '+' to decrement the angle
+ *   - '-' to increment the angle
  *   - '0' to keep current angle
  */
 
@@ -510,13 +510,13 @@ void Control_Gripper() {
 
     // Format message
     switch(LS_dir) {
-        case UP:   gripper_message[1] = '+'; break;
-        case DOWN: gripper_message[1] = '-'; break;
+        case UP:   gripper_message[1] = '-'; break;
+        case DOWN: gripper_message[1] = '+'; break;
         default:   gripper_message[1] = '0'; break;
     }
     switch(RS_dir) {
-        case UP:   gripper_message[3] = '+'; break;
-        case DOWN: gripper_message[3] = '-'; break;
+        case UP:   gripper_message[3] = '-'; break;
+        case DOWN: gripper_message[3] = '+'; break;
         default:   gripper_message[3] = '0'; break;
     }
     

@@ -130,9 +130,6 @@ void Decode_Message() {
     return;
   }
 
-  // Validate message length
-  if (message.length() != 10 || message[9] != '\n') return;
-
   // Decode robot ID
   switch (message[0]) {
     case '0': robot = -1; break;
@@ -201,8 +198,8 @@ void Gripper_Control() {
    *   - '-' to open (increment the angle)
    */ 
   switch(gripper_message[3]) {
-    case '+': if(claw_angle - ANGLE_STEP >= CLOSE_BOUND) claw_angle -= ANGLE_STEP; break;
-    case '-': if(claw_angle + ANGLE_STEP <= OPEN_BOUND) claw_angle += ANGLE_STEP; break;
+    case '-': if(claw_angle - ANGLE_STEP >= CLOSE_BOUND) claw_angle -= ANGLE_STEP; break;
+    case '+': if(claw_angle + ANGLE_STEP <= OPEN_BOUND) claw_angle += ANGLE_STEP; break;
     case '0': break;
     default:  return;
   }

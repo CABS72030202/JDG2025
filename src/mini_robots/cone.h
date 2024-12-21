@@ -14,9 +14,9 @@
 
 // Pin Definitions
 #define DC_FL_PIN       5       // Pin for front-left DC motor drive
-#define DC_FR_PIN       3       // Pin for front-right DC motor drive
+#define DC_FR_PIN       11      // Pin for front-right DC motor drive
 #define DC_BL_PIN       6       // Pin for back-left DC motor drive
-#define DC_BR_PIN       11      // Pin for back-right DC motor drive
+#define DC_BR_PIN       3       // Pin for back-right DC motor drive
 #define SERVO_PIN       0       // Disabled pin
 #define ARM_LED_PIN     12      // Pin for arm activity LED
 #define ROBOT_LED_PIN   13      // Pin for robot control status LED
