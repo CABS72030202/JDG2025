@@ -53,15 +53,18 @@ void setup() {
   pinMode(ROBOT_LED_PIN, OUTPUT);
 
   // Servo motors
-  if(ROBOT_ID == CONE_ROBOT_ID) {
+  if(ROBOT_ID != CONE_ROBOT_ID) {
+    arm.attach(SERVO_PIN);
+    arm.write(ARM_ANGLE_UP);
+    Serial.print("");
+  }
+  else {
     grip_claw.attach(CLAW_PIN);
     grip_claw.write(claw_angle);
     grip_arm.attach(ARM_PIN);
     grip_arm.write(arm_angle);
   }
-  else
-    arm.attach(SERVO_PIN);
-
+    
   // UART
   Serial.begin(115200);
 

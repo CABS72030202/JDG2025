@@ -30,7 +30,7 @@ const int LEFT_SPEEDS[MAX_SPEED]  = {180, 210, 240};   // Speed levels for the l
 const int RIGHT_SPEEDS[MAX_SPEED] = {120, 150, 180};   // Speed levels for the right motor
 
 // Servo Angles
-#define ARM_ANGLE_UP    20      // Servo angle for the arm in the UP position
-#define ARM_ANGLE_DOWN  60      // Servo angle for the arm in the DOWN position
+#define ARM_ANGLE_UP    10      // Servo angle for the arm in the UP position
+#define ARM_ANGLE_DOWN  30      // Servo angle for the arm in the DOWN position
 
 #endif 

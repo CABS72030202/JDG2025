@@ -17,7 +17,7 @@
 #define DC_FR_PIN       11      // Pin for front-right DC motor drive
 #define DC_BL_PIN       6       // Pin for back-left DC motor drive
 #define DC_BR_PIN       3       // Pin for back-right DC motor drive
-#define SERVO_PIN       0       // Disabled pin
+#define SERVO_PIN       -1      // Disabled pin
 #define ARM_LED_PIN     12      // Pin for arm activity LED
 #define ROBOT_LED_PIN   13      // Pin for robot control status LED
 
@@ -30,7 +30,7 @@ const int LEFT_SPEEDS[MAX_SPEED]  = {180, 210, 240};   // Speed levels for the l
 const int RIGHT_SPEEDS[MAX_SPEED] = {120, 150, 180};   // Speed levels for the right motor
 
 // Servo Angles
-#define ARM_ANGLE_UP    20      // Servo angle for the arm in the UP position
-#define ARM_ANGLE_DOWN  60      // Servo angle for the arm in the DOWN position
+#define ARM_ANGLE_UP    10      // Servo angle for the arm in the UP position
+#define ARM_ANGLE_DOWN  30      // Servo angle for the arm in the DOWN position
 
 #endif 

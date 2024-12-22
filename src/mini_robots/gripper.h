@@ -31,7 +31,7 @@
 #define ANGLE_STEP     5        // Increment for angle adjustments
 #define OPEN_BOUND     180      // Maximum open angle for the claw
 #define CLOSE_BOUND    10       // Minimum closed angle for the claw
-#define UP_BOUND       180      // Arm angle for position above the rear wheel
+#define UP_BOUND      0      // Arm angle for position above the rear wheel
 #define DOWN_BOUND     0        // Arm angle for position just above the ground
 
 // Global Variables
