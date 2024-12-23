@@ -7,3 +7,17 @@ La manette choisie pour le contrôle de la solution robotique par le pilote est 
 
 # Configuration
 Aucune configuration requise.
+
+# Commandes
+- **RB** : Actionne la roue droite en marche arrière à vitesse constante.
+- **LB** : Actionne la roue gauche en marche arrière à vitesse constante.
+- **RT** : Actionne la roue droite en marche avant à une vitesse proportionnelle à l’enfoncement de la gâchette.
+- **LT** : Actionne la roue gauche en marche avant à une vitesse proportionnelle à l’enfoncement de la gâchette.
+- **Croix directionnelle** : Oriente le robot à une vitesse constante.
+- **Bouton Y** : Alterne entre deux valeurs prédéfinies pour la vitesse constante (vitesse d’approche ou vitesse normale).
+- **Bouton X** : Réinitialise les moteurs sans balais du bateau en cas de dysfonctionnement.
+- **Bouton Back** : Sélectionne le robot précédent pour le contrôle.
+- **Bouton Start** : Sélectionne le robot suivant pour le contrôle.
+- **Bouton Home** : Signale que le robot est prêt à être connecté à sa station.
+- **Gâchette gauche** : Commande le bras du robot cône.
+- **Gâchette droite** : Commande la pince du robot cône.
