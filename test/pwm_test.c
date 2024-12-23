@@ -53,17 +53,20 @@ int main() {
     // Perform motor startup routine
     Motor_Startup();
 
-    // Example: Test motor speed from 0% to 100%
-    for (float speed = 0.0; speed <= 1.0; speed += 0.1) {
-        SetMotorSpeed(speed);
-        printf("Motor running at %.0f%% speed.\n", speed * 100);
-        delay(2000); // Wait 2 seconds
+    // Run example 3 times 
+    for(int i = 0; i < 3; i++) {
+        // Example: Test motor speed from 0% to 100%
+        for (float speed = 0.0; speed <= 1.0; speed += 0.1) {
+            SetMotorSpeed(speed);
+            printf("Motor running at %.0f%% speed.\n", speed * 100);
+            delay(1000); 
+        }
     }
 
     // Stop the motor
     SetMotorSpeed(0.0);
     printf("Motor stopped.\n");
-
+    delay(2000);
     return 0;
 }
 
@@ -98,7 +101,7 @@ void Motor_Startup() {
     printf("Motor startup signal sent (5%% duty cycle).\n");
 
     // Wait for motor initialization
-    delay(2000); // 2 seconds
+    delay(1000);
 }
 
 void SetMotorSpeed(float speed) {
@@ -110,8 +113,16 @@ void SetMotorSpeed(float speed) {
     // Calculate the PWM value based on the speed percentage
     int pwmValue = DUTY_CYCLE_STOP + (int)((DUTY_CYCLE_MAX - DUTY_CYCLE_STOP) * speed);
 
+    // Reset motor if null speed to prevent motor getting stuck
+    if(speed == 0.0) {
+        digitalWrite(POWER_GPIO_PIN, LOW);
+        delay(500);
+        Motor_Startup();
+    }
+
     // Write the PWM value to the motor pin
-    pwmWrite(MOTOR_PWM_PIN, pwmValue);
+    else
+        pwmWrite(MOTOR_PWM_PIN, pwmValue);
 
     printf("Motor speed set to %.0f%% (PWM value: %d).\n", speed * 100, pwmValue);
 }
