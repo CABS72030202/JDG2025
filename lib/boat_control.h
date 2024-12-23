@@ -8,8 +8,7 @@
  * for the BOAT robot. These constants are specific to the BOAT robot's hardware 
  * setup, including pin assignments and motor/servo settings.
  * 
- * Source : https://www.electronicwings.com/raspberry-pi/raspberry-pi-pwm-generation-using-python-and-c
- * 
+ * Source: https://www.electronicwings.com/raspberry-pi/raspberry-pi-pwm-generation-using-python-and-c
  */
 
 #ifndef BOAT_CONTROL_H
@@ -24,10 +23,10 @@
 
 // Enums and Structs
 typedef struct {
-    char side;              // 'R' or 'L'
-    float speed;            // Current speed as percentage (0.0 to 1.0)
-    int multiplier;         // Current speed as multiplier
-    int motor_pin;          // GPIO Pin for the motor pwm
+    char side;              // 'R' for Right or 'L' for Left
+    float speed;            // Current speed as a percentage (0.0 to 1.0)
+    int multiplier;         // Current speed as a multiplier
+    int motor_pin;          // GPIO Pin for the motor PWM
     int power_pin;          // GPIO Pin to provide 5V power to the motor
 } Brushless;
 
@@ -38,27 +37,29 @@ typedef struct {
 #define RIGHT_POWER_GPIO_PIN  22      // GPIO Pin to provide 5V power to the right motor
 
 // Global Constants
-#define BOAT_ID         6       // Unique ID to each Arduino : RED is 0, GREEN is 1, BLUE is 2, YELLOW is 3, PURPLE is 4, CONE is 5, BOAT is 6
-#define MAX_SPEED       5       // Maximum speed multiplier for the robot
+#define BOAT_ID         6            // Unique ID for the BOAT robot
+#define MAX_SPEED       5            // Maximum speed multiplier for the robot
 
 // PWM Constants
-#define PWM_RANGE       1024    // Range for PWM (0-1023)
-#define PWM_CLOCK_DIV   384     // Clock divisor for 50 Hz frequency (19.2 MHz / (384 * 1024) = 50 Hz)
-#define DUTY_CYCLE_STOP 51      // 5% duty cycle (5% of 1024)
-#define DUTY_CYCLE_MAX  102     // 10% duty cycle (10% of 1024)
+#define PWM_RANGE       1024         // Range for PWM (0-1023)
+#define PWM_CLOCK_DIV   384          // Clock divisor for 50 Hz frequency (19.2 MHz / (384 * 1024) = 50 Hz)
+#define DUTY_CYCLE_STOP 51           // 5% duty cycle (5% of 1024)
+#define DUTY_CYCLE_MAX  102          // 10% duty cycle (10% of 1024)
+#define INIT_DELAY      1000         // Time delay for brushless motor initialization
+#define INCREASE_DELAY  30           // Time delay when increasing speed (in ms)
 
 // Global Variables
-Brushless left_motor;
-Brushless right_motor;
-extern char* message;
+Brushless left_motor;               // Configuration for the left motor
+Brushless right_motor;              // Configuration for the right motor
+extern char* message;               // Controller command message
 
 // Function Prototypes
-int PWM_Init();
-void Control_Boat();
-void Motor_Startup(Brushless*);
-void Set_Motor_Speed(Brushless*);
-void Reset_Motors();
-void Reset_Motor(Brushless*);
-int Get_Motor_Multiplier(Brushless*);
+int PWM_Init();                         // Initialize brushless motors control
+void Control_Boat();                    // Main control logic for the boat
+void Motor_Startup(Brushless*);         // Startup routine for a motor
+void Set_Motor_Speed(Brushless*);       // Set the speed of a motor
+void Reset_Motors();                    // Reset both motors to their initial state
+void Reset_Motor(Brushless*);           // Reset a specific motor to its initial state
+int Get_Motor_Multiplier(Brushless*);   // Get the speed multiplier for a motor from the controller command message
 
-#endif 
+#endif

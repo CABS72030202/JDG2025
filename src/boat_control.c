@@ -57,18 +57,25 @@ void Motor_Startup(Brushless* motor) {
     pwmWrite(motor->motor_pin, DUTY_CYCLE_STOP);
 
     // Wait for motor initialization
-    delay(2000);
+    delay(INIT_DELAY);
 }
 
 void Set_Motor_Speed(Brushless* motor) {
+    // Save previous speed
+    float prev_speed = motor->speed;
+
     // Convert multiplier to percentage
     motor->speed = Get_Motor_Multiplier(motor) / (float)MAX_SPEED;
-
-    // Calculate the PWM value based on the speed percentage
+    
+    // Calculate the previous and new PWM value based on the speed percentage
+    int prev_pwmValue = DUTY_CYCLE_STOP + (int)((DUTY_CYCLE_MAX - DUTY_CYCLE_STOP) * prev_speed);
     int pwmValue = DUTY_CYCLE_STOP + (int)((DUTY_CYCLE_MAX - DUTY_CYCLE_STOP) * motor->speed);
 
-    // Write the PWM value to the motor pin
-    pwmWrite(motor->motor_pin, pwmValue);
+    // Slowly increase the PWM value to the motor pin
+    for(int i = prev_pwmValue; i < pwmValue; i++) {
+        pwmWrite(motor->motor_pin, i);
+        delay(INCREASE_DELAY);
+    }
 }
 
 void Reset_Motors() {
@@ -78,7 +85,7 @@ void Reset_Motors() {
 
 void Reset_Motor(Brushless* motor) {
     digitalWrite(motor->power_pin, LOW);
-    delay(500);
+    delay(0.5 * INIT_DELAY);
     Motor_Startup(motor);
 }
 

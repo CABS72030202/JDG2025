@@ -46,13 +46,15 @@ typedef struct {
 
 // Global Constants
 #define ROBOT_ID        6       // Unique ID to each Arduino : RED is 0, GREEN is 1, BLUE is 2, YELLOW is 3, PURPLE is 4, CONE is 5, BOAT is 6
-#define MAX_SPEED       5       // Maximum speed multiplier for the robot
+#define MAX_SPEED       3       // Maximum speed multiplier for the robot
 
 // PWM Constants
 #define PWM_RANGE       1024    // Range for PWM (0-1023)
 #define PWM_CLOCK_DIV   384     // Clock divisor for 50 Hz frequency (19.2 MHz / (384 * 1024) = 50 Hz)
 #define DUTY_CYCLE_STOP 51      // 5% duty cycle (5% of 1024)
 #define DUTY_CYCLE_MAX  102     // 10% duty cycle (10% of 1024)
+#define INIT_DELAY      1000    // Time delay for brushless motor initialization
+#define INCREASE_DELAY  30      // Time delay when increasing speed (in ms)
 
 // Global Variables
 Brushless left_motor;
@@ -78,7 +80,7 @@ int main() {
             message[3] = i + '0';
             Set_Motor_Speed(&left_motor);
             printf("Motor running at %.0f%% speed.\n", left_motor.speed * 100);
-            delay(2000); 
+            delay(1000); 
         }
     }
 
@@ -128,30 +130,37 @@ void Motor_Startup(Brushless* motor) {
     pwmWrite(motor->motor_pin, DUTY_CYCLE_STOP);
 
     // Wait for motor initialization
-    delay(2000);
+    delay(INIT_DELAY);
 }
 
 void Set_Motor_Speed(Brushless* motor) {
+    // Save previous speed
+    float prev_speed = motor->speed;
+
     // Convert multiplier to percentage
     motor->speed = Get_Motor_Multiplier(motor) / (float)MAX_SPEED;
     
-    // Calculate the PWM value based on the speed percentage
+    // Calculate the previous and new PWM value based on the speed percentage
+    int prev_pwmValue = DUTY_CYCLE_STOP + (int)((DUTY_CYCLE_MAX - DUTY_CYCLE_STOP) * prev_speed);
     int pwmValue = DUTY_CYCLE_STOP + (int)((DUTY_CYCLE_MAX - DUTY_CYCLE_STOP) * motor->speed);
 
     // Reset motor if null speed to prevent motor getting stuck
     if(motor->speed == 0.0)
         Reset_Motor(motor);
 
-    // Write the PWM value to the motor pin
+    // Slowly increase the PWM value to the motor pin
     else
-        pwmWrite(motor->motor_pin, pwmValue);
+        for(int i = prev_pwmValue; i < pwmValue; i++) {
+            pwmWrite(motor->motor_pin, i);
+            delay(INCREASE_DELAY);
+        }
 
     printf("Motor speed set to %.0f%% (PWM value: %d | Multiplier value : %i).\n", motor->speed * 100, pwmValue, Get_Motor_Multiplier(motor));
 }
 
 void Reset_Motor(Brushless* motor) {
     digitalWrite(motor->power_pin, LOW);
-    delay(1000);
+    delay(0.5 * INIT_DELAY);
     Motor_Startup(motor);
 }
 
