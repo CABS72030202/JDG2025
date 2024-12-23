@@ -72,9 +72,11 @@ int main() {
                 if (!SKIP_BLUETOOTH && bt_send(client_sock, message) < 0) {
                     close(client_sock);
                     return 1;
-
-                // Send message to boat
                 }
+
+                // Control boat if selected
+                if(robot == BOAT_ID)
+                    Control_Boat();
             }
         }
 
@@ -141,7 +143,9 @@ void Controller_Event(struct js_event e) {
                 //printf("Pressed button B\n");
                 break;
             case X_BUTTON:
-                //printf("Pressed button X\n");
+                printf("Pressed button X\n");
+                if(robot == BOAT_ID)
+                    Reset_Motors();
                 break;
             case Y_BUTTON:
                 if(constant_speed != AXIS_RANGE_COUNT - 1)      // Change to fast mode

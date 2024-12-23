@@ -14,9 +14,9 @@ Le Raspberry Pi 3 Model B placé sur le bateau est le maître responsable de tou
   - GPIO 3 / Pin #15 -> GPIO 4 / Pin #16
   - GPIO 5 / Pin #18 -> GPIO 25 / Pin #37
   - GPIO 6 / Pin #22 -> GPIO 27 / Pin #36
-- **PWM pour les moteurs sans balais** :
-  - GPIO 23 / Pin #33
-  - GPIO 26 / Pin #32
+- **PWM et alimentation pour les moteurs sans balais** :
+  - GPIO 23 / Pin #33 (PWM1) + GPIO 24 / Pin #35
+  - GPIO 26 / Pin #32 (PWM0) + GPIO 22 / Pin #31
 - **Communication UART** :
   - GPIO 15 / Pin #8 : Tx pour la communication UART avec les Arduino.
 - **Ports USB** :

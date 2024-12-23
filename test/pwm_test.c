@@ -31,9 +31,22 @@
 #include <errno.h>
 #include <wiringPi.h>
 
+// Enums and Structs
+typedef struct {
+    char side;              // 'R' or 'L'
+    float speed;            // Current speed as percentage (0.0 to 1.0)
+    int multiplier;         // Current speed as multiplier
+    int motor_pin;    // GPIO Pin for the motor pwm
+    int power_pin;    // GPIO Pin to provide 5V power to the motor
+} Brushless;
+
 // Pin Definitions
-#define MOTOR_PWM_PIN   26      // GPIO Pin for the motor PWM
-#define POWER_GPIO_PIN  22      // GPIO Pin to provide 5V power to the motor
+#define LEFT_MOTOR_PWM_PIN    26      // GPIO Pin for the left motor PWM
+#define LEFT_POWER_GPIO_PIN   22      // GPIO Pin to provide 5V power to the left motor
+
+// Global Constants
+#define ROBOT_ID        6       // Unique ID to each Arduino : RED is 0, GREEN is 1, BLUE is 2, YELLOW is 3, PURPLE is 4, CONE is 5, BOAT is 6
+#define MAX_SPEED       5       // Maximum speed multiplier for the robot
 
 // PWM Constants
 #define PWM_RANGE       1024    // Range for PWM (0-1023)
@@ -41,44 +54,54 @@
 #define DUTY_CYCLE_STOP 51      // 5% duty cycle (5% of 1024)
 #define DUTY_CYCLE_MAX  102     // 10% duty cycle (10% of 1024)
 
+// Global Variables
+Brushless left_motor;
+char message[] = "0:00:00:0\r\n";
+
+
 // Function Prototypes
-void PWM_Init();
-void Motor_Startup();
-void SetMotorSpeed(float speed); // Speed as a percentage (0.0 to 1.0)
+int PWM_Init();
+void Motor_Startup(Brushless*);
+void Set_Motor_Speed(Brushless*);
+void Reset_Motor(Brushless*);
+int Get_Motor_Multiplier(Brushless*);
 
 int main() {
     // Initialize PWM
-    PWM_Init();
+    if(PWM_Init())
+        return 1;
 
     // Run example 5 times 
     for(int i = 0; i < 5; i++) {
         // Example: Test motor speed from 0% to 100%
-        for (float speed = 0.0; speed <= 1.0; speed += 0.1) {
-            SetMotorSpeed(speed);
-            printf("Motor running at %.0f%% speed.\n", speed * 100);
-            delay(1000); 
+        for (int i = 0; i < MAX_SPEED; i++) {
+            message[3] = i + '0';
+            Set_Motor_Speed(&left_motor);
+            printf("Motor running at %.0f%% speed.\n", left_motor.speed * 100);
+            delay(2000); 
         }
     }
 
     // Stop the motor
-    SetMotorSpeed(0.0);
+    message[3] = '0';
+    Set_Motor_Speed(&left_motor);
     printf("Motor stopped.\n");
     delay(2000);
     return 0;
 }
 
-void PWM_Init() {
-     // Initialize wiringPi
+int PWM_Init() {
+    // Initialize wiringPi
     if (wiringPiSetup() == -1) {
         fprintf(stderr, "Unable to start wiringPi: %s\n", strerror(errno));
-        exit(1);
+        return 1;
     }
 
     // Set PWM pin mode
-    pinMode(MOTOR_PWM_PIN, PWM_OUTPUT);
+    pinMode(LEFT_MOTOR_PWM_PIN, PWM_OUTPUT);
 
     // Set GPIO pin for motor power
-    pinMode(POWER_GPIO_PIN, OUTPUT);
+    pinMode(LEFT_POWER_GPIO_PIN, OUTPUT);
 
     // Configure PWM clock and range for 50 Hz frequency
     pwmSetMode(PWM_MODE_MS);     // Use Mark:Space mode for stable frequency
@@ -86,40 +109,57 @@ void PWM_Init() {
     pwmSetRange(PWM_RANGE);     // Set range
 
     printf("PWM initialized for 50 Hz operation.\n");
+
+    // Initialize motor structs
+    left_motor.side = 'L';
+    left_motor.speed = 0.0;
+    left_motor.multiplier = 0;
+    left_motor.motor_pin = LEFT_MOTOR_PWM_PIN;
+    left_motor.power_pin = LEFT_POWER_GPIO_PIN;
+
+    return 0;
 }
 
-void Motor_Startup() {
+void Motor_Startup(Brushless* motor) {
     // Provide power to the motor
-    digitalWrite(POWER_GPIO_PIN, HIGH);
-    printf("Motor power enabled via GPIO pin.\n");
+    digitalWrite(motor->power_pin, HIGH);
 
     // Send a 5% duty cycle signal to initialize the motor
-    pwmWrite(MOTOR_PWM_PIN, DUTY_CYCLE_STOP);
-    printf("Motor startup signal sent (5%% duty cycle).\n");
+    pwmWrite(motor->motor_pin, DUTY_CYCLE_STOP);
 
     // Wait for motor initialization
     delay(2000);
 }
 
-void SetMotorSpeed(float speed) {
-    if (speed < 0.0 || speed > 1.0) {
-        fprintf(stderr, "Invalid speed value: %.2f. Valid range is 0.0 to 1.0.\n", speed);
-        return;
-    }
-
+void Set_Motor_Speed(Brushless* motor) {
+    // Convert multiplier to percentage
+    motor->speed = Get_Motor_Multiplier(motor) / (float)MAX_SPEED;
+    
     // Calculate the PWM value based on the speed percentage
-    int pwmValue = DUTY_CYCLE_STOP + (int)((DUTY_CYCLE_MAX - DUTY_CYCLE_STOP) * speed);
+    int pwmValue = DUTY_CYCLE_STOP + (int)((DUTY_CYCLE_MAX - DUTY_CYCLE_STOP) * motor->speed);
 
     // Reset motor if null speed to prevent motor getting stuck
-    if(speed == 0.0) {
-        digitalWrite(POWER_GPIO_PIN, LOW);
-        delay(500);
-        Motor_Startup();
-    }
+    if(motor->speed == 0.0)
+        Reset_Motor(motor);
 
     // Write the PWM value to the motor pin
     else
-        pwmWrite(MOTOR_PWM_PIN, pwmValue);
+        pwmWrite(motor->motor_pin, pwmValue);
 
-    printf("Motor speed set to %.0f%% (PWM value: %d).\n", speed * 100, pwmValue);
+    printf("Motor speed set to %.0f%% (PWM value: %d | Multiplier value : %i).\n", motor->speed * 100, pwmValue, Get_Motor_Multiplier(motor));
+}
+
+void Reset_Motor(Brushless* motor) {
+    digitalWrite(motor->power_pin, LOW);
+    delay(1000);
+    Motor_Startup(motor);
+}
+
+int Get_Motor_Multiplier(Brushless* motor) {
+    switch(motor->side) {
+        case 'R':   motor->multiplier = message[6] - '0'; break;
+        case 'L':   motor->multiplier = message[3] - '0'; break;
+        default:    printf("Error. Wrong side in Get_Motor_Multiplier.\n"); return -1;
+    }
+    return motor->multiplier;
 }
