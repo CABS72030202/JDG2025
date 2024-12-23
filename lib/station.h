@@ -57,6 +57,7 @@ extern Station null_station;    // Null station (placeholder)
 extern Station* curr_station;   // Pointer to the current station
 extern int blackbox_pass[5];    // Passenger count for each destination onboard
 extern int active_count;        // Number of active stations
+extern int GPIO_command;		// Current GPIO command for station priority
 
 // Function Prototypes (Station)
 void Initialize();			        // Initialize station attributes and states

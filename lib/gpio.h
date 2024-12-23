@@ -28,17 +28,22 @@
 #define ARM_IN_PIN_3    27   // GPIO 27 - PIN 36
 
 // State IDs
-#define DOWN_ALL        15
-#define RED_UP          0
-#define RED_DOWN        1
-#define GREEN_UP        2
-#define GREEN_DOWN      3
-#define BLUE_UP         4
-#define BLUE_DOWN       5
-#define YELLOW_UP       6
-#define YELLOW_DOWN     7
-#define PURPLE_UP       8
-#define PURPLE_DOWN     9
+#define DOWN_ALL        0
+#define RED_UP          1
+#define RED_DOWN        2
+#define GREEN_UP        3
+#define GREEN_DOWN      4
+#define BLUE_UP         5
+#define BLUE_DOWN       6
+#define YELLOW_UP       7
+#define YELLOW_DOWN     8
+#define PURPLE_UP       9
+#define PURPLE_DOWN     10
+#define RED_READY       11
+#define GREEN_READY     12
+#define BLUE_READY      13
+#define YELLOW_READY    14
+#define PURPLE_READY    15
 
 // Function Prototypes
 void Initialize_GPIO();

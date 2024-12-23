@@ -167,7 +167,15 @@ void Controller_Event(struct js_event e) {
                 printf("Pressed button START: Switched to robot %i\n", robot);
                 break;
             case HOME_BUTTON:
-                printf("Pressed button HOME\n");
+                printf("Pressed button HOME: Station robot %i is ready\n", robot);
+                switch (robot) {
+                    case RED:       Write_Arm_DEC(RED_READY); break;
+                    case GREEN:     Write_Arm_DEC(GREEN_READY); break;
+                    case BLUE:      Write_Arm_DEC(BLUE_READY); break;
+                    case YELLOW:    Write_Arm_DEC(YELLOW_READY); break;
+                    case PURPLE:    Write_Arm_DEC(PURPLE_READY); break;
+                    default:        break;
+                }
                 break;
             case L_STICK_PRESS:
                 //printf("Pressed LEFT STICK\n");
@@ -422,6 +430,14 @@ void Get_Speed_From_Dir(Direction dir) {
 
 int Check_GPIO_Command() {
     int temp = Read_Arm_BIN();
+    switch(temp) {
+        case RED_READY:     return 0;
+        case GREEN_READY:   return 0;
+        case BLUE_READY:    return 0;
+        case YELLOW_READY:  return 0;
+        case PURPLE_READY:  return 0;
+        default: break;
+    }
     if(temp == GPIO_command)
         return 0;     // No change
     else {

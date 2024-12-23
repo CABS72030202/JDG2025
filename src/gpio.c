@@ -13,6 +13,7 @@ void Initialize_GPIO() {
     pinMode(ARM_IN_PIN_1, INPUT);
     pinMode(ARM_IN_PIN_2, INPUT);
     pinMode(ARM_IN_PIN_3, INPUT);
+    Write_Arm_DEC(DOWN_ALL);
 }
 
 void Write_Arm_BIN(int bit3, int bit2, int bit1, int bit0) {

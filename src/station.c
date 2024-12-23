@@ -55,8 +55,17 @@ void Initialize() {
 
 void Wait_For_Two() {
     while(active_count < 2) {
-        //if(Try_Connect() == OK) {
-        if(1) {
+        int temp = 0;
+        if(GPIO_command != 0)
+        switch(GPIO_command) {
+            case RED_READY:     temp = Try_Connect(&r_station); break;
+            case GREEN_READY:   temp = Try_Connect(&g_station); break;
+            case BLUE_READY:    temp = Try_Connect(&b_station); break;
+            case YELLOW_READY:  temp = Try_Connect(&y_station); break;
+            case PURPLE_READY:  temp = Try_Connect(&p_station); break;
+            default:            temp = ERROR; break;
+        }
+        if(temp == OK) {
             active_count = 0;
             // Count active stations
             if(r_station.state == ACTIVE)
@@ -118,6 +127,7 @@ int Try_Connect(Station* s) {
     Delay(2);
   }
   printf("Could not connect to the station.\n");
+  s->state = INACTIVE;
   return ERROR;
 }
 
@@ -217,7 +227,9 @@ void Auto_Load_Drop() {
             if(cpt1 == MAX_ITERATIONS)
                 return;
 
-            // 1. Connect to load station and skip if inactive
+            // 1. Connect to load station and skip if inactive or if a new station is ready
+            if(GPIO_command != 0)
+                break;
             if(Connect_Station(array[load_station_id]->color) == ERROR)
                 break;
 
@@ -254,6 +266,21 @@ void Auto_Load_Drop() {
         if(load_station_id >= 5)
             load_station_id = 0;
 
+        // If a new station is ready, prioritize this one
+        if(GPIO_command != 0) {
+            switch(GPIO_command) {
+                case RED_READY:     load_station_id = 0; break;
+                case GREEN_READY:   load_station_id = 1; break;
+                case BLUE_READY:    load_station_id = 2; break;
+                case YELLOW_READY:  load_station_id = 3; break;
+                case PURPLE_READY:  load_station_id = 4; break;
+                default: break;
+            }
+            array[load_station_id]->state = ACTIVE;
+            printf("! Prioritizing station %s !\n", Color_To_String(array[load_station_id]->color));
+            GPIO_command = 0;
+        }
+
         // Reset drop station (always start at the following station)
         drop_station_id = load_station_id + 1;
         if(drop_station_id >= 5)
@@ -262,6 +289,17 @@ void Auto_Load_Drop() {
 }
 
 void Arm_Control(Color station_color, State toggle) {
+
+    // Detect newly available stations
+    int temp = Read_Arm_BIN();
+    switch(temp) {
+        case RED_READY:     
+        case GREEN_READY:   
+        case BLUE_READY:    
+        case YELLOW_READY:  
+        case PURPLE_READY:  GPIO_command = temp; break;
+        default: break;
+    }
     
     // Deactivate any active arm
     if(r_station.arm_state == ACTIVE) {

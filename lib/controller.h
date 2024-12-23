@@ -92,7 +92,7 @@ Color robot = NONE;                             // Current selected robot
 int l_speed = 0;                                // Current left wheel speed
 int r_speed = 0;                                // Current right wheel speed
 Direction arm = DOWN;                           // Arm control direction
-int GPIO_command = 0;                           // Current GPIO command
+int GPIO_command = 0;                           // Current GPIO command for arm control
 int server_sock;                                // Bluetooth server socket
 int client_sock;                                // Bluetooth client socket
 
