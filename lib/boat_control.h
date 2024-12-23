@@ -34,6 +34,6 @@ const int LEFT_SPEEDS[MAX_SPEED]  = {180, 210, 240};   // Speed levels for the l
 const int RIGHT_SPEEDS[MAX_SPEED] = {120, 150, 180};   // Speed levels for the right motor
 
 // Function Prototypes
-void PWM_Init();
+int PWM_Init();
 
 #endif 

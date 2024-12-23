@@ -4,7 +4,7 @@
 
 #include "../lib/boat_control.h"
 
-void PWM_Init() {
+int PWM_Init() {
 
     // Initialize wiringPi
     if (wiringPiSetup() == -1) {

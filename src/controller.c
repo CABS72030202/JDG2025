@@ -14,7 +14,8 @@ int main() {
     }
 
     // Initialize boat control
-    PWM_Init();
+    if(PWM_Init())
+        return 1;
 
     // Initialize Bluetooth communication as server
     if(SKIP_BLUETOOTH) 
