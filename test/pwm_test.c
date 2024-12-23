@@ -50,11 +50,8 @@ int main() {
     // Initialize PWM
     PWM_Init();
 
-    // Perform motor startup routine
-    Motor_Startup();
-
-    // Run example 3 times 
-    for(int i = 0; i < 3; i++) {
+    // Run example 5 times 
+    for(int i = 0; i < 5; i++) {
         // Example: Test motor speed from 0% to 100%
         for (float speed = 0.0; speed <= 1.0; speed += 0.1) {
             SetMotorSpeed(speed);
@@ -101,7 +98,7 @@ void Motor_Startup() {
     printf("Motor startup signal sent (5%% duty cycle).\n");
 
     // Wait for motor initialization
-    delay(1000);
+    delay(2000);
 }
 
 void SetMotorSpeed(float speed) {
