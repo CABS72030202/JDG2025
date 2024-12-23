@@ -20,6 +20,7 @@
 #include <linux/joystick.h>
 #include "../lib/gpio.h"
 #include "../lib/rpi_bluetooth.h"
+#include "../lib/boat_control.h"
 
 // Debug Constants
 #define SKIP_BLUETOOTH     0                     // Set to 1 to disable Bluetooth initialization

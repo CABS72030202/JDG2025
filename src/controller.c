@@ -13,11 +13,8 @@ int main() {
         return 1;
     }
 
-    // Initialize wiringPi
-    if (wiringPiSetup() == -1) {
-        fprintf(stdout, "Unable to start wiringPi: %s\n", strerror(errno));
-        return 1;
-    }
+    // Initialize boat control
+    PWM_Init();
 
     // Initialize Bluetooth communication as server
     if(SKIP_BLUETOOTH) 
@@ -74,6 +71,8 @@ int main() {
                 if (!SKIP_BLUETOOTH && bt_send(client_sock, message) < 0) {
                     close(client_sock);
                     return 1;
+
+                // Send message to boat
                 }
             }
         }

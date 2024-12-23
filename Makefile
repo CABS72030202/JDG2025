@@ -9,8 +9,8 @@ blackbox: blackbox.o station.o communication.o gpio.o
 	$(CC) $(CFLAGS) -o blackbox blackbox.o station.o communication.o gpio.o $(LIB)
 
 # Controller executable construction
-controller: controller.o gpio.o rpi_bluetooth.o
-	$(CC) $(CFLAGS) -o controller controller.o gpio.o rpi_bluetooth.o $(LIB)
+controller: controller.o gpio.o rpi_bluetooth.o boat_control.o
+	$(CC) $(CFLAGS) -o controller controller.o gpio.o rpi_bluetooth.o boat_control.o $(LIB)
 
 # Bluetooth receiver executable construction
 mini_rpi: mini_rpi.o rpi_bluetooth.o
@@ -44,5 +44,9 @@ communication.o: ./lib/communication.h ./src/communication.c ./lib/station.h ./s
 gpio.o: ./lib/gpio.h ./src/gpio.c 
 	$(CC) $(CFLAGS) -c ./src/gpio.c -o gpio.o $(CXXFLAGS)	
 
+# Object generation from source and header for BOAT_CONTROL
+boat_control.o: ./lib/boat_control.h ./src/boat_control.c 
+	$(CC) $(CFLAGS) -c ./src/boat_control.c -o boat_control.o $(CXXFLAGS)	
+
 clean:
-	rm -f *.o blackbox controller test_unit
+	rm -f *.o blackbox controller mini_rpi
