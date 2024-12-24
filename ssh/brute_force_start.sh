@@ -3,6 +3,15 @@
 # Connect to remote RPI 3b
 echo -e "To connect to the Raspberry Pi, please turn on the mobile hotspot named 'Pixel Seb' and ensure that the user is also connected to this network.\n"
 
+# Send test_msg.txt to the remote Raspberry Pi and rename it to input.txt
+local_file_path="../doc/secret_command/test_msg.txt"
+remote_file_path="/home/admin/input.txt"
+scp "$local_file_path" admin@192.168.193.231:"$remote_file_path"
+if [[ $? -ne 0 ]]; then
+  echo "Failed to transfer test_msg.txt to the remote Raspberry Pi. Exiting."
+  exit 1
+fi
+
 # Attempt to connect to the remote Raspberry Pi
 retry_limit=3
 retry_count=0
