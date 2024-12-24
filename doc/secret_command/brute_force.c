@@ -16,10 +16,10 @@
  * 
  * Usage:
  * 1. Build the executable file using the following parameter
- *    gcc -o serial_loop serial_loop.c -lwiringPi
+ *    gcc -o brute_force brute_force.c -lwiringPi
  *
  * 2. To run the program normally (logging the date and time):
- *    ./serial_loop
+ *    ./brute_force
  *
  * 3. The program will display progress or indicate when the secret word is found.
  *
