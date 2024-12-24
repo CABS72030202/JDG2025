@@ -49,8 +49,8 @@ typedef struct {
 #define INCREASE_DELAY  30           // Time delay when increasing speed (in ms)
 
 // Global Variables
-Brushless left_motor;               // Configuration for the left motor
-Brushless right_motor;              // Configuration for the right motor
+extern Brushless left_motor;        // Configuration for the left motor
+extern Brushless right_motor;       // Configuration for the right motor
 extern char* message;               // Controller command message
 
 // Function Prototypes

@@ -87,8 +87,8 @@ Direction CR_dir = NONE;                        // Current direction of cross in
 
 // Global Variables
 int constant_speed = 1;                         // Speed multiplier for constant controls
-char message[] = "0:00:00:0\r\n";               // Formatted message for robot control
-char gripper_message[] = "[0:0]\r\n";           // Formatted message for gripper arm control
+char* message = "0:00:00:0\r\n";                // Formatted message for robot control
+char* gripper_message = "[0:0]\r\n";            // Formatted message for gripper arm control
 Color robot = NONE;                             // Current selected robot
 int l_speed = 0;                                // Current left wheel speed
 int r_speed = 0;                                // Current right wheel speed

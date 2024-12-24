@@ -4,6 +4,9 @@
 
 #include "../lib/boat_control.h"
 
+Brushless left_motor;
+Brushless right_motor;
+
 int PWM_Init() {
 
     // Initialize wiringPi

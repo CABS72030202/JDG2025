@@ -13,6 +13,7 @@ Station null_station;
 Station* curr_station;
 int blackbox_pass[5];
 int active_count = 0;
+int GPIO_command = 0;
 
 void Initialize() {
     r_station.color = RED;
