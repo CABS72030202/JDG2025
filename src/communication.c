@@ -9,143 +9,93 @@ char* sent[BUFFER_SIZE];
 char* received[BUFFER_SIZE];
 
 int Start_Comm() {
-  // Open the serial port
-  if ((fd = serialOpen(SERIAL_PORT, BAUD_RATE)) < 0) {
-    fprintf(stderr, "Unable to open serial device: %s\n", strerror(errno));
-    return ERROR;
-  }
+    // Open the serial port
+    fd = serOpen(SERIAL_PORT, BAUD_RATE, 0);
+    if (fd < 0) {
+        fprintf(stderr, "Unable to open serial device: %s\n", strerror(errno));
+        return -1;
+    }
 
-  // Initialize wiringPi
-  if (wiringPiSetup() == -1) {
-    fprintf(stdout, "Unable to start wiringPi: %s\n", strerror(errno));
-    return ERROR;
-  }
-  printf("Started serial communication successfully.\n");
-  return OK;
+    // Initialize pigpio
+    if (gpioInitialise() < 0) {
+        fprintf(stderr, "Unable to initialize pigpio: %s\n", strerror(errno));
+        return -1;
+    }
+    printf("Started serial communication successfully.\n");
+    return 0;
 }
 
 int Send(char* str) {
-  printf("Sending: %s", str);
-  for (int i = 0; i < strlen(str); i++) 
-    serialPutchar(fd, str[i]);
-  return OK;
+    printf("Sending: %s", str);
+    int result = serWrite(fd, str, strlen(str));
+    if (result < 0) {
+        fprintf(stderr, "Error sending data: %s\n", strerror(errno));
+        return -1;
+    }
+    return 0;
 }
 
 int Receive(char* str) {
-  char dat;
-  int index = 0;
-  Empty_String(str);
-  time_t start_time, current_time;
-  time(&start_time);
-  while (1) {
-    // Check if data is available to read
-    if (serialDataAvail(fd)) {
-        
-      // Read a character
-      dat = serialGetchar(fd); 
+    char dat;
+    int index = 0;
+    Empty_String(str);
+    time_t start_time, current_time;
+    time(&start_time);
 
-      // Append received character
-      str[index++] = dat; 
+    while (1) {
+        // Check if data is available to read
+        if (serDataAvailable(fd) > 0) {
+            // Read a character
+            dat = serReadByte(fd);
 
-      // Exit loop on newline character
-      if (dat == '\n') {
-        Filter_Reception();
-        printf("Received: %s", str);
-        return OK;
-      }
+            // Append received character
+            str[index++] = dat;
 
-      fflush(stdout);
+            // Exit loop on newline character
+            if (dat == '\n') {
+                str[index] = '\0';  // Null-terminate the string
+                Filter_Reception();
+                printf("Received: %s", str);
+                return 0;
+            }
+        }
+
+        // Exit loop if timeout
+        time(&current_time);
+        if (difftime(current_time, start_time) >= TIMEOUT) {
+            break;
+        }
     }
 
-    // Exit loop if timeout
-    time(&current_time);
-    if(difftime(current_time, start_time) >= TIMEOUT)
-      break;
-  }
-  Empty_String(str);
-  strcpy(str, "Timed out.\n");
-  return ERROR;
+    Empty_String(str);
+    strcpy(str, "Timed out.\n");
+    return -1;
 }
 
 void Filter_Reception() {
-  // Check if disconnected from station
-  if(strcmp(received, "ERR:disconnected\n") == 97 || strcmp(received, "STAT:disconnected\n") == 97 || strcmp(received, "STAT:connected\n") == 97) {
-    Delay(1);
-    Receive(received);  // Receive next word without sending anything
-  }
+    // Check if disconnected from station
+    if (strcmp(received, "ERR:disconnected\n") == 0 ||
+        strcmp(received, "STAT:disconnected\n") == 0 ||
+        strcmp(received, "STAT:connected\n") == 0) {
+        Delay(1);
+        Receive(received);  // Receive next word without sending anything
+    }
 }
 
-void Empty_String(char* str) { 
-  for(int i = 0; i < BUFFER_SIZE; i++)
-    str[i] = 0;
+void Empty_String(char* str) {
+    for (int i = 0; i < BUFFER_SIZE; i++) {
+        str[i] = 0;
+    }
 }
 
 void Delay(int seconds) {
-  time_t start_time, current_time;
-  time(&start_time);
-  while (1) {
-    // Exit loop if timeout
-    time(&current_time);
-    if(difftime(current_time, start_time) >= seconds)
-      break;
-  }
+    time_t start_time, current_time;
+    time(&start_time);
+    while (1) {
+        // Exit loop if timeout
+        time(&current_time);
+        if (difftime(current_time, start_time) >= seconds) {
+            break;
+        }
+    }
 }
-
-/*void Test_Word(int fd, char* buffer, char* received) {
-  int timeout_count = 0;
-  A:
-  //printf("%s", buffer);  // Print the current combination
-  Send(fd, buffer);
-  Receive(fd, received);
-            
-  // Check if disconnected from station
-  if(strcmp(received, "ERR:disconnected\n") == 97 || strcmp(received, "STAT:disconnected\n") == 97) {
-    printf("Disconnected at word: %s", buffer);
-    Append_File(buffer, "#Disconnected at word: ");
-              
-    // Wait until reconnected
-    while(!Try_Connect(fd, received));
-  }
-
-  // Print combination if response is different than unknown_command (might be valid)
-  if(strcmp(received, "ERR:unknown_command\n") != 97) {
-              
-    // Print combination if no response from blackbox (might be valid, like INFO:)
-    if(strcmp(received, "Timed out.\n") == 0) {
-      printf("Timed out after sending: %s", buffer);
-      Append_File(buffer, "!Timed out after sending: ");
-      timeout_count++;
-
-      // Second timeout in a row, must be an error
-      if(timeout_count == 2) {    
-        timeout_count = 0;
-
-      // Restart serial communication
-      serialClose(fd);
-      if ((fd = serialOpen(SERIAL_PORT, BAUD_RATE)) < 0) {
-        fprintf(stderr, "Unable to open serial device: %s\n", strerror(errno));
-        Append_File(buffer, "!Could not restart serial communication after timeout at word: ");
-        exit(1);
-      }
-
-      // Wait until station reset
-      printf("Serial communication has been restarted. Now waiting until station resets.\n");
-      while(!Try_Connect(fd, received));
-      Append_File(buffer, "#Done waiting for reconnection at word: ");
-      goto A; // Then try word again
-      }
-    }
-
-    // Check if reconnected to station
-    else if(strcmp(received, "STAT:connected\n") == 97) {
-      printf("Reconnected at word: %s", buffer);
-      Append_File(buffer, "#Reconnected at word: ");
-    }
-
-    // Print combination and received message if unexepected response
-    else {
-      printf("\nSent: %sReceived: %s\n", buffer, received);
-      Append_File(buffer, received);
-    }             
-  }
-}*/

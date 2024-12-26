@@ -1,5 +1,5 @@
 config BR2_PACKAGE_JDG_MINI_RPI
     bool "mini_rpi"
-    select BR2_PACKAGE_JDG_WIRINGPI
+    depends on BR2_PACKAGE_PIGPIO
     help
       Build the mini_rpi package.

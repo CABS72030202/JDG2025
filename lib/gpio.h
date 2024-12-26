@@ -14,7 +14,7 @@
 #define GPIO_H
 
 // Includes
-#include <wiringPi.h>
+#include <pigpio.h>
 #include <stdio.h>
 
 // GPIO Pins

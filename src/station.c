@@ -36,12 +36,6 @@ void Initialize() {
     null_station.arm_state = INACTIVE;
     curr_station = &null_station;  
 
-    // Initialize WiringPi
-    if (wiringPiSetup() == -1) {
-        printf("WiringPi setup failed\n");
-        return -1;
-    }
-
     Initialize_GPIO();
 
     if(DEBUG_MODE) {

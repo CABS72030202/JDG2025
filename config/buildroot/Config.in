@@ -1,4 +1,3 @@
 source "package/jdg2025/package/jdg_blackbox/Config.in"
 source "package/jdg2025/package/jdg_controller/Config.in"
 source "package/jdg2025/package/jdg_mini_rpi/Config.in"
-source "package/jdg2025/package/jdg_wiringPi/Config.in"

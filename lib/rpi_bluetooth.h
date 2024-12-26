@@ -22,8 +22,7 @@
 #include <unistd.h>
 #include <stdbool.h>
 #include <stdlib.h>
-#include <wiringPi.h>
-#include <wiringSerial.h>
+#include <pigpio.h>
 #include <errno.h>
 #include <string.h>
 
@@ -38,5 +37,8 @@
 int bt_init(int, const char*);          // Initialize Bluetooth as server (1) or client (0)
 int bt_send(int, const char*);          // Send a message via Bluetooth
 int bt_receive(int, char*, int);        // Receive a message via Bluetooth
+int uart_init(const char*, int);        // Initialize UART communication
+int uart_send(int, const char*);        // Send data over UART
+int uart_receive(int, char*, int);      // Receive data over UART
 
 #endif

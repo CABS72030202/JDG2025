@@ -1,4 +1,4 @@
-// communication.c
+// boat_control.c
 // Created on: 2024-12-22
 // Author: Sebastien Cabana
 
@@ -8,25 +8,21 @@ Brushless left_motor;
 Brushless right_motor;
 
 int PWM_Init() {
-
-    // Initialize wiringPi
-    if (wiringPiSetup() == -1) {
-        fprintf(stdout, "Unable to start wiringPi: %s\n", strerror(errno));
+    // Initialize pigpio
+    if (gpioInitialise() < 0) {
+        fprintf(stderr, "Unable to initialize pigpio: %s\n", strerror(errno));
         return 1;
     }
 
-    // Set PWM pin mode
-    pinMode(LEFT_MOTOR_PWM_PIN, PWM_OUTPUT);
-    pinMode(RIGHT_MOTOR_PWM_PIN, PWM_OUTPUT);
+    // Set GPIO pin modes
+    gpioSetMode(LEFT_MOTOR_PWM_PIN, PI_OUTPUT);
+    gpioSetMode(RIGHT_MOTOR_PWM_PIN, PI_OUTPUT);
+    gpioSetMode(LEFT_POWER_GPIO_PIN, PI_OUTPUT);
+    gpioSetMode(RIGHT_POWER_GPIO_PIN, PI_OUTPUT);
 
-    // Set GPIO pin for motor power
-    pinMode(LEFT_POWER_GPIO_PIN, OUTPUT);
-    pinMode(RIGHT_POWER_GPIO_PIN, OUTPUT);
-
-    // Configure PWM clock and range for 50 Hz frequency
-    pwmSetMode(PWM_MODE_MS);     // Use Mark:Space mode for stable frequency
-    pwmSetClock(PWM_CLOCK_DIV); // Set clock divisor
-    pwmSetRange(PWM_RANGE);     // Set range
+    // Configure PWM range
+    gpioSetPWMrange(LEFT_MOTOR_PWM_PIN, PWM_RANGE);
+    gpioSetPWMrange(RIGHT_MOTOR_PWM_PIN, PWM_RANGE);
 
     // Initialize motor structs
     left_motor.side = 'L';
@@ -34,6 +30,7 @@ int PWM_Init() {
     left_motor.multiplier = 0;
     left_motor.motor_pin = LEFT_MOTOR_PWM_PIN;
     left_motor.power_pin = LEFT_POWER_GPIO_PIN;
+
     right_motor.side = 'R';
     right_motor.speed = 0.0;
     right_motor.multiplier = 0;
@@ -54,13 +51,13 @@ void Control_Boat() {
 
 void Motor_Startup(Brushless* motor) {
     // Provide power to the motor
-    digitalWrite(motor->power_pin, HIGH);
+    gpioWrite(motor->power_pin, 1);
 
     // Send a 5% duty cycle signal to initialize the motor
-    pwmWrite(motor->motor_pin, DUTY_CYCLE_STOP);
+    gpioPWM(motor->motor_pin, DUTY_CYCLE_STOP);
 
     // Wait for motor initialization
-    delay(INIT_DELAY);
+    gpioDelay(INIT_DELAY * 1000); // Delay in microseconds
 }
 
 void Set_Motor_Speed(Brushless* motor) {
@@ -69,15 +66,15 @@ void Set_Motor_Speed(Brushless* motor) {
 
     // Convert multiplier to percentage
     motor->speed = Get_Motor_Multiplier(motor) / (float)MAX_SPEED;
-    
+
     // Calculate the previous and new PWM value based on the speed percentage
     int prev_pwmValue = DUTY_CYCLE_STOP + (int)((DUTY_CYCLE_MAX - DUTY_CYCLE_STOP) * prev_speed);
     int pwmValue = DUTY_CYCLE_STOP + (int)((DUTY_CYCLE_MAX - DUTY_CYCLE_STOP) * motor->speed);
 
     // Slowly increase the PWM value to the motor pin
-    for(int i = prev_pwmValue; i < pwmValue; i++) {
-        pwmWrite(motor->motor_pin, i);
-        delay(INCREASE_DELAY);
+    for (int i = prev_pwmValue; i < pwmValue; i++) {
+        gpioPWM(motor->motor_pin, i);
+        gpioDelay(INCREASE_DELAY * 1000); // Delay in microseconds
     }
 }
 
@@ -87,16 +84,16 @@ void Reset_Motors() {
 }
 
 void Reset_Motor(Brushless* motor) {
-    digitalWrite(motor->power_pin, LOW);
-    delay(0.5 * INIT_DELAY);
+    gpioWrite(motor->power_pin, 0);
+    gpioDelay((INIT_DELAY / 2) * 1000); // Delay in microseconds
     Motor_Startup(motor);
 }
 
 int Get_Motor_Multiplier(Brushless* motor) {
-    switch(motor->side) {
+    switch (motor->side) {
         case 'R':   motor->multiplier = message[6] - '0'; break;
         case 'L':   motor->multiplier = message[3] - '0'; break;
-        default:    printf("Error. Wrong side in Get_Motor_Multiplier.\n"); return;
+        default:    printf("Error. Wrong side in Get_Motor_Multiplier.\n"); return -1;
     }
     return motor->multiplier;
 }

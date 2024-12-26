@@ -117,18 +117,44 @@ make menuconfig
 
 ```bash
 System configuration ---> 
-  [ ] Enable root login with password
-
-System configuration ---> 
   (board/raspberrypi3-64/rootfs_overlay) Root filesystem overlay directories
 
 Target packages ---> 
   Networking applications ---> 
       [*] bluez_utils
       [*] dropbear
+  Hardware handling --->
+      [*] pigpio
 ```
 
-- **3.2 Implémentation des applications**
+- **3.2 Modification des fichiers de configuration**
+
+<div style="text-align: justify"> Pour apporter des modifications aux fichiers de configuration du Raspberry Pi tout en préservant les valeurs par défaut, il est recommandé de créer des fichiers de configuration personnalisés sans altérer les fichiers originaux. Afin de simplifier les étapes suivantes, ces fichiers personnalisés sont placés directement dans le répertoire de Buildroot. </div>
+
+```bash
+sudo touch ~/buildroot/board/raspberrypi3-64/config-jdg2025.txt
+```
+
+<div style="text-align: justify"> Afin d'intégrer les nouveaux fichiers de configuration créés, en remplacement des valeurs par défaut, il est nécessaire de modifier les chemins d'accès dans les options suivantes. Cette étape permet d'assurer que le système utilise les fichiers personnalisés, garantissant ainsi que les configurations spécifiques sont 
+correctement appliquées. </div>
+
+```bash
+Target packages ---> 
+  Hardware handling ---> 
+    Firmware ---> 
+      Path to a file stored as boot/config.txt --->
+        board/raspberrypi3-64/config-jdg2025.txt
+```
+
+- **3.3 Construction préliminaire**
+
+<div style="text-align: justify"> Une première construction préliminaire permet de configurer les dépendances des applications afin de faciliter leur implémentation utlérieure au système. Prendre note que cette étape prend un temps considérable. </div>
+
+```bash
+make
+```
+
+- **3.4 Implémentation des applications**
 
 <div style="text-align: justify"> Une fois la configuration du système finalisée, l’intégration du code source des applications nécessaires devient une étape cruciale. Pour ce faire, les fichiers de configuration des paquets personnalisés, localisés dans le répertoire du projet, sont reliés au répertoire de Buildroot. Ces fichiers définissent avec précision les dépendances spécifiques requises par chaque application, garantissant ainsi une compilation croisée conforme aux exigences du système. Par ailleurs, le code source des paquets personnalisés est conservé dans le répertoire du projet, ce qui simplifie la gestion des dépendances ainsi que la maintenance des fichiers Makefile associés. Cette organisation méthodique facilite la traçabilité et optimise le processus de développement. </div> 
 
@@ -139,8 +165,7 @@ cd ~/buildroot
 
 ln -s "/mnt/c/Users/sebas/OneDrive - Université du Québec à Trois-Rivières/Implication/JDG/Machine 2025/JDG2025/config/buildroot" ~/buildroot/package/jdg2025
 
-sed -i '/Target packages/a \
-\nmenu "JDG2025 custom packages"\n\tsource "package/jdg2025/Config.in"\nendmenu\n' ~/buildroot/package/Config.in
+sed -i ':a;N;$!ba;s|\(.*\)endmenu|\1\nmenu "JDG2025 custom packages"\n\tsource "package/jdg2025/Config.in"\nendmenu\n\nendmenu|' ~/buildroot/package/Config.in
 
 make menuconfig
 
@@ -149,10 +174,9 @@ Target packages --->
     [*] blackbox
     [*] controller
     [ ] mini_rpi
-    -*- WiringPi
 ```
 
-- **3.3 Configuration du lancement des applications au démarrage du système**
+- **3.5 Configuration du lancement des applications au démarrage du système**
 
 <div style="text-align: justify"> Buildroot prend en charge plusieurs systèmes d'initialisation. Le plus courant pour les systèmes embarqués est BusyBox init, car il est léger et simple à configurer. Les scripts de démarrage sont définis dans /etc/init.d/. Vous devrez créer un script qui démarre votre application.</div>
 
@@ -165,7 +189,6 @@ chmod +x ~/buildroot/board/raspberrypi3-64/rootfs_overlay/etc/init.d/S99jdg2025
 Le script utilisé est le suivant :
 ```bash
 #!/bin/sh
-echo "Début du script S99jdg2025" >> /var/log/S99jdg2025.log
 case "$1" in
 start)
     echo "JDG2025: Démarrage de l'application..."
@@ -189,28 +212,7 @@ esac
 exit 0
 ```
 
-<div style="text-align: justify"> Afin d'intégrer les nouveaux fichiers de configuration créés, en remplacement des valeurs par défaut, il est nécessaire de modifier les chemins d'accès dans les options suivantes. Cette étape permet d'assurer que le système utilise les fichiers personnalisés, garantissant ainsi que les configurations spécifiques sont 
-correctement appliquées. </div>
-
-```bash
-Target packages ---> 
-  Hardware handling ---> 
-    Firmware ---> 
-      Path to a file stored as boot/config.txt --->
-        board/raspberrypi3-64/config-jdg2025.txt
-```
-
-- **3.4 Modification des fichiers de configuration**
-
-<div style="text-align: justify"> Pour apporter des modifications aux fichiers de configuration du Raspberry Pi tout en préservant les valeurs par défaut, il est recommandé de créer des fichiers de configuration personnalisés sans altérer les fichiers originaux. Afin de simplifier les étapes suivantes, ces fichiers personnalisés sont placés directement dans le répertoire de Buildroot. De plus, un lien symbolique est établi dans le répertoire du projet, permettant un accès rapide et simplifié à ces fichiers tout en maintenant une organisation claire et cohérente des ressources. </div>
-
-```bash
-sudo touch ~/buildroot/board/raspberrypi3-64/config-jdg2025.txt
-
-ln -s "/mnt/c/Users/sebas/OneDrive - Université du Québec à Trois-Rivières/Implication/JDG/Machine 2025/JDG2025/config/buildroot" ~/buildroot/board/raspberrypi3-64/config-jdg2025.txt 
-```
-
-- **3.5 Construction de l'image du système**
+- **3.6 Construction de l'image du système**
 
 <div style="text-align: justify"> Une fois toutes les options et paquets correctement configurés, la prochaine étape consiste à construire l'image du système embarqué personnalisé. Cette image, une fois générée, sera entièrement opérationnelle et prête à être transférée sur une carte SD. Cependant, il est important de noter que cette opération peut prendre un temps considérable, en fonction de la complexité du système et des ressources nécessaires pour compiler et assembler l'image. </div>
 
@@ -240,3 +242,6 @@ Raspberry Pi Imager --->
 ```bash
 
 ```
+
+### NOTES
+Avec cette configuration, le système lance automatiquement blackbox, mais pas controller. Il faut d'abord `killall pigpiod` pour pouvoir lancer controller, et blackbox n'arrive pas à initialiser la communication série. 

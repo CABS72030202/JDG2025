@@ -1,6 +1,6 @@
 // rpi_bluetooth.c
 // Created on: 2024-12-18
-// Author: Sebastien Cabana
+// Author: Sébastien Cabana
 
 #include "../lib/rpi_bluetooth.h"
 
@@ -94,4 +94,50 @@ int bt_receive(int sock, char *buffer, int buffer_size) {
     }
     printf("Received: %s", buffer);
     return 0;
+}
+
+/**
+ * Initialize UART communication.
+ * @param device: Path to the UART device (e.g., "/dev/serial0").
+ * @param baud_rate: Baud rate for communication.
+ * @return: File descriptor for the UART device, or -1 on failure.
+ */
+int uart_init(const char *device, int baud_rate) {
+    int uart_fd = serOpen(device, baud_rate, 0);
+    if (uart_fd < 0) {
+        fprintf(stderr, "Failed to initialize UART: %s\n", strerror(errno));
+        return -1;
+    }
+    return uart_fd;
+}
+
+/**
+ * Send data over UART.
+ * @param uart_fd: UART file descriptor.
+ * @param message: String to send.
+ * @return: 0 on success, -1 on failure.
+ */
+int uart_send(int uart_fd, const char *message) {
+    if (serWrite(uart_fd, message, strlen(message)) < 0) {
+        fprintf(stderr, "Failed to send UART message: %s\n", strerror(errno));
+        return -1;
+    }
+    return 0;
+}
+
+/**
+ * Receive data over UART.
+ * @param uart_fd: UART file descriptor.
+ * @param buffer: Buffer to store the received data.
+ * @param buffer_size: Size of the buffer.
+ * @return: Number of bytes received, or -1 on failure.
+ */
+int uart_receive(int uart_fd, char *buffer, int buffer_size) {
+    int bytes_read = serRead(uart_fd, buffer, buffer_size);
+    if (bytes_read < 0) {
+        fprintf(stderr, "Failed to receive UART message: %s\n", strerror(errno));
+        return -1;
+    }
+    buffer[bytes_read] = '\0'; // Null-terminate the received string
+    return bytes_read;
 }

@@ -18,8 +18,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include <errno.h>
-#include <wiringPi.h>
-#include <wiringSerial.h>
+#include <pigpio.h>
 #include <time.h>
 #include "../lib/station.h"
 

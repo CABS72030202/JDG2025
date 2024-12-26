@@ -5,92 +5,123 @@
 #include "../lib/controller.h"
 
 int main() {
-    
-    // Open the serial port
-    int uart_fd = serialOpen(UART, BAUD_RATE);
-    if (uart_fd < 0) {
-        fprintf(stderr, "Unable to open serial device: %s\n", strerror(errno));
+    // Initialize pigpio
+    if (gpioInitialise() < 0) {
+        fprintf(stderr, "Failed to initialize pigpio: %s\n", strerror(errno));
         return 1;
     }
 
-    // Initialize boat control
-    if(PWM_Init())
-        return 1;
-
-    // Initialize Bluetooth communication as server
-    if(SKIP_BLUETOOTH) 
-        printf("WARNING. BLUETOOTH SERVER IS DISABLED.\n");
-    else {
+    // Initialize Bluetooth server (if not skipped)
+    int server_sock = -1, client_sock = -1;
+    if (!SKIP_BLUETOOTH) {
         server_sock = bt_init(1, NULL);
-        if (server_sock < 0) return 1;
-        client_sock = server_sock;
-        struct sockaddr_rc client_addr = { 0 };
+        if (server_sock < 0) {
+            gpioTerminate();
+            return 1;
+        }
+
+        struct sockaddr_rc client_addr = {0};
         socklen_t opt = sizeof(client_addr);
-        client_sock = accept(server_sock, (struct sockaddr *)&client_addr, &opt);
+        client_sock = accept(server_sock, (struct sockaddr*)&client_addr, &opt);
         if (client_sock < 0) {
             perror("Failed to accept connection");
             close(server_sock);
+            gpioTerminate();
             return 1;
         }
-        char client_address[18] = { 0 };
+
+        char client_address[18] = {0};
         ba2str(&client_addr.rc_bdaddr, client_address);
         printf("Accepted connection from %s\n", client_address);
+    } else {
+        printf("WARNING: Bluetooth server is disabled.\n");
     }
 
-    // Start controller communication
-    int fd = open(GAMEPAD_PATH, O_RDONLY);
-    if (fd < 0) {
-        perror("Failed to open gamepad");
+    // Open the serial port using pigpio
+    int uart_fd = uart_init(UART, BAUD_RATE);
+    if (uart_fd < 0) {
+        fprintf(stderr, "Unable to open serial device: %s\n", strerror(errno));
+        if (client_sock > 0) close(client_sock);
+        if (server_sock > 0) close(server_sock);
+        gpioTerminate();
         return 1;
     }
-    
-    if(!BLOCKING_MODE)
-        // Set the gamepad file descriptor to non-blocking mode
-        if (fcntl(fd, F_SETFL, fcntl(fd, F_GETFL) | O_NONBLOCK) == -1) {
+
+    // Initialize boat control (assuming PWM_Init() is defined elsewhere)
+    if (PWM_Init() != 0) {
+        gpioTerminate();
+        uart_send(uart_fd, "PWM initialization failed.\n");
+        uart_send(uart_fd, message);
+        if (client_sock > 0) close(client_sock);
+        if (server_sock > 0) close(server_sock);
+        return 1;
+    }
+
+    // Open gamepad device
+    int gamepad_fd = open(GAMEPAD_PATH, O_RDONLY);
+    if (gamepad_fd < 0) {
+        perror("Failed to open gamepad");
+        if (client_sock > 0) close(client_sock);
+        if (server_sock > 0) close(server_sock);
+        gpioTerminate();
+        uart_send(uart_fd, "Gamepad opening failed.\n");
+        return 1;
+    }
+
+    // Set non-blocking mode for gamepad
+    if (!BLOCKING_MODE) {
+        if (fcntl(gamepad_fd, F_SETFL, fcntl(gamepad_fd, F_GETFL) | O_NONBLOCK) == -1) {
             perror("Failed to set non-blocking mode");
-            close(fd);
+            close(gamepad_fd);
+            if (client_sock > 0) close(client_sock);
+            if (server_sock > 0) close(server_sock);
+            gpioTerminate();
+            uart_send(uart_fd, "Failed to set non-blocking mode.\n");
             return 1;
         }
+    }
 
     struct js_event e;
-    
-    while(1) {
-        // Attempt to read controller event
-        ssize_t bytes_read = read(fd, &e, sizeof(struct js_event));
+    while (1) {
+        // Attempt to read gamepad event
+        ssize_t bytes_read = read(gamepad_fd, &e, sizeof(struct js_event));
         if (bytes_read == sizeof(struct js_event)) {
-            // Process controller event if available
-            Controller_Event(e);   
+            Controller_Event(e);
 
-            // Format message
-            if(Format_Message(robot, l_speed, r_speed, arm)) {
-
+            // Format and send message
+            if (Format_Message(robot, l_speed, r_speed, arm)) {
                 // Send message via UART
-                for (int i = 0; i < strlen(message); i++) 
-                    serialPutchar(uart_fd, message[i]);
+                uart_send(uart_fd, message);
 
                 // Send message via Bluetooth
                 if (!SKIP_BLUETOOTH && bt_send(client_sock, message) < 0) {
-                    close(client_sock);
-                    return 1;
+                    perror("Bluetooth send failed");
+                    break;
                 }
 
-                // Control boat if selected
-                if(robot == BOAT_ID)
+                // Control the boat if selected
+                if (robot == BOAT_ID) {
                     Control_Boat();
+                }
             }
         }
 
-        // Execute GPIO commands if change occured
-        if(Check_GPIO_Command()) {
+        // Handle GPIO commands
+        if (Check_GPIO_Command()) {
             Change_Arm_State(uart_fd);
             Format_Message(robot, l_speed, r_speed, arm);
         }
+
+        usleep(1000); // Reduce CPU usage
     }
 
-    serialClose(uart_fd);
-    close(fd);
-    close(client_sock);
-    close(server_sock);
+    // Cleanup resources
+    uart_send(uart_fd, "Shutting down.\n");
+    close(gamepad_fd);
+    if (client_sock > 0) close(client_sock);
+    if (server_sock > 0) close(server_sock);
+    gpioTerminate();
+
     return 0;
 }
 
@@ -461,19 +492,19 @@ void Change_Arm_State(int uart_fd) {
     case DOWN_ALL:
         message[0] = 'R';
         for (int i = 0; i < strlen(message); i++) 
-            serialPutchar(uart_fd, message[i]);
+            uart_send(uart_fd, message[i]);
         message[0] = 'G';
         for (int i = 0; i < strlen(message); i++) 
-            serialPutchar(uart_fd, message[i]);
+            uart_send(uart_fd, message[i]);
         message[0] = 'B';
         for (int i = 0; i < strlen(message); i++) 
-            serialPutchar(uart_fd, message[i]);
+            uart_send(uart_fd, message[i]);
         message[0] = 'Y';
         for (int i = 0; i < strlen(message); i++) 
-            serialPutchar(uart_fd, message[i]);
+            uart_send(uart_fd, message[i]);
         message[0] = 'P';
         for (int i = 0; i < strlen(message); i++) 
-            serialPutchar(uart_fd, message[i]);
+            uart_send(uart_fd, message[i]);
         return;
     case RED_UP:
         message[8] = 'U';
@@ -505,7 +536,7 @@ void Change_Arm_State(int uart_fd) {
         return;
     }
     for (int i = 0; i < strlen(message); i++) 
-        serialPutchar(uart_fd, message[i]);
+        uart_send(uart_fd, message[i]);
 }
 
 void Control_Gripper() {
