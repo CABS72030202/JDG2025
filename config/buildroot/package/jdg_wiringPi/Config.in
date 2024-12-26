@@ -1,0 +1,7 @@
+config BR2_PACKAGE_JDG_WIRINGPI
+    bool "WiringPi"
+    help
+      WiringPi is a GPIO library for the Raspberry Pi.
+      It provides access to the GPIO pins, I2C, SPI, and UART interfaces.
+
+      https://github.com/WiringPi/WiringPi
