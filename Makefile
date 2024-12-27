@@ -7,7 +7,7 @@ CC = gcc
 CFLAGS = -g -w -Wall
 CXXFLAGS = -Ilib -Isrc -Itest
 VPATH = lib:src:test
-LIB = -lm -lpigpio -lbluetooth
+LIB = -lm -lwiringPi -lbluetooth
 
 # Create build directories if they don't exist
 $(shell mkdir -p $(OBJ_DIR) $(BUILD_DIR))

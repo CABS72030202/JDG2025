@@ -1,5 +1,5 @@
 /*
- * boat_control.h
+ * boat.h
  * Created on: 2024-12-22
  * Author: Sebastien Cabana
  *
@@ -14,11 +14,12 @@
 #ifndef BOAT_CONTROL_H
 #define BOAT_CONTROL_H
 
+// Includes
 #include <stdlib.h>
 #include <stdio.h>
 #include <string.h>
 #include <errno.h>
-#include <pigpio.h>
+#include <wiringPi.h>
 
 // Enums and Structs
 typedef struct {
@@ -41,6 +42,7 @@ typedef struct {
 
 // PWM Constants
 #define PWM_RANGE       1024         // Range for PWM (0-1023)
+#define PWM_CLOCK_DIV   384          // Clock divisor for 50 Hz frequency (19.2 MHz / (384 * 1024) = 50 Hz)
 #define DUTY_CYCLE_STOP 51           // 5% duty cycle (5% of 1024)
 #define DUTY_CYCLE_MAX  102          // 10% duty cycle (10% of 1024)
 #define INIT_DELAY      1000         // Time delay for brushless motor initialization
