@@ -51,7 +51,7 @@ typedef struct {
 // Global Variables
 extern Brushless left_motor;        // Configuration for the left motor
 extern Brushless right_motor;       // Configuration for the right motor
-extern char* message;               // Controller command message
+extern char message[];              // Controller command message
 
 // Function Prototypes
 int PWM_Init();                         // Initialize brushless motors control
