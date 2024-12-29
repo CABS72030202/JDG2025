@@ -1,0 +1,8 @@
+- BRUTE FORCE CONFIG -
+- Words of length 1 to 2
+- Starting ASCII table at '!'
+- Ending ASCII table at 'z'
+- Ignoring characters: "", #, $, %, &, ', (, ), *, +, ,, -, ., /, ;, <, =, >, @, [, \, ], ^, _, `"
+- Starting at word 
+#Disconnected at word:  COMMAND
+#Reconnected at word:  COMMAND

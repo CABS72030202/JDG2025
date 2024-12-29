@@ -3,7 +3,7 @@
 # Configuration
 ip_address="10.40.82.231"
 host_user="sebas"
-host_repo_path="/mnt/c/Users/sebas/OneDrive - Université du Québec à Trois-Rivières/Implication/JDG/Machine 2025/JDG2025/doc/secret_command/brute_force_output/"
+host_repo_path="/mnt/c/Users/sebas/OneDrive - Université du Québec à Trois-Rivières/Implication/JDG/Machine 2025/JDG2025/doc/secret_command/brute_force_output"
 remote_user="admin"
 remote_code_path="/home/admin/brute_force.c"
 remote_script_path="/home/admin/remote_task.sh"
@@ -122,7 +122,7 @@ if [[ $? -ne 0 ]]; then
 fi
 
 # Save previous output and transfer to host repository
-output_file="./log/$(date +%Y-%m-%d_%H-%M-%S)_output.txt"
+output_file="$(date +%Y-%m-%d_%H-%M-%S)_output.txt"
 scp -r "$remote_user@$ip_address":~/output.txt "$host_repo_path"/"$output_file"
 
 # Execute remote task

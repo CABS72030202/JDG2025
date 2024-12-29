@@ -57,8 +57,8 @@
 #define INPUT_FILE "input.txt"
 
 // Brute-force constants
-#define DOUBLE_TEST 0
-#define CAPS_TEST 0
+#define DOUBLE_TEST 1
+#define CAPS_TEST 1
 #define MIN_LENGTH 1
 #define MAX_LENGTH 2
 #define START_CHAR 33
@@ -113,7 +113,6 @@ int main() {
 }
 
 void Send(int fd, char* str) {
-  Delay(1);
   printf("Sending: %s", str);
   for (int i = 0; i < strlen(str); i++) 
     serialPutchar(fd, str[i]);
