@@ -1,0 +1,18 @@
+- BRUTE FORCE CONFIG -
+- Words of length 4 to 4
+- Starting ASCII table at '!'
+- Ending ASCII table at 'z'
+- Ignoring characters: "", #, $, %, &, ', (, ), *, +, ,, -, ., /, ;, <, =, >, @, [, \, ], ^, _, `"
+- Starting at word 
+#Disconnected at word:  A
+#Reconnected at word:  A
+#Disconnected at word:  A:
+‰U#Reconnected at word:  A:
+‰U#Disconnected at word:  COGNERAI:
+#Reconnected at word:  COGNERAI:
+#Disconnected at word:  METROPOLITAINS:
+#Reconnected at word:  METROPOLITAINS:
+#Disconnected at word:  !!!S
+#Reconnected at word:  !!!S
+#Disconnected at word:  !!!O:
+#Reconnected at word:  !!!O:

@@ -1,0 +1,20 @@
+- BRUTE FORCE CONFIG -
+- Words of length 1 to 4
+- Starting ASCII table at 'A'
+- Ending ASCII table at 'Z'
+- Ignoring characters: "", #, $, %, &, ', (, ), *, +, ,, -, ., /, ;, <, =, >, @, [, \, ], ^, _, `"
+- Starting at word 
+#Disconnected at word:  COHE
+#Reconnected at word:  COHE
+#Disconnected at word:  GHQI
+#Reconnected at word:  GHQI
+#Disconnected at word:  KAZO
+#Reconnected at word:  KAZO
+#Disconnected at word:  NUJE
+#Reconnected at word:  NUJE
+#Disconnected at word:  RNST
+#Reconnected at word:  RNST
+#Disconnected at word:  VHBR
+#Reconnected at word:  VHBR
+#Disconnected at word:  ZAKW
+#Reconnected at word:  ZAKW

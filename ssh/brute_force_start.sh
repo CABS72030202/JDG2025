@@ -1,41 +1,16 @@
 #!/bin/bash
 
-# Connect to remote RPI 3b
-echo -e "To connect to the Raspberry Pi, please turn on the mobile hotspot named 'Pixel Seb' and ensure that the user is also connected to this network.\n"
+# Configuration
+ip_address="10.40.82.231"
+host_user="sebas"
+host_repo_path="/mnt/c/Users/sebas/OneDrive - Université du Québec à Trois-Rivières/Implication/JDG/Machine 2025/JDG2025/doc/secret_command/brute_force_output/"
+remote_user="admin"
+remote_code_path="/home/admin/brute_force.c"
+remote_script_path="/home/admin/remote_task.sh"
+local_code_path="../doc/secret_command/brute_force.c"
+local_text_path="../doc/secret_command/test_msg.txt"
 
-# Send test_msg.txt to the remote Raspberry Pi and rename it to input.txt
-local_file_path="../doc/secret_command/test_msg.txt"
-remote_file_path="/home/admin/input.txt"
-scp "$local_file_path" admin@192.168.193.231:"$remote_file_path"
-if [[ $? -ne 0 ]]; then
-  echo "Failed to transfer test_msg.txt to the remote Raspberry Pi. Exiting."
-  exit 1
-fi
-
-# Attempt to connect to the remote Raspberry Pi
-retry_limit=3
-retry_count=0
-while true; do
-  ssh admin@192.168.193.231
-  if [[ $? -eq 0 ]]; then
-    echo "Connected to Raspberry Pi successfully."
-    break
-  else
-    echo "Failed to connect to Raspberry Pi."
-    retry_count=$((retry_count + 1))
-    if [[ $retry_count -ge $retry_limit ]]; then
-      echo "Reached maximum retry attempts. Exiting."
-      exit 1
-    fi
-    read -p "Do you want to retry? (Y/N): " retry_choice
-    if [[ $retry_choice =~ ^[Nn]$ ]]; then
-      echo "Exiting."
-      exit 1
-    fi
-  fi
-done
-
-# Function to validate numeric input
+# Validate numeric input
 validate_number() {
   local input=$1
   local min=$2
@@ -47,12 +22,13 @@ validate_number() {
   fi
 }
 
-# Function to display usage information
+# Display usage information
 usage() {
   echo "Usage: $0"
   echo "This script configures and runs the brute force program on a remote RPI 3b."
-  echo "It also automatically transfers the previous output to this repository."
-  echo "Options are entered interactively."
+  echo ""
+  echo "DOUBLE TEST | Test every word with and without ':' at the end"
+  echo "CAPS TEST   | Test every word with full caps"
   exit 1
 }
 
@@ -61,12 +37,15 @@ if [[ $# -ne 0 ]]; then
   usage
 fi
 
-# Ask the user for parameters
+# Prompt user for parameters
 read -p "Enable double test? (Y/N): " double_test
 while [[ ! $double_test =~ ^[YyNn]$ ]]; do
   echo "Invalid input. Please enter Y or N."
   read -p "Enable double test? (Y/N): " double_test
 done
+
+double_test=$(echo "$double_test" | tr '[:lower:]' '[:upper:]')
+double_test_flag=$([[ "$double_test" == "Y" ]] && echo 1 || echo 0)
 
 read -p "Enable caps test? (Y/N): " caps_test
 while [[ ! $caps_test =~ ^[YyNn]$ ]]; do
@@ -74,7 +53,18 @@ while [[ ! $caps_test =~ ^[YyNn]$ ]]; do
   read -p "Enable caps test? (Y/N): " caps_test
 done
 
-# Validate min and max length inputs
+caps_test=$(echo "$caps_test" | tr '[:lower:]' '[:upper:]')
+caps_test_flag=$([[ "$caps_test" == "Y" ]] && echo 1 || echo 0)
+
+read -p "Enable combinaison generation? (Y/N): " combinaison_gen
+while [[ ! $combinaison_gen =~ ^[YyNn]$ ]]; do
+  echo "Invalid input. Please enter Y or N."
+  read -p "Enable combinaison generation? (Y/N): " combinaison_gen
+done
+
+combinaison_gen=$(echo "$combinaison_gen" | tr '[:lower:]' '[:upper:]')
+combinaison_gen_flag=$([[ "$combinaison_gen" == "Y" ]] && echo 1 || echo 0)
+
 while true; do
   read -p "Enter minimum word length (1 to 13): " min_length
   if [[ $(validate_number $min_length 1 13) -eq 1 ]]; then
@@ -93,44 +83,48 @@ while true; do
   fi
 done
 
-read -p "Enter the starting string: " start_string
-if [[ -z $start_string ]]; then
-  start_string="\0"
-fi
+#read -p "Enter the starting string: " start_string
+#if [[ -z $start_string ]]; then
+#  start_string=" "
+#fi
 
-# Convert Y/N responses to 1/0
-double_test=$(echo "$double_test" | tr '[:lower:]' '[:upper:]')
-caps_test=$(echo "$caps_test" | tr '[:lower:]' '[:upper:]')
-double_test_flag=$([[ "$double_test" == "Y" ]] && echo 1 || echo 0)
-caps_test_flag=$([[ "$caps_test" == "Y" ]] && echo 1 || echo 0)
+# Update source code with parameters
+sudo sed -i "s/^#define DOUBLE_TEST.*/#define DOUBLE_TEST $double_test_flag/" "$local_code_path"
+sudo sed -i "s/^#define CAPS_TEST.*/#define CAPS_TEST $caps_test_flag/" "$local_code_path"
+sudo sed -i "s/^#define MIN_LENGTH.*/#define MIN_LENGTH $min_length/" "$local_code_path"
+sudo sed -i "s/^#define MAX_LENGTH.*/#define MAX_LENGTH $max_length/" "$local_code_path"
+#sudo sed -i "s/^#define START_STR.*/#define START_STR \"$start_string\"/" "$local_code_path"
+sudo sed -i "s/^#define COMBINAISON_GEN.*/#define COMBINAISON_GEN $combinaison_gen_flag/" "$local_code_path"
 
-# Update the C code with the user inputs
-sed -i "s/^#define DOUBLE_TEST.*/#define DOUBLE_TEST $double_test_flag/" brute_force.c
-sed -i "s/^#define CAPS_TEST.*/#define CAPS_TEST $caps_test_flag/" brute_force.c
-sed -i "s/^#define MIN_LENGTH.*/#define MIN_LENGTH $min_length/" brute_force.c
-sed -i "s/^#define MAX_LENGTH.*/#define MAX_LENGTH $max_length/" brute_force.c
-sed -i "s/^#define START_STR.*/#define START_STR \"$start_string\"/" brute_force.c
+# Prepare remote task script
+cat <<'EOF' > remote_task.sh
+#!/bin/bash
 
-# Save previous output and transfer to repository
-output_file="./log/$(date +%Y-%m-%d_%H:%M:%S)_output.txt"
-mv output.txt "$output_file"
-path="sebas@SCStudio:/mnt/c/Users/sebas/OneDrive - Université du Québec à Trois-Rivières/Implication/JDG/Machine 2025/JDG2025/doc/secret_command/brute_force_output/"
-
-# Check if the remote is accessible before transferring files
-if ssh -q sebas@SCStudio exit; then
-  echo "Transferring files to $path..."
-  scp -r "$output_file" ${path}
-else
-  echo "Remote repository is not accessible. Skipping file transfer."
-fi
-
-# Compile the C code
+# Compile and run the brute force program
 gcc -o brute_force brute_force.c -lwiringPi
-
-# Check if compilation was successful
 if [[ $? -eq 0 ]]; then
   echo "Compilation successful. Running the brute force program..."
   ./brute_force
 else
   echo "Compilation failed. Please check the C code for errors."
 fi
+EOF
+sudo chmod +x remote_task.sh
+
+# Transfer files to remote
+scp "$local_code_path" "$remote_user@$ip_address:$remote_code_path"
+scp "$local_text_path" "$remote_user@$ip_address:/home/admin/input.txt"
+scp remote_task.sh "$remote_user@$ip_address:$remote_script_path"
+
+if [[ $? -ne 0 ]]; then
+  echo "Failed to transfer files to the remote Raspberry Pi. Exiting."
+  exit 1
+fi
+
+# Save previous output and transfer to host repository
+output_file="./log/$(date +%Y-%m-%d_%H-%M-%S)_output.txt"
+scp -r "$remote_user@$ip_address":~/output.txt "$host_repo_path"/"$output_file"
+
+# Execute remote task
+ssh "$remote_user@$ip_address" "bash $remote_script_path"
+sudo rm "/mnt/c/Users/sebas/OneDrive - Université du Québec à Trois-Rivières/Implication/JDG/Machine 2025/JDG2025/ssh/remote_task.sh"

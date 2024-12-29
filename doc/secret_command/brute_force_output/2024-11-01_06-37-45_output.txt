@@ -1,0 +1,254 @@
+- BRUTE FORCE CONFIG -
+- Words of length 5 to 12
+- Starting ASCII table at ' '
+- Ending ASCII table at 'Z'
+- Ignoring characters: "", #, $, %, &, ', (, ), *, +, ,, -, ., /, ;, <, =, >, @, [, \, ], ^, _, `"
+- Starting at word !D F7
+#Disconnected at word:  !DBKH:
+#Reconnected at word:  !DBKH:
+#Disconnected at word:  !E?WR:
+#Reconnected at word:  !E?WR:
+#Disconnected at word:  !F:76:
+#Reconnected at word:  !F:76:
+#Disconnected at word:  !G8H4:
+#Reconnected at word:  !G8H4:
+#Disconnected at word:  !H6TB:
+#Reconnected at word:  !H6TB:
+#Disconnected at word:  !I53P:
+#Reconnected at word:  !I53P:
+#Disconnected at word:  !IDWW:
+#Reconnected at word:  !IDWW:
+#Disconnected at word:  !J271:
+#Reconnected at word:  !J271:
+#Disconnected at word:  !K0GH:
+#Reconnected at word:  !K0GH:
+#Disconnected at word:  !L SG:
+#Reconnected at word:  !L SG:
+#Disconnected at word:  !LZ34:
+#Reconnected at word:  !LZ34:
+#Disconnected at word:  !MXCN:
+#Reconnected at word:  !MXCN:
+#Disconnected at word:  !NVNS:
+#Reconnected at word:  !NVNS:
+#Disconnected at word:  !OTZ9:
+#Reconnected at word:  !OTZ9:
+#Disconnected at word:  !PS9Q:
+#Reconnected at word:  !PS9Q:
+#Disconnected at word:  !QQJ1:
+#Reconnected at word:  !QQJ1:
+#Disconnected at word:  !ROTD:
+#Reconnected at word:  !ROTD:
+#Disconnected at word:  !SN3F:
+#Reconnected at word:  !SN3F:
+#Disconnected at word:  !TLE7:
+#Reconnected at word:  !TLE7:
+#Disconnected at word:  !UJRL:
+#Reconnected at word:  !UJRL:
+#Disconnected at word:  !VI2D:
+#Reconnected at word:  !VI2D:
+#Disconnected at word:  !WGDE:
+#Reconnected at word:  !WGDE:
+#Disconnected at word:  !XEQU:
+#Reconnected at word:  !XEQU:
+#Disconnected at word:  !YD1A:
+#Reconnected at word:  !YD1A:
+#Disconnected at word:  !ZBB?:
+#Reconnected at word:  !ZBB?:
+#Disconnected at word:  0 ?OG:
+#Reconnected at word:  0 ?OG:
+#Disconnected at word:  0!:!S:
+#Reconnected at word:  0!:!S:
+#Disconnected at word:  008B8:
+#Reconnected at word:  008B8:
+#Disconnected at word:  016MZ:
+#Reconnected at word:  016MZ:
+#Disconnected at word:  024YH:
+#Reconnected at word:  024YH:
+#Disconnected at word:  0337M:
+#Reconnected at word:  0337M:
+#Disconnected at word:  041I :
+#Reconnected at word:  041I :
+#Disconnected at word:  05!UZ:
+#Reconnected at word:  05!UZ:
+#Disconnected at word:  06 56:
+#Reconnected at word:  06 56:
+#Disconnected at word:  06YF::
+#Reconnected at word:  06YF::
+#Disconnected at word:  07WQQ:
+#Reconnected at word:  07WQQ:
+#Disconnected at word:  08V1::
+#Reconnected at word:  08V1::
+#Disconnected at word:  09TBZ:
+#Reconnected at word:  09TBZ:
+#Disconnected at word:  0:ROH:
+#Reconnected at word:  0:ROH:
+#Disconnected at word:  0?PZQ:
+#Reconnected at word:  0?PZQ:
+#Disconnected at word:  0AO9P:
+#Reconnected at word:  0AO9P:
+#Disconnected at word:  0BMK1:
+#Reconnected at word:  0BMK1:
+#Disconnected at word:  0CKWV:
+#Reconnected at word:  0CKWV:
+#Disconnected at word:  0DJ7S:
+#Reconnected at word:  0DJ7S:
+#Disconnected at word:  0EHHZ:
+#Reconnected at word:  0EHHZ:
+#Disconnected at word:  0FFU4:
+#Reconnected at word:  0FFU4:
+#Disconnected at word:  0GE38:
+#Reconnected at word:  0GE38:
+#Disconnected at word:  0HCE :
+#Reconnected at word:  0HCE :
+#Disconnected at word:  0IAR :
+#Reconnected at word:  0IAR :
+#Disconnected at word:  0J?27:
+#Reconnected at word:  0J?27:
+#Disconnected at word:  0K9CW:
+#Reconnected at word:  0K9CW:
+#Disconnected at word:  0L7OO:
+#Reconnected at word:  0L7OO:
+#Disconnected at word:  0M6 S:
+#Reconnected at word:  0M6 S:
+#Disconnected at word:  0N4?C:
+#Reconnected at word:  0N4?C:
+#Disconnected at word:  0O2MG:
+#Reconnected at word:  0O2MG:
+#Disconnected at word:  0P0Z4:
+#Reconnected at word:  0P0Z4:
+#Disconnected at word:  0Q!9H:
+#Reconnected at word:  0Q!9H:
+#Disconnected at word:  0QZJ?:
+#Reconnected at word:  0QZJ?:
+#Disconnected at word:  0RXVE:
+#Reconnected at word:  0RXVE:
+#Disconnected at word:  0SW6J:
+#Reconnected at word:  0SW6J:
+#Disconnected at word:  0TUHY:
+#Reconnected at word:  0TUHY:
+#Disconnected at word:  0USU9:
+#Reconnected at word:  0USU9:
+#Disconnected at word:  0VR4H:
+#Reconnected at word:  0VR4H:
+#Disconnected at word:  0WPF1:
+#Reconnected at word:  0WPF1:
+#Disconnected at word:  0XNSP:
+#Reconnected at word:  0XNSP:
+#Disconnected at word:  0YM41:
+#Reconnected at word:  0YM41:
+#Disconnected at word:  0ZKF0:
+#Reconnected at word:  0ZKF0:
+#Disconnected at word:  1 IRN:
+#Reconnected at word:  1 IRN:
+#Disconnected at word:  1!H1O:
+#Reconnected at word:  1!H1O:
+#Disconnected at word:  10FCN:
+#Reconnected at word:  10FCN:
+#Disconnected at word:  11DPQ:
+#Reconnected at word:  11DPQ:
+#Disconnected at word:  12C1 :
+#Reconnected at word:  12C1 :
+#Disconnected at word:  13ABB:
+#Reconnected at word:  13ABB:
+#Disconnected at word:  14:NA:
+#Reconnected at word:  14:NA:
+#Disconnected at word:  158Z4:
+#Reconnected at word:  158Z4:
+#Disconnected at word:  167:7:
+#Reconnected at word:  167:7:
+#Disconnected at word:  175L7:
+#Reconnected at word:  175L7:
+#Disconnected at word:  183Y2:
+#Reconnected at word:  183Y2:
+#Disconnected at word:  1929 :
+#Reconnected at word:  1929 :
+#Disconnected at word:  1:0IK:
+#Reconnected at word:  1:0IK:
+#Disconnected at word:  1? V :
+#Reconnected at word:  1? V :
+#Disconnected at word:  1?Z6!:
+#Reconnected at word:  1?Z6!:
+#Disconnected at word:  1AXHD:
+#Reconnected at word:  1AXHD:
+#Disconnected at word:  1BVTV:
+#Reconnected at word:  1BVTV:
+#Disconnected at word:  1CU4 :
+#Reconnected at word:  1CU4 :
+#Disconnected at word:  1DSE3:
+#Reconnected at word:  1DSE3:
+#Disconnected at word:  1EQQE:
+#Reconnected at word:  1EQQE:
+#Disconnected at word:  1FP1X:
+#Reconnected at word:  1FP1X:
+#Disconnected at word:  1GNCZ:
+#Reconnected at word:  1GNCZ:
+#Disconnected at word:  1HLPW:
+#Reconnected at word:  1HLPW:
+#Disconnected at word:  1IK04:
+#Reconnected at word:  1IK04:
+#Disconnected at word:  1JIAJ:
+#Reconnected at word:  1JIAJ:
+#Disconnected at word:  1KGNT:
+#Reconnected at word:  1KGNT:
+#Disconnected at word:  1LF Y:
+#Reconnected at word:  1LF Y:
+#Disconnected at word:  1MD?X:
+#Reconnected at word:  1MD?X:
+#Disconnected at word:  1NBMA:
+#Reconnected at word:  1NBMA:
+#Disconnected at word:  1O?YT:
+#Reconnected at word:  1O?YT:
+#Disconnected at word:  1P:9J:
+#Reconnected at word:  1P:9J:
+#Disconnected at word:  1Q8KY:
+#Reconnected at word:  1Q8KY:
+#Disconnected at word:  1R6Y?:
+#Reconnected at word:  1R6Y?:
+#Disconnected at word:  1S59G:
+#Reconnected at word:  1S59G:
+#Disconnected at word:  1T3K4:
+#Reconnected at word:  1T3K4:
+#Disconnected at word:  1U1X9:
+#Reconnected at word:  1U1X9:
+#Disconnected at word:  1V08O:
+#Reconnected at word:  1V08O:
+#Disconnected at word:  1W K9:
+#Reconnected at word:  1W K9:
+#Disconnected at word:  1WYX3:
+#Reconnected at word:  1WYX3:
+#Disconnected at word:  1XX7V:
+#Reconnected at word:  1XX7V:
+#Disconnected at word:  1YVHY:
+#Reconnected at word:  1YVHY:
+#Disconnected at word:  1ZTUI:
+#Reconnected at word:  1ZTUI:
+#Disconnected at word:  2 S5K:
+#Reconnected at word:  2 S5K:
+#Disconnected at word:  2!QHB:
+#Reconnected at word:  2!QHB:
+#Disconnected at word:  20OUD:
+#Reconnected at word:  20OUD:
+#Disconnected at word:  21N54:
+#Reconnected at word:  21N54:
+#Disconnected at word:  22LFM:
+#Reconnected at word:  22LFM:
+#Disconnected at word:  23JT5:
+#Reconnected at word:  23JT5:
+#Disconnected at word:  24I4Y:
+#Reconnected at word:  24I4Y:
+#Disconnected at word:  25GFL:
+#Reconnected at word:  25GFL:
+#Disconnected at word:  26ERR:
+#Reconnected at word:  26ERR:
+#Disconnected at word:  27D1B:
+#Reconnected at word:  27D1B:
+#Disconnected at word:  28BA7:
+#Reconnected at word:  28BA7:
+#Disconnected at word:  29?N :
+#Reconnected at word:  29?N :
+#Disconnected at word:  2:: 6:
+#Reconnected at word:  2:: 6:
+#Disconnected at word:  2?8?1:
+#Reconnected at word:  2?8?1:
+#Disconnected at word:  2A6L!:
+#Reconnected at word:  2A6L!:

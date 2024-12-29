@@ -1,0 +1,26 @@
+- BRUTE FORCE CONFIG -
+- Words of length 1 to 8
+- Starting ASCII table at ' '
+- Ending ASCII table at 'Z'
+- Ignoring characters: "", #, $, %, &, ', (, ), *, +, ,, -, ., /, ;, <, =, >, @, [, \, ], ^, _, `"
+- Starting at word 36?N
+#Disconnected at word:  36?N:
+#Reconnected at word:  36?N:
+#Disconnected at word:  4180:
+#Reconnected at word:  4180:
+#Disconnected at word:  5!MR:
+#Reconnected at word:  5!MR:
+#Disconnected at word:  6 1H:
+#Reconnected at word:  6 1H:
+#Disconnected at word:  6YGP:
+#Reconnected at word:  6YGP:
+#Disconnected at word:  7WXK:
+#Reconnected at word:  7WXK:
+#Disconnected at word:  8VAA:
+#Reconnected at word:  8VAA:
+#Disconnected at word:  9TRH:
+#Reconnected at word:  9TRH:
+#Disconnected at word:  :S6B:
+#Reconnected at word:  :S6B:
+#Disconnected at word:  ?7:I:
+#Reconnected at word:  ?7:I:

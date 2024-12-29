@@ -1,0 +1,22 @@
+- BRUTE FORCE CONFIG -
+- Words of length 1 to 9
+- Starting ASCII table at ' '
+- Ending ASCII table at 'Z'
+- Ignoring characters: "", #, $, %, &, ', (, ), *, +, ,, -, ., /, ;, <, =, >, @, [, \, ], ^, _, `"
+- Starting at word QV6B
+#Disconnected at word:  RUT2:
+#Reconnected at word:  RUT2:
+ERR:invalid_color
+ SEND:
+#Disconnected at word:  SUEC:
+#Reconnected at word:  SUEC:
+ERR:invalid_color
+ TAKE:
+#Disconnected at word:  TU1A:
+#Reconnected at word:  TU1A:
+#Disconnected at word:  UTO7:
+#Reconnected at word:  UTO7:
+#Disconnected at word:  VT9I:
+#Reconnected at word:  VT9I:
+#Disconnected at word:  WSVO:
+#Reconnected at word:  WSVO:

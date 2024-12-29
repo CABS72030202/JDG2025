@@ -57,15 +57,16 @@
 #define INPUT_FILE "input.txt"
 
 // Brute-force constants
-#define DOUBLE_TEST 1   // test every word with and without ':' at the end if 1
-#define CAPS_TEST 1     // test every word with full caps if 1
-#define MIN_LENGTH 4
-#define MAX_LENGTH 4
+#define DOUBLE_TEST 0
+#define CAPS_TEST 0
+#define MIN_LENGTH 1
+#define MAX_LENGTH 2
 #define START_CHAR 33
 #define END_CHAR 122
 const int SKIP_CHAR[] = {'"', '#', '$', '%', '&', '\'', '(', ')', '*', '+', ',', '-', '.', '/', ';', '<', '=', '>', '@', '[', '\\', ']', '^', '_', '`'};
 const int SKIP_CHAR_SIZE = sizeof(SKIP_CHAR) / sizeof(SKIP_CHAR[0]);
 #define START_STR "\0"
+#define COMBINAISON_GEN 0
 
 void Send(int, char*);
 void Receive(int, char*);
@@ -102,7 +103,8 @@ int main() {
   while(Try_Connect(fd, received)) {
     Save_Config();
     Test_List(fd, received);
-    //Generate_Combinations(fd, received, MIN_LENGTH, MAX_LENGTH);
+    if(COMBINAISON_GEN)
+      Generate_Combinations(fd, received, MIN_LENGTH, MAX_LENGTH);
     break;
   }
 
@@ -111,6 +113,7 @@ int main() {
 }
 
 void Send(int fd, char* str) {
+  Delay(1);
   printf("Sending: %s", str);
   for (int i = 0; i < strlen(str); i++) 
     serialPutchar(fd, str[i]);

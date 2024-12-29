@@ -1,0 +1,1641 @@
+- BRUTE FORCE CONFIG -
+- Words of length 5 to 14
+- Starting ASCII table at ' '
+- Ending ASCII table at 'Z'
+- Ignoring characters: "", #, $, %, &, ', (, ), *, +, ,, -, ., /, ;, <, =, >, @, [, \, ], ^, _, `"
+- Starting at word 2B3EW
+#Disconnected at word:  2BHRM:
+#Reconnected at word:  2BHRM:
+#Disconnected at word:  2CG1M:
+#Reconnected at word:  2CG1M:
+#Disconnected at word:  2DEBN:
+#Reconnected at word:  2DEBN:
+#Disconnected at word:  2ECE3:
+#Reconnected at word:  2ECE3:
+#Disconnected at word:  2FAXA:
+#Reconnected at word:  2FAXA:
+#Disconnected at word:  2G?7!:
+#Reconnected at word:  2G?7!:
+#Disconnected at word:  2H9O0:
+#Reconnected at word:  2H9O0:
+#Disconnected at word:  2I82G:
+#Reconnected at word:  2I82G:
+#Disconnected at word:  2J6K4:
+#Reconnected at word:  2J6K4:
+#Disconnected at word:  2K51B:
+#Reconnected at word:  2K51B:
+#Disconnected at word:  2L3J?:
+#Reconnected at word:  2L3J?:
+#Disconnected at word:  2M20Y:
+#Reconnected at word:  2M20Y:
+#Disconnected at word:  2N0IM:
+#Reconnected at word:  2N0IM:
+#Disconnected at word:  2O W!:
+#Reconnected at word:  2O W!:
+#Disconnected at word:  2OYB3:
+#Reconnected at word:  2OYB3:
+#Disconnected at word:  2PWM?:
+#Reconnected at word:  2PWM?:
+#Disconnected at word:  2QUX?:
+#Reconnected at word:  2QUX?:
+#Disconnected at word:  2RT6W:
+#Reconnected at word:  2RT6W:
+#Disconnected at word:  2SRG7:
+#Reconnected at word:  2SRG7:
+#Disconnected at word:  2TPRR:
+#Reconnected at word:  2TPRR:
+#Disconnected at word:  2UO0V:
+#Reconnected at word:  2UO0V:
+#Disconnected at word:  2VMA?:
+#Reconnected at word:  2VMA?:
+#Disconnected at word:  2WKLQ:
+#Reconnected at word:  2WKLQ:
+#Disconnected at word:  2XIXI:
+#Reconnected at word:  2XIXI:
+#Disconnected at word:  2YH7 :
+#Reconnected at word:  2YH7 :
+#Disconnected at word:  2ZFG::
+#Reconnected at word:  2ZFG::
+#Disconnected at word:  3 DRJ:
+#Reconnected at word:  3 DRJ:
+#Disconnected at word:  3!C11:
+#Reconnected at word:  3!C11:
+#Disconnected at word:  30AAX:
+#Reconnected at word:  30AAX:
+#Disconnected at word:  31:MS:
+#Reconnected at word:  31:MS:
+#Disconnected at word:  328YA:
+#Reconnected at word:  328YA:
+#Disconnected at word:  33780:
+#Reconnected at word:  33780:
+#Disconnected at word:  345HB:
+#Reconnected at word:  345HB:
+#Disconnected at word:  353SN:
+#Reconnected at word:  353SN:
+#Disconnected at word:  36222:
+#Reconnected at word:  36222:
+#Disconnected at word:  370B9:
+#Reconnected at word:  370B9:
+#Disconnected at word:  38 MC:
+#Reconnected at word:  38 MC:
+#Disconnected at word:  38YX?:
+#Reconnected at word:  38YX?:
+#Disconnected at word:  39X6Q:
+#Reconnected at word:  39X6Q:
+#Disconnected at word:  3:VFS:
+#Reconnected at word:  3:VFS:
+#Disconnected at word:  3?TRN:
+#Reconnected at word:  3?TRN:
+#Disconnected at word:  3AS0X:
+#Reconnected at word:  3AS0X:
+#Disconnected at word:  3BQAA:
+#Reconnected at word:  3BQAA:
+#Disconnected at word:  3COMA:
+#Reconnected at word:  3COMA:
+#Disconnected at word:  3DMY0:
+#Reconnected at word:  3DMY0:
+#Disconnected at word:  3EL7G:
+#Reconnected at word:  3EL7G:
+#Disconnected at word:  3FJHM:
+#Reconnected at word:  3FJHM:
+#Disconnected at word:  3GHWF:
+#Reconnected at word:  3GHWF:
+#Disconnected at word:  3HG:F:
+#Reconnected at word:  3HG:F:
+#Disconnected at word:  3IEO::
+#Reconnected at word:  3IEO::
+#Disconnected at word:  3JD1X:
+#Reconnected at word:  3JD1X:
+#Disconnected at word:  3KBFN:
+#Reconnected at word:  3KBFN:
+#Disconnected at word:  3L?T9:
+#Reconnected at word:  3L?T9:
+#Disconnected at word:  3M:3 :
+#Reconnected at word:  3M:3 :
+#Disconnected at word:  3N8CY:
+#Reconnected at word:  3N8CY:
+#Disconnected at word:  3O6OQ:
+#Reconnected at word:  3O6OQ:
+#Disconnected at word:  3P5 H:
+#Reconnected at word:  3P5 H:
+#Disconnected at word:  3Q3:D:
+#Reconnected at word:  3Q3:D:
+#Disconnected at word:  3R1JF:
+#Reconnected at word:  3R1JF:
+#Disconnected at word:  3S!V2:
+#Reconnected at word:  3S!V2:
+#Disconnected at word:  3T 43:
+#Reconnected at word:  3T 43:
+#Disconnected at word:  3TYD7:
+#Reconnected at word:  3TYD7:
+#Disconnected at word:  3UWE3:
+#Reconnected at word:  3UWE3:
+#Disconnected at word:  3VUTB:
+#Reconnected at word:  3VUTB:
+#Disconnected at word:  3WT:T:
+#Reconnected at word:  3WT:T:
+#Disconnected at word:  3XQUX:
+#Reconnected at word:  3XQUX:
+#Disconnected at word:  3YP0I:
+#Reconnected at word:  3YP0I:
+#Disconnected at word:  3ZN86:
+#Reconnected at word:  3ZN86:
+#Disconnected at word:  4 LHA:
+#Reconnected at word:  4 LHA:
+#Disconnected at word:  4!JSM:
+#Reconnected at word:  4!JSM:
+#Disconnected at word:  40I23:
+#Reconnected at word:  40I23:
+#Disconnected at word:  41GB3:
+#Reconnected at word:  41GB3:
+#Disconnected at word:  42EM4:
+#Reconnected at word:  42EM4:
+#Disconnected at word:  43CXU:
+#Reconnected at word:  43CXU:
+#Disconnected at word:  44B7I:
+#Reconnected at word:  44B7I:
+#Disconnected at word:  45?GI:
+#Reconnected at word:  45?GI:
+#Disconnected at word:  469S9:
+#Reconnected at word:  469S9:
+#Disconnected at word:  4781B:
+#Reconnected at word:  4781B:
+#Disconnected at word:  486AQ:
+#Reconnected at word:  486AQ:
+#Disconnected at word:  494M6:
+#Reconnected at word:  494M6:
+#Disconnected at word:  4:2XB:
+#Reconnected at word:  4:2XB:
+#Disconnected at word:  4?177:
+#Reconnected at word:  4?177:
+#Disconnected at word:  4A!GP:
+#Reconnected at word:  4A!GP:
+#Disconnected at word:  4AZRW:
+#Reconnected at word:  4AZRW:
+#Disconnected at word:  4BY0U:
+#Reconnected at word:  4BY0U:
+#Disconnected at word:  4CWBY:
+#Reconnected at word:  4CWBY:
+#Disconnected at word:  4DUQX:
+#Reconnected at word:  4DUQX:
+#Disconnected at word:  4ET4C:
+#Reconnected at word:  4ET4C:
+#Disconnected at word:  4FRHR:
+#Reconnected at word:  4FRHR:
+#Disconnected at word:  4GPWL:
+#Reconnected at word:  4GPWL:
+#Disconnected at word:  4HO9E:
+#Reconnected at word:  4HO9E:
+#Disconnected at word:  4IMKK:
+#Reconnected at word:  4IMKK:
+#Disconnected at word:  4JKW::
+#Reconnected at word:  4JKW::
+#Disconnected at word:  4KJ5O:
+#Reconnected at word:  4KJ5O:
+#Disconnected at word:  4LHET:
+#Reconnected at word:  4LHET:
+#Disconnected at word:  4MFPX:
+#Reconnected at word:  4MFPX:
+#Disconnected at word:  4NE U:
+#Reconnected at word:  4NE U:
+#Disconnected at word:  4OC:O:
+#Reconnected at word:  4OC:O:
+#Disconnected at word:  4PAJJ:
+#Reconnected at word:  4PAJJ:
+#Disconnected at word:  4Q:UZ:
+#Reconnected at word:  4Q:UZ:
+#Disconnected at word:  4R94 :
+#Reconnected at word:  4R94 :
+#Disconnected at word:  4S7D::
+#Reconnected at word:  4S7D::
+#Disconnected at word:  4T5OP:
+#Reconnected at word:  4T5OP:
+#Disconnected at word:  4U4 7:
+#Reconnected at word:  4U4 7:
+#Disconnected at word:  4V29D:
+#Reconnected at word:  4V29D:
+#Disconnected at word:  4W0IM:
+#Reconnected at word:  4W0IM:
+#Disconnected at word:  4X U9:
+#Reconnected at word:  4X U9:
+#Disconnected at word:  4XZ3X:
+#Reconnected at word:  4XZ3X:
+#Disconnected at word:  4YXDN:
+#Reconnected at word:  4YXDN:
+#Disconnected at word:  4ZVOL:
+#Reconnected at word:  4ZVOL:
+#Disconnected at word:  5 TZN:
+#Reconnected at word:  5 TZN:
+#Disconnected at word:  5!S9H:
+#Reconnected at word:  5!S9H:
+#Disconnected at word:  50QIU:
+#Reconnected at word:  50QIU:
+#Disconnected at word:  51OUG:
+#Reconnected at word:  51OUG:
+#Disconnected at word:  52N42:
+#Reconnected at word:  52N42:
+#Disconnected at word:  53LDH:
+#Reconnected at word:  53LDH:
+#Disconnected at word:  54JOZ:
+#Reconnected at word:  54JOZ:
+#Disconnected at word:  55I ::
+#Reconnected at word:  55I ::
+#Disconnected at word:  56G9Q:
+#Reconnected at word:  56G9Q:
+#Disconnected at word:  57EJ1:
+#Reconnected at word:  57EJ1:
+#Disconnected at word:  58CU!:
+#Reconnected at word:  58CU!:
+#Disconnected at word:  59B3A:
+#Reconnected at word:  59B3A:
+#Disconnected at word:  5:?CD:
+#Reconnected at word:  5:?CD:
+#Disconnected at word:  5?9N3:
+#Reconnected at word:  5?9N3:
+#Disconnected at word:  5A7YB:
+#Reconnected at word:  5A7YB:
+#Disconnected at word:  5B67A:
+#Reconnected at word:  5B67A:
+#Disconnected at word:  5C4G5:
+#Reconnected at word:  5C4G5:
+#Disconnected at word:  5D2S9:
+#Reconnected at word:  5D2S9:
+#Disconnected at word:  5E11W:
+#Reconnected at word:  5E11W:
+#Disconnected at word:  5F!AZ:
+#Reconnected at word:  5F!AZ:
+#Disconnected at word:  5FZM!:
+#Reconnected at word:  5FZM!:
+#Disconnected at word:  5GXX!:
+#Reconnected at word:  5GXX!:
+#Disconnected at word:  5HW61:
+#Reconnected at word:  5HW61:
+#Disconnected at word:  5IUF?:
+#Reconnected at word:  5IUF?:
+#Disconnected at word:  5JSQU:
+#Reconnected at word:  5JSQU:
+#Disconnected at word:  5KR!R:
+#Reconnected at word:  5KR!R:
+#Disconnected at word:  5LP:Q:
+#Reconnected at word:  5LP:Q:
+#Disconnected at word:  5MNJX:
+#Reconnected at word:  5MNJX:
+#Disconnected at word:  5NLUU:
+#Reconnected at word:  5NLUU:
+#Disconnected at word:  5OK4?:
+#Reconnected at word:  5OK4?:
+#Disconnected at word:  5PIDR:
+#Reconnected at word:  5PIDR:
+#Disconnected at word:  5QGOR:
+#Reconnected at word:  5QGOR:
+#Disconnected at word:  5RF 8:
+#Reconnected at word:  5RF 8:
+#Disconnected at word:  5SD9P:
+#Reconnected at word:  5SD9P:
+#Disconnected at word:  5TBJ6:
+#Reconnected at word:  5TBJ6:
+#Disconnected at word:  5U?U0:
+#Reconnected at word:  5U?U0:
+#Disconnected at word:  5V:2O:
+#Reconnected at word:  5V:2O:
+#Disconnected at word:  5W8C6:
+#Reconnected at word:  5W8C6:
+#Disconnected at word:  5X6N4:
+#Reconnected at word:  5X6N4:
+#Disconnected at word:  5Y4YF:
+#Reconnected at word:  5Y4YF:
+#Disconnected at word:  5Z386:
+#Reconnected at word:  5Z386:
+#Disconnected at word:  6 1HT:
+#Reconnected at word:  6 1HT:
+#Disconnected at word:  6!!TF:
+#Reconnected at word:  6!!TF:
+#Disconnected at word:  60 2P:
+#Reconnected at word:  60 2P:
+#Disconnected at word:  60YE6:
+#Reconnected at word:  60YE6:
+#Disconnected at word:  61WTP:
+#Reconnected at word:  61WTP:
+#Disconnected at word:  62V6N:
+#Reconnected at word:  62V6N:
+#Disconnected at word:  63TJP:
+#Reconnected at word:  63TJP:
+#Disconnected at word:  64RYU:
+#Reconnected at word:  64RYU:
+#Disconnected at word:  65Q?3:
+#Reconnected at word:  65Q?3:
+#Disconnected at word:  66OL1:
+#Reconnected at word:  66OL1:
+#Disconnected at word:  67MX0:
+#Reconnected at word:  67MX0:
+#Disconnected at word:  68L6M:
+#Reconnected at word:  68L6M:
+#Disconnected at word:  69JGJ:
+#Reconnected at word:  69JGJ:
+#Disconnected at word:  6:HRV:
+#Reconnected at word:  6:HRV:
+#Disconnected at word:  6?G1G:
+#Reconnected at word:  6?G1G:
+#Disconnected at word:  6AEAX:
+#Reconnected at word:  6AEAX:
+#Disconnected at word:  6BCM0:
+#Reconnected at word:  6BCM0:
+#Disconnected at word:  6CAXD:
+#Reconnected at word:  6CAXD:
+#Disconnected at word:  6D?6Y:
+#Reconnected at word:  6D?6Y:
+#Disconnected at word:  6E9GB:
+#Reconnected at word:  6E9GB:
+#Disconnected at word:  6F7RM:
+#Reconnected at word:  6F7RM:
+#Disconnected at word:  6G611:
+#Reconnected at word:  6G611:
+#Disconnected at word:  6H4AO:
+#Reconnected at word:  6H4AO:
+#Disconnected at word:  6I2M1:
+#Reconnected at word:  6I2M1:
+#Disconnected at word:  6J0X1:
+#Reconnected at word:  6J0X1:
+#Disconnected at word:  6K!5Z:
+#Reconnected at word:  6K!5Z:
+#Disconnected at word:  6KZF5:
+#Reconnected at word:  6KZF5:
+#Disconnected at word:  6LXQ4:
+#Reconnected at word:  6LXQ4:
+#Disconnected at word:  6MW!3:
+#Reconnected at word:  6MW!3:
+#Disconnected at word:  6NU:1:
+#Reconnected at word:  6NU:1:
+#Disconnected at word:  6OSIU:
+#Reconnected at word:  6OSIU:
+#Disconnected at word:  6PQU::
+#Reconnected at word:  6PQU::
+#Disconnected at word:  6QP3C:
+#Reconnected at word:  6QP3C:
+#Disconnected at word:  6RNCC:
+#Reconnected at word:  6RNCC:
+#Disconnected at word:  6SLN?:
+#Reconnected at word:  6SLN?:
+#Disconnected at word:  6TJYH:
+#Reconnected at word:  6TJYH:
+#Disconnected at word:  6UI7E:
+#Reconnected at word:  6UI7E:
+#Disconnected at word:  6VGGR:
+#Reconnected at word:  6VGGR:
+#Disconnected at word:  6WESG:
+#Reconnected at word:  6WESG:
+#Disconnected at word:  6XD1L:
+#Reconnected at word:  6XD1L:
+#Disconnected at word:  6YBAB:
+#Reconnected at word:  6YBAB:
+#Disconnected at word:  6Z?L?:
+#Reconnected at word:  6Z?L?:
+#Disconnected at word:  7 9WN:
+#Reconnected at word:  7 9WN:
+#Disconnected at word:  7!85J:
+#Reconnected at word:  7!85J:
+#Disconnected at word:  706E?:
+#Reconnected at word:  706E?:
+#Disconnected at word:  714PK:
+#Reconnected at word:  714PK:
+#Disconnected at word:  723 D:
+#Reconnected at word:  723 D:
+#Disconnected at word:  7319?:
+#Reconnected at word:  7319?:
+#Disconnected at word:  74!IG:
+#Reconnected at word:  74!IG:
+#Disconnected at word:  74ZTL:
+#Reconnected at word:  74ZTL:
+#Disconnected at word:  75Y2Y:
+#Reconnected at word:  75Y2Y:
+#Disconnected at word:  76WC::
+#Reconnected at word:  76WC::
+#Disconnected at word:  77UND:
+#Reconnected at word:  77UND:
+#Disconnected at word:  78SYH:
+#Reconnected at word:  78SYH:
+#Disconnected at word:  79R7K:
+#Reconnected at word:  79R7K:
+#Disconnected at word:  7:PGW:
+#Reconnected at word:  7:PGW:
+#Disconnected at word:  7?NS!:
+#Reconnected at word:  7?NS!:
+#Disconnected at word:  7AM0U:
+#Reconnected at word:  7AM0U:
+#Disconnected at word:  7BK?V:
+#Reconnected at word:  7BK?V:
+#Disconnected at word:  7CIL5:
+#Reconnected at word:  7CIL5:
+#Disconnected at word:  7DGW!:
+#Reconnected at word:  7DGW!:
+#Disconnected at word:  7EF54:
+#Reconnected at word:  7EF54:
+#Disconnected at word:  7FDEF:
+#Reconnected at word:  7FDEF:
+#Disconnected at word:  7GBPW:
+#Reconnected at word:  7GBPW:
+#Disconnected at word:  7HA!1:
+#Reconnected at word:  7HA!1:
+#Disconnected at word:  7I::3:
+#Reconnected at word:  7I::3:
+#Disconnected at word:  7J8JL:
+#Reconnected at word:  7J8JL:
+#Disconnected at word:  7K6UN:
+#Reconnected at word:  7K6UN:
+#Disconnected at word:  7L53U:
+#Reconnected at word:  7L53U:
+#Disconnected at word:  7M3DL:
+#Reconnected at word:  7M3DL:
+#Disconnected at word:  7N1OZ:
+#Reconnected at word:  7N1OZ:
+#Disconnected at word:  7O0!N:
+#Reconnected at word:  7O0!N:
+#Disconnected at word:  7P BW:
+#Reconnected at word:  7P BW:
+#Disconnected at word:  7PYPK:
+#Reconnected at word:  7PYPK:
+#Disconnected at word:  7QX39:
+#Reconnected at word:  7QX39:
+#Disconnected at word:  7RVH1:
+#Reconnected at word:  7RVH1:
+#Disconnected at word:  7STW6:
+#Reconnected at word:  7STW6:
+#Disconnected at word:  7TS7L:
+#Reconnected at word:  7TS7L:
+#Disconnected at word:  7UQH4:
+#Reconnected at word:  7UQH4:
+#Disconnected at word:  7VOSR:
+#Reconnected at word:  7VOSR:
+#Disconnected at word:  7WN2P:
+#Reconnected at word:  7WN2P:
+#Disconnected at word:  7XLCD:
+#Reconnected at word:  7XLCD:
+#Disconnected at word:  7YJO7:
+#Reconnected at word:  7YJO7:
+#Disconnected at word:  7ZI 6:
+#Reconnected at word:  7ZI 6:
+#Disconnected at word:  8 G:3:
+#Reconnected at word:  8 G:3:
+#Disconnected at word:  8!EJM:
+#Reconnected at word:  8!EJM:
+#Disconnected at word:  80CV3:
+#Reconnected at word:  80CV3:
+#Disconnected at word:  81B5F:
+#Reconnected at word:  81B5F:
+#Disconnected at word:  82?FC:
+#Reconnected at word:  82?FC:
+#Disconnected at word:  839QS:
+#Reconnected at word:  839QS:
+#Disconnected at word:  8480D:
+#Reconnected at word:  8480D:
+#Disconnected at word:  856A8:
+#Reconnected at word:  856A8:
+#Disconnected at word:  864LJ:
+#Reconnected at word:  864LJ:
+#Disconnected at word:  872X5:
+#Reconnected at word:  872X5:
+#Disconnected at word:  8817 :
+#Reconnected at word:  8817 :
+#Disconnected at word:  89!GP:
+#Reconnected at word:  89!GP:
+#Disconnected at word:  89ZSV:
+#Reconnected at word:  89ZSV:
+#Disconnected at word:  8:Y2I:
+#Reconnected at word:  8:Y2I:
+#Disconnected at word:  8?WC9:
+#Reconnected at word:  8?WC9:
+#Disconnected at word:  8AUO :
+#Reconnected at word:  8AUO :
+#Disconnected at word:  8BSZD:
+#Reconnected at word:  8BSZD:
+#Disconnected at word:  8CR8W:
+#Reconnected at word:  8CR8W:
+#Disconnected at word:  8DPIZ:
+#Reconnected at word:  8DPIZ:
+#Disconnected at word:  8ENV?:
+#Reconnected at word:  8ENV?:
+#Disconnected at word:  8FM5C:
+#Reconnected at word:  8FM5C:
+#Disconnected at word:  8GKFB:
+#Reconnected at word:  8GKFB:
+#Disconnected at word:  8HIRQ:
+#Reconnected at word:  8HIRQ:
+#Disconnected at word:  8IH23:
+#Reconnected at word:  8IH23:
+#Disconnected at word:  8JFC1:
+#Reconnected at word:  8JFC1:
+#Disconnected at word:  8KDNT:
+#Reconnected at word:  8KDNT:
+#Disconnected at word:  8LBZN:
+#Reconnected at word:  8LBZN:
+#Disconnected at word:  8MA9N:
+#Reconnected at word:  8MA9N:
+#Disconnected at word:  8N:JH:
+#Reconnected at word:  8N:JH:
+#Disconnected at word:  8O8VG:
+#Reconnected at word:  8O8VG:
+#Disconnected at word:  8P75O:
+#Reconnected at word:  8P75O:
+#Disconnected at word:  8Q5FH:
+#Reconnected at word:  8Q5FH:
+#Disconnected at word:  8R3RD:
+#Reconnected at word:  8R3RD:
+#Disconnected at word:  8S211:
+#Reconnected at word:  8S211:
+#Disconnected at word:  8T0B!:
+#Reconnected at word:  8T0B!:
+#Disconnected at word:  8U N0:
+#Reconnected at word:  8U N0:
+#Disconnected at word:  8UYYH:
+#Reconnected at word:  8UYYH:
+#Disconnected at word:  8VX7R:
+#Reconnected at word:  8VX7R:
+#Disconnected at word:  8WVGC:
+#Reconnected at word:  8WVGC:
+#Disconnected at word:  8XTRX:
+#Reconnected at word:  8XTRX:
+#Disconnected at word:  8YS1Z:
+#Reconnected at word:  8YS1Z:
+#Disconnected at word:  8ZA9E:
+#Reconnected at word:  8ZA9E:
+#Disconnected at word:  8ZQAZ:
+#Reconnected at word:  8ZQAZ:
+#Disconnected at word:  9 OMQ:
+#Reconnected at word:  9 OMQ:
+#Disconnected at word:  9!MY8:
+#Reconnected at word:  9!MY8:
+#Disconnected at word:  90L7M:
+#Reconnected at word:  90L7M:
+#Disconnected at word:  91JGN:
+#Reconnected at word:  91JGN:
+#Disconnected at word:  92HRQ:
+#Reconnected at word:  92HRQ:
+#Disconnected at word:  93G13:
+#Reconnected at word:  93G13:
+#Disconnected at word:  94EAD:
+#Reconnected at word:  94EAD:
+#Disconnected at word:  95CLO:
+#Reconnected at word:  95CLO:
+#Disconnected at word:  96AXA:
+#Reconnected at word:  96AXA:
+#Disconnected at word:  97?6L:
+#Reconnected at word:  97?6L:
+#Disconnected at word:  989G7:
+#Reconnected at word:  989G7:
+#Disconnected at word:  997RE:
+#Reconnected at word:  997RE:
+#Disconnected at word:  9:611:
+#Reconnected at word:  9:611:
+#Disconnected at word:  9?4AN:
+#Reconnected at word:  9?4AN:
+#Disconnected at word:  9A2O :
+#Reconnected at word:  9A2O :
+#Disconnected at word:  9B10X:
+#Reconnected at word:  9B10X:
+#Disconnected at word:  9C!EA:
+#Reconnected at word:  9C!EA:
+#Disconnected at word:  9CZU?:
+#Reconnected at word:  9CZU?:
+#Disconnected at word:  9DY7S:
+#Reconnected at word:  9DY7S:
+#Disconnected at word:  9EWKQ:
+#Reconnected at word:  9EWKQ:
+#Disconnected at word:  9FUXT:
+#Reconnected at word:  9FUXT:
+#Disconnected at word:  9GT7R:
+#Reconnected at word:  9GT7R:
+#Disconnected at word:  9HRI5:
+#Reconnected at word:  9HRI5:
+#Disconnected at word:  9IPUJ:
+#Reconnected at word:  9IPUJ:
+#Disconnected at word:  9JO4T:
+#Reconnected at word:  9JO4T:
+#Disconnected at word:  9KMEM:
+#Reconnected at word:  9KMEM:
+#Disconnected at word:  9LKQV:
+#Reconnected at word:  9LKQV:
+#Disconnected at word:  9MJ0F:
+#Reconnected at word:  9MJ0F:
+#Disconnected at word:  9NHA9:
+#Reconnected at word:  9NHA9:
+#Disconnected at word:  9OFLL:
+#Reconnected at word:  9OFLL:
+#Disconnected at word:  9PDWY:
+#Reconnected at word:  9PDWY:
+#Disconnected at word:  9QC65:
+#Reconnected at word:  9QC65:
+#Disconnected at word:  9RAFI:
+#Reconnected at word:  9RAFI:
+#Disconnected at word:  9S:R3:
+#Reconnected at word:  9S:R3:
+#Disconnected at word:  9T90F:
+#Reconnected at word:  9T90F:
+#Disconnected at word:  9U7?W:
+#Reconnected at word:  9U7?W:
+#Disconnected at word:  9V5LS:
+#Reconnected at word:  9V5LS:
+#Disconnected at word:  9W3X::
+#Reconnected at word:  9W3X::
+#Disconnected at word:  9X26U:
+#Reconnected at word:  9X26U:
+#Disconnected at word:  9Y0G1:
+#Reconnected at word:  9Y0G1:
+#Disconnected at word:  9Z RW:
+#Reconnected at word:  9Z RW:
+#Disconnected at word:  9ZZ22:
+#Reconnected at word:  9ZZ22:
+#Disconnected at word:  : XBM:
+#Reconnected at word:  : XBM:
+#Disconnected at word:  :!VNB:
+#Reconnected at word:  :!VNB:
+#Disconnected at word:  :0TZ7:
+#Reconnected at word:  :0TZ7:
+#Disconnected at word:  :1S8M:
+#Reconnected at word:  :1S8M:
+#Disconnected at word:  :2QIL:
+#Reconnected at word:  :2QIL:
+#Disconnected at word:  :3OUK:
+#Reconnected at word:  :3OUK:
+#Disconnected at word:  :4N46:
+#Reconnected at word:  :4N46:
+#Disconnected at word:  :5?R5:
+#Reconnected at word:  :5?R5:
+#Disconnected at word:  :5LDL:
+#Reconnected at word:  :5LDL:
+#Disconnected at word:  :6JPU:
+#Reconnected at word:  :6JPU:
+#Disconnected at word:  :7I0!:
+#Reconnected at word:  :7I0!:
+#Disconnected at word:  :8G?U:
+#Reconnected at word:  :8G?U:
+#Disconnected at word:  :9ELD:
+#Reconnected at word:  :9ELD:
+#Disconnected at word:  ::CXD:
+#Reconnected at word:  ::CXD:
+#Disconnected at word:  :?B71:
+#Reconnected at word:  :?B71:
+#Disconnected at word:  :A?G7:
+#Reconnected at word:  :A?G7:
+#Disconnected at word:  :B9RV:
+#Reconnected at word:  :B9RV:
+#Disconnected at word:  :C80Z:
+#Reconnected at word:  :C80Z:
+#Disconnected at word:  :D6AZ:
+#Reconnected at word:  :D6AZ:
+#Disconnected at word:  :E4MG:
+#Reconnected at word:  :E4MG:
+#Disconnected at word:  :F2XP:
+#Reconnected at word:  :F2XP:
+#Disconnected at word:  :G15R:
+#Reconnected at word:  :G15R:
+#Disconnected at word:  :H!F9:
+#Reconnected at word:  :H!F9:
+#Disconnected at word:  :HZPP:
+#Reconnected at word:  :HZPP:
+#Disconnected at word:  :IY!G:
+#Reconnected at word:  :IY!G:
+#Disconnected at word:  :JW?F:
+#Reconnected at word:  :JW?F:
+#Disconnected at word:  :KUL7:
+#Reconnected at word:  :KUL7:
+#Disconnected at word:  :LSXG:
+#Reconnected at word:  :LSXG:
+#Disconnected at word:  :MR75:
+#Reconnected at word:  :MR75:
+#Disconnected at word:  :NPH!:
+#Reconnected at word:  :NPH!:
+#Disconnected at word:  :ODJ::
+#Reconnected at word:  :ODJ::
+#Disconnected at word:  :ONRR:
+#Reconnected at word:  :ONRR:
+#Disconnected at word:  :PM1B:
+#Reconnected at word:  :PM1B:
+#Disconnected at word:  :QKBJ:
+#Reconnected at word:  :QKBJ:
+#Disconnected at word:  :RIN3:
+#Reconnected at word:  :RIN3:
+#Disconnected at word:  :SGXP:
+#Reconnected at word:  :SGXP:
+#Disconnected at word:  :TF6Y:
+#Reconnected at word:  :TF6Y:
+#Disconnected at word:  :UDG?:
+#Reconnected at word:  :UDG?:
+#Disconnected at word:  :VBNP:
+#Reconnected at word:  :VBNP:
+#Disconnected at word:  :W?YW:
+#Reconnected at word:  :W?YW:
+#Disconnected at word:  :X:7V:
+#Reconnected at word:  :X:7V:
+#Disconnected at word:  :Y8HL:
+#Reconnected at word:  :Y8HL:
+#Disconnected at word:  :Z6TS:
+#Reconnected at word:  :Z6TS:
+#Disconnected at word:  ? 55W:
+#Reconnected at word:  ? 55W:
+#Disconnected at word:  ?!3JJ:
+#Reconnected at word:  ?!3JJ:
+#Disconnected at word:  ?01YX:
+#Reconnected at word:  ?01YX:
+#Disconnected at word:  ?10AD:
+#Reconnected at word:  ?10AD:
+#Disconnected at word:  ?2 PW:
+#Reconnected at word:  ?2 PW:
+#Disconnected at word:  ?2Z1H:
+#Reconnected at word:  ?2Z1H:
+#Disconnected at word:  ?3XAO:
+#Reconnected at word:  ?3XAO:
+#Disconnected at word:  ?4VMD:
+#Reconnected at word:  ?4VMD:
+#Disconnected at word:  ?5TXV:
+#Reconnected at word:  ?5TXV:
+#Disconnected at word:  ?6S74:
+#Reconnected at word:  ?6S74:
+#Disconnected at word:  ?7QGH:
+#Reconnected at word:  ?7QGH:
+#Disconnected at word:  ?8OSJ:
+#Reconnected at word:  ?8OSJ:
+#Disconnected at word:  ?9N24:
+#Reconnected at word:  ?9N24:
+#Disconnected at word:  ?:LC :
+#Reconnected at word:  ?:LC :
+#Disconnected at word:  ??JNL:
+#Reconnected at word:  ??JNL:
+#Disconnected at word:  ?AHZC:
+#Reconnected at word:  ?AHZC:
+#Disconnected at word:  ?BG99:
+#Reconnected at word:  ?BG99:
+#Disconnected at word:  ?CEIX:
+#Reconnected at word:  ?CEIX:
+#Disconnected at word:  ?DCUO:
+#Reconnected at word:  ?DCUO:
+#Disconnected at word:  ?EB4 :
+#Reconnected at word:  ?EB4 :
+#Disconnected at word:  ?F?DB:
+#Reconnected at word:  ?F?DB:
+#Disconnected at word:  ?G9OR:
+#Reconnected at word:  ?G9OR:
+#Disconnected at word:  ?H8 A:
+#Reconnected at word:  ?H8 A:
+#Disconnected at word:  ?I69J:
+#Reconnected at word:  ?I69J:
+#Disconnected at word:  ?J4IF:
+#Reconnected at word:  ?J4IF:
+#Disconnected at word:  ?K2TF:
+#Reconnected at word:  ?K2TF:
+#Disconnected at word:  ?L12C:
+#Reconnected at word:  ?L12C:
+#Disconnected at word:  ?M!BF:
+#Reconnected at word:  ?M!BF:
+#Disconnected at word:  ?MZMG:
+#Reconnected at word:  ?MZMG:
+#Disconnected at word:  ?NXXM:
+#Reconnected at word:  ?NXXM:
+#Disconnected at word:  ?OW71:
+#Reconnected at word:  ?OW71:
+#Disconnected at word:  ?PUGB:
+#Reconnected at word:  ?PUGB:
+#Disconnected at word:  ?QSRO:
+#Reconnected at word:  ?QSRO:
+#Disconnected at word:  ?RR1O:
+#Reconnected at word:  ?RR1O:
+#Disconnected at word:  ?SPBB:
+#Reconnected at word:  ?SPBB:
+#Disconnected at word:  ?TNMA:
+#Reconnected at word:  ?TNMA:
+#Disconnected at word:  ?ULY9:
+#Reconnected at word:  ?ULY9:
+#Disconnected at word:  ?VK7S:
+#Reconnected at word:  ?VK7S:
+#Disconnected at word:  ?WIH6:
+#Reconnected at word:  ?WIH6:
+#Disconnected at word:  ?XGSK:
+#Reconnected at word:  ?XGSK:
+#Disconnected at word:  ?YF24:
+#Reconnected at word:  ?YF24:
+#Disconnected at word:  ?ZDC8:
+#Reconnected at word:  ?ZDC8:
+#Disconnected at word:  A BNS:
+#Reconnected at word:  A BNS:
+#Disconnected at word:  A!?ZG:
+#Reconnected at word:  A!?ZG:
+#Disconnected at word:  A0:8J:
+#Reconnected at word:  A0:8J:
+#Disconnected at word:  A18I7:
+#Reconnected at word:  A18I7:
+#Disconnected at word:  A26U2:
+#Reconnected at word:  A26U2:
+#Disconnected at word:  A3546:
+#Reconnected at word:  A3546:
+#Disconnected at word:  A43DO:
+#Reconnected at word:  A43DO:
+#Disconnected at word:  A51OJ:
+#Reconnected at word:  A51OJ:
+#Disconnected at word:  A6!Z6:
+#Reconnected at word:  A6!Z6:
+#Disconnected at word:  A7 7N:
+#Reconnected at word:  A7 7N:
+#Disconnected at word:  A7YG?:
+#Reconnected at word:  A7YG?:
+#Disconnected at word:  A8WRJ:
+#Reconnected at word:  A8WRJ:
+#Disconnected at word:  A9V0U:
+#Reconnected at word:  A9V0U:
+#Disconnected at word:  A:TA4:
+#Reconnected at word:  A:TA4:
+#Disconnected at word:  A?RM2:
+#Reconnected at word:  A?RM2:
+#Disconnected at word:  AAPXT:
+#Reconnected at word:  AAPXT:
+#Disconnected at word:  ABO7B:
+#Reconnected at word:  ABO7B:
+#Disconnected at word:  ACMH6:
+#Reconnected at word:  ACMH6:
+#Disconnected at word:  ADKSH:
+#Reconnected at word:  ADKSH:
+#Disconnected at word:  AEJ1Q:
+#Reconnected at word:  AEJ1Q:
+#Disconnected at word:  AFHBE:
+#Reconnected at word:  AFHBE:
+#Disconnected at word:  AGFMS:
+#Reconnected at word:  AGFMS:
+#Disconnected at word:  AHDY2:
+#Reconnected at word:  AHDY2:
+#Disconnected at word:  AIC85:
+#Reconnected at word:  AIC85:
+#Disconnected at word:  AJAHU:
+#Reconnected at word:  AJAHU:
+#Disconnected at word:  AK:T5:
+#Reconnected at word:  AK:T5:
+#Disconnected at word:  AL93W:
+#Reconnected at word:  AL93W:
+#Disconnected at word:  AM7HA:
+#Reconnected at word:  AM7HA:
+#Disconnected at word:  AN5WZ:
+#Reconnected at word:  AN5WZ:
+#Disconnected at word:  AO4:U:
+#Reconnected at word:  AO4:U:
+#Disconnected at word:  AP2OL:
+#Reconnected at word:  AP2OL:
+#Disconnected at word:  AQ11C:
+#Reconnected at word:  AQ11C:
+#Disconnected at word:  AR!BH:
+#Reconnected at word:  AR!BH:
+#Disconnected at word:  ARZNC:
+#Reconnected at word:  ARZNC:
+#Disconnected at word:  ASXZ!:
+#Reconnected at word:  ASXZ!:
+#Disconnected at word:  ATW91:
+#Reconnected at word:  ATW91:
+#Disconnected at word:  AUUIQ:
+#Reconnected at word:  AUUIQ:
+#Disconnected at word:  AVSUJ:
+#Reconnected at word:  AVSUJ:
+#Disconnected at word:  AWR4S:
+#Reconnected at word:  AWR4S:
+#Disconnected at word:  AXPEL:
+#Reconnected at word:  AXPEL:
+#Disconnected at word:  AYNQ6:
+#Reconnected at word:  AYNQ6:
+#Disconnected at word:  AZM!J:
+#Reconnected at word:  AZM!J:
+#Disconnected at word:  B K:T:
+#Reconnected at word:  B K:T:
+#Disconnected at word:  B!IJY:
+#Reconnected at word:  B!IJY:
+#Disconnected at word:  B0GVJ:
+#Reconnected at word:  B0GVJ:
+#Disconnected at word:  B1F4L:
+#Reconnected at word:  B1F4L:
+#Disconnected at word:  B2DDL:
+#Reconnected at word:  B2DDL:
+#Disconnected at word:  B3BP?:
+#Reconnected at word:  B3BP?:
+#Disconnected at word:  B4A D:
+#Reconnected at word:  B4A D:
+#Disconnected at word:  B5::C:
+#Reconnected at word:  B5::C:
+#Disconnected at word:  B68JZ:
+#Reconnected at word:  B68JZ:
+#Disconnected at word:  B76VC:
+#Reconnected at word:  B76VC:
+#Disconnected at word:  B8541:
+#Reconnected at word:  B8541:
+#Disconnected at word:  B93D::
+#Reconnected at word:  B93D::
+#Disconnected at word:  B:1OA:
+#Reconnected at word:  B:1OA:
+#Disconnected at word:  B?0 4:
+#Reconnected at word:  B?0 4:
+#Disconnected at word:  BA 9K:
+#Reconnected at word:  BA 9K:
+#Disconnected at word:  BAYJB:
+#Reconnected at word:  BAYJB:
+#Disconnected at word:  BBWV0:
+#Reconnected at word:  BBWV0:
+#Disconnected at word:  BCV4D:
+#Reconnected at word:  BCV4D:
+#Disconnected at word:  BDTDS:
+#Reconnected at word:  BDTDS:
+#Disconnected at word:  BEROY:
+#Reconnected at word:  BEROY:
+#Disconnected at word:  BFQ!2:
+#Reconnected at word:  BFQ!2:
+#Disconnected at word:  BGO?5:
+#Reconnected at word:  BGO?5:
+#Disconnected at word:  BHMKP:
+#Reconnected at word:  BHMKP:
+#Disconnected at word:  BIKWG:
+#Reconnected at word:  BIKWG:
+#Disconnected at word:  BJJ6G:
+#Reconnected at word:  BJJ6G:
+#Disconnected at word:  BKHG2:
+#Reconnected at word:  BKHG2:
+#Disconnected at word:  BLFS0:
+#Reconnected at word:  BLFS0:
+#Disconnected at word:  BME1L:
+#Reconnected at word:  BME1L:
+#Disconnected at word:  BNCAY:
+#Reconnected at word:  BNCAY:
+#Disconnected at word:  BOAMG:
+#Reconnected at word:  BOAMG:
+#Disconnected at word:  BP:XS:
+#Reconnected at word:  BP:XS:
+#Disconnected at word:  BQ97 :
+#Reconnected at word:  BQ97 :
+#Disconnected at word:  BR7GA:
+#Reconnected at word:  BR7GA:
+#Disconnected at word:  BS5RO:
+#Reconnected at word:  BS5RO:
+#Disconnected at word:  BT418:
+#Reconnected at word:  BT418:
+#Disconnected at word:  BU2AB:
+#Reconnected at word:  BU2AB:
+#Disconnected at word:  BV0LS:
+#Reconnected at word:  BV0LS:
+#Disconnected at word:  BW X :
+#Reconnected at word:  BW X :
+#Disconnected at word:  BWZ6M:
+#Reconnected at word:  BWZ6M:
+#Disconnected at word:  BXXG?:
+#Reconnected at word:  BXXG?:
+#Disconnected at word:  BYVS9:
+#Reconnected at word:  BYVS9:
+#Disconnected at word:  BZU1X:
+#Reconnected at word:  BZU1X:
+#Disconnected at word:  C SBY:
+#Reconnected at word:  C SBY:
+#Disconnected at word:  C!QNW:
+#Reconnected at word:  C!QNW:
+#Disconnected at word:  C0P 2:
+#Reconnected at word:  C0P 2:
+#Disconnected at word:  C1N9M:
+#Reconnected at word:  C1N9M:
+#Disconnected at word:  C2LJG:
+#Reconnected at word:  C2LJG:
+#Disconnected at word:  C3JVA:
+#Reconnected at word:  C3JVA:
+#Disconnected at word:  C4I4V:
+#Reconnected at word:  C4I4V:
+#Disconnected at word:  C59HP:
+#Reconnected at word:  C59HP:
+#Disconnected at word:  C5GDP:
+#Reconnected at word:  C5GDP:
+#Disconnected at word:  C6EPD:
+#Reconnected at word:  C6EPD:
+#Disconnected at word:  C7D N:
+#Reconnected at word:  C7D N:
+#Disconnected at word:  C8B:L:
+#Reconnected at word:  C8B:L:
+#Disconnected at word:  C9?MX:
+#Reconnected at word:  C9?MX:
+#Disconnected at word:  C::08:
+#Reconnected at word:  C::08:
+#Disconnected at word:  C?8DH:
+#Reconnected at word:  C?8DH:
+#Disconnected at word:  CA6SU:
+#Reconnected at word:  CA6SU:
+#Disconnected at word:  CB563:
+#Reconnected at word:  CB563:
+#Disconnected at word:  CC3HW:
+#Reconnected at word:  CC3HW:
+#Disconnected at word:  CD1TE:
+#Reconnected at word:  CD1TE:
+#Disconnected at word:  CE038:
+#Reconnected at word:  CE038:
+#Disconnected at word:  CF CS:
+#Reconnected at word:  CF CS:
+#Disconnected at word:  CFYOP:
+#Reconnected at word:  CFYOP:
+#Disconnected at word:  CGX O:
+#Reconnected at word:  CGX O:
+#Disconnected at word:  CHV:V:
+#Reconnected at word:  CHV:V:
+#Disconnected at word:  CITKO:
+#Reconnected at word:  CITKO:
+#Disconnected at word:  CJRWX:
+#Reconnected at word:  CJRWX:
+#Disconnected at word:  CKQ6V:
+#Reconnected at word:  CKQ6V:
+#Disconnected at word:  CLOGL:
+#Reconnected at word:  CLOGL:
+#Disconnected at word:  CMMSS:
+#Reconnected at word:  CMMSS:
+#Disconnected at word:  CNL2O:
+#Reconnected at word:  CNL2O:
+#Disconnected at word:  COJD1:
+#Reconnected at word:  COJD1:
+#Disconnected at word:  CPHP :
+#Reconnected at word:  CPHP :
+#Disconnected at word:  CQG!6:
+#Reconnected at word:  CQG!6:
+#Disconnected at word:  CRE:F:
+#Reconnected at word:  CRE:F:
+#Disconnected at word:  CSCKK:
+#Reconnected at word:  CSCKK:
+#Disconnected at word:  CSQ6H:
+#Reconnected at word:  CSQ6H:
+#Disconnected at word:  CTAVT:
+#Reconnected at word:  CTAVT:
+#Disconnected at word:  CU?5B:
+#Reconnected at word:  CU?5B:
+#Disconnected at word:  CV9ET:
+#Reconnected at word:  CV9ET:
+#Disconnected at word:  CW7PL:
+#Reconnected at word:  CW7PL:
+#Disconnected at word:  CX6!J:
+#Reconnected at word:  CX6!J:
+#Disconnected at word:  CY4?A:
+#Reconnected at word:  CY4?A:
+#Disconnected at word:  CZ2KC:
+#Reconnected at word:  CZ2KC:
+#Disconnected at word:  D 0VO:
+#Reconnected at word:  D 0VO:
+#Disconnected at word:  D!!4W:
+#Reconnected at word:  D!!4W:
+#Disconnected at word:  D!ZE1:
+#Reconnected at word:  D!ZE1:
+#Disconnected at word:  D0XQ :
+#Reconnected at word:  D0XQ :
+#Disconnected at word:  D1W!G:
+#Reconnected at word:  D1W!G:
+#Disconnected at word:  D2U?2:
+#Reconnected at word:  D2U?2:
+#Disconnected at word:  D3SKV:
+#Reconnected at word:  D3SKV:
+#Disconnected at word:  D4QWL:
+#Reconnected at word:  D4QWL:
+#Disconnected at word:  D5P6B:
+#Reconnected at word:  D5P6B:
+#Disconnected at word:  D6NFY:
+#Reconnected at word:  D6NFY:
+#Disconnected at word:  D7LRC:
+#Reconnected at word:  D7LRC:
+#Disconnected at word:  D8K16:
+#Reconnected at word:  D8K16:
+#Disconnected at word:  D9IAZ:
+#Reconnected at word:  D9IAZ:
+#Disconnected at word:  D:GMM:
+#Reconnected at word:  D:GMM:
+#Disconnected at word:  D?EY7:
+#Reconnected at word:  D?EY7:
+#Disconnected at word:  DAD7O:
+#Reconnected at word:  DAD7O:
+#Disconnected at word:  DBBHM:
+#Reconnected at word:  DBBHM:
+#Disconnected at word:  DC?TL:
+#Reconnected at word:  DC?TL:
+#Disconnected at word:  DD:3G:
+#Reconnected at word:  DD:3G:
+#Disconnected at word:  DE8DC:
+#Reconnected at word:  DE8DC:
+#Disconnected at word:  DF6P6:
+#Reconnected at word:  DF6P6:
+#Disconnected at word:  DG5!G:
+#Reconnected at word:  DG5!G:
+#Disconnected at word:  DH3?0:
+#Reconnected at word:  DH3?0:
+#Disconnected at word:  DI1KJ:
+#Reconnected at word:  DI1KJ:
+#Disconnected at word:  DJ!W2:
+#Reconnected at word:  DJ!W2:
+#Disconnected at word:  DK 5T:
+#Reconnected at word:  DK 5T:
+#Disconnected at word:  DKYFB:
+#Reconnected at word:  DKYFB:
+#Disconnected at word:  DLWQT:
+#Reconnected at word:  DLWQT:
+#Disconnected at word:  DMV0::
+#Reconnected at word:  DMV0::
+#Disconnected at word:  DNTA2:
+#Reconnected at word:  DNTA2:
+#Disconnected at word:  DORLT:
+#Reconnected at word:  DORLT:
+#Disconnected at word:  DPPXU:
+#Reconnected at word:  DPPXU:
+#Disconnected at word:  DQO7E:
+#Reconnected at word:  DQO7E:
+#Disconnected at word:  DRMH7:
+#Reconnected at word:  DRMH7:
+#Disconnected at word:  DSKSY:
+#Reconnected at word:  DSKSY:
+#Disconnected at word:  DTJ28:
+#Reconnected at word:  DTJ28:
+#Disconnected at word:  DUHC3:
+#Reconnected at word:  DUHC3:
+#Disconnected at word:  DVFNS:
+#Reconnected at word:  DVFNS:
+#Disconnected at word:  DWE M:
+#Reconnected at word:  DWE M:
+#Disconnected at word:  DXCBU:
+#Reconnected at word:  DXCBU:
+#Disconnected at word:  DYARF:
+#Reconnected at word:  DYARF:
+#Disconnected at word:  DZ?4Z:
+#Reconnected at word:  DZ?4Z:
+#Disconnected at word:  E 9IH:
+#Reconnected at word:  E 9IH:
+#Disconnected at word:  E!7X :
+#Reconnected at word:  E!7X :
+#Disconnected at word:  E067U:
+#Reconnected at word:  E067U:
+#Disconnected at word:  E14H?:
+#Reconnected at word:  E14H?:
+#Disconnected at word:  E22SE:
+#Reconnected at word:  E22SE:
+#Disconnected at word:  E311H:
+#Reconnected at word:  E311H:
+#Disconnected at word:  E4!AH:
+#Reconnected at word:  E4!AH:
+#Disconnected at word:  E4ZLZ:
+#Reconnected at word:  E4ZLZ:
+#Disconnected at word:  E5XY0:
+#Reconnected at word:  E5XY0:
+#Disconnected at word:  E6W7M:
+#Reconnected at word:  E6W7M:
+#Disconnected at word:  E7UGV:
+#Reconnected at word:  E7UGV:
+#Disconnected at word:  E8SS5:
+#Reconnected at word:  E8SS5:
+#Disconnected at word:  E9R1I:
+#Reconnected at word:  E9R1I:
+#Disconnected at word:  E:PB2:
+#Reconnected at word:  E:PB2:
+#Disconnected at word:  E?NM8:
+#Reconnected at word:  E?NM8:
+#Disconnected at word:  EALXQ:
+#Reconnected at word:  EALXQ:
+#Disconnected at word:  EBK7M:
+#Reconnected at word:  EBK7M:
+#Disconnected at word:  ECIGY:
+#Reconnected at word:  ECIGY:
+#Disconnected at word:  EDGS?:
+#Reconnected at word:  EDGS?:
+#Disconnected at word:  EEF1K:
+#Reconnected at word:  EEF1K:
+#Disconnected at word:  EFDBO:
+#Reconnected at word:  EFDBO:
+#Disconnected at word:  EGBN3:
+#Reconnected at word:  EGBN3:
+#Disconnected at word:  EH?Z2:
+#Reconnected at word:  EH?Z2:
+#Disconnected at word:  EI:8Z:
+#Reconnected at word:  EI:8Z:
+#Disconnected at word:  EJ8IQ:
+#Reconnected at word:  EJ8IQ:
+#Disconnected at word:  EK6V :
+#Reconnected at word:  EK6V :
+#Disconnected at word:  EL55 :
+#Reconnected at word:  EL55 :
+#Disconnected at word:  EM3EQ:
+#Reconnected at word:  EM3EQ:
+#Disconnected at word:  EN1Q::
+#Reconnected at word:  EN1Q::
+#Disconnected at word:  EO0!R:
+#Reconnected at word:  EO0!R:
+#Disconnected at word:  EP ?!:
+#Reconnected at word:  EP ?!:
+#Disconnected at word:  EPYK?:
+#Reconnected at word:  EPYK?:
+#Disconnected at word:  EQWVJ:
+#Reconnected at word:  EQWVJ:
+#Disconnected at word:  ERV4O:
+#Reconnected at word:  ERV4O:
+#Disconnected at word:  ESTDE:
+#Reconnected at word:  ESTDE:
+#Disconnected at word:  ETRO1:
+#Reconnected at word:  ETRO1:
+#Disconnected at word:  EUPZI:
+#Reconnected at word:  EUPZI:
+#Disconnected at word:  EVO9I:
+#Reconnected at word:  EVO9I:
+#Disconnected at word:  EWMJ!:
+#Reconnected at word:  EWMJ!:
+#Disconnected at word:  EXKUW:
+#Reconnected at word:  EXKUW:
+#Disconnected at word:  EYJ4 :
+#Reconnected at word:  EYJ4 :
+#Disconnected at word:  EZHDJ:
+#Reconnected at word:  EZHDJ:
+#Disconnected at word:  F FOV:
+#Reconnected at word:  F FOV:
+#Disconnected at word:  F!E B:
+#Reconnected at word:  F!E B:
+#Disconnected at word:  F0C:7:
+#Reconnected at word:  F0C:7:
+#Disconnected at word:  F1AKC:
+#Reconnected at word:  F1AKC:
+#Disconnected at word:  F2:VV:
+#Reconnected at word:  F2:VV:
+#Disconnected at word:  F3956:
+#Reconnected at word:  F3956:
+#Disconnected at word:  F47EN:
+#Reconnected at word:  F47EN:
+#Disconnected at word:  F55P6:
+#Reconnected at word:  F55P6:
+#Disconnected at word:  F64 2:
+#Reconnected at word:  F64 2:
+#Disconnected at word:  F729C:
+#Reconnected at word:  F729C:
+#Disconnected at word:  F80IM:
+#Reconnected at word:  F80IM:
+#Disconnected at word:  F9 TL:
+#Reconnected at word:  F9 TL:
+#Disconnected at word:  F9Z2P:
+#Reconnected at word:  F9Z2P:
+#Disconnected at word:  F:XBM:
+#Reconnected at word:  F:XBM:
+#Disconnected at word:  F?VMY:
+#Reconnected at word:  F?VMY:
+#Disconnected at word:  FATY6:
+#Reconnected at word:  FATY6:
+#Disconnected at word:  FBS7V:
+#Reconnected at word:  FBS7V:
+#Disconnected at word:  FCQH7:
+#Reconnected at word:  FCQH7:
+#Disconnected at word:  FDOSJ:
+#Reconnected at word:  FDOSJ:
+#Disconnected at word:  FEN20:
+#Reconnected at word:  FEN20:
+#Disconnected at word:  FFLBL:
+#Reconnected at word:  FFLBL:
+#Disconnected at word:  FGJN9:
+#Reconnected at word:  FGJN9:
+#Disconnected at word:  FHHZA:
+#Reconnected at word:  FHHZA:
+#Disconnected at word:  FIG?Y:
+#Reconnected at word:  FIG?Y:
+#Disconnected at word:  FJEPJ:
+#Reconnected at word:  FJEPJ:
+#Disconnected at word:  FKD37:
+#Reconnected at word:  FKD37:
+#Disconnected at word:  FLBH::
+#Reconnected at word:  FLBH::
+#Disconnected at word:  FM?W8:
+#Reconnected at word:  FM?W8:
+#Disconnected at word:  FN:7K:
+#Reconnected at word:  FN:7K:
+#Disconnected at word:  FO8GF:
+#Reconnected at word:  FO8GF:
+#Disconnected at word:  FP6QP:
+#Reconnected at word:  FP6QP:
+#Disconnected at word:  FQ5!D:
+#Reconnected at word:  FQ5!D:
+#Disconnected at word:  FR3:8:
+#Reconnected at word:  FR3:8:
+#Disconnected at word:  FS1JG:
+#Reconnected at word:  FS1JG:
+#Disconnected at word:  FT!UT:
+#Reconnected at word:  FT!UT:
+#Disconnected at word:  FU 4B:
+#Reconnected at word:  FU 4B:
+#Disconnected at word:  FUYDK:
+#Reconnected at word:  FUYDK:
+#Disconnected at word:  FVWOE:
+#Reconnected at word:  FVWOE:
+#Disconnected at word:  FW15L:
+#Reconnected at word:  FW15L:
+#Disconnected at word:  FWUYJ:
+#Reconnected at word:  FWUYJ:
+#Disconnected at word:  FXT76:
+#Reconnected at word:  FXT76:
+#Disconnected at word:  FYRGE:
+#Reconnected at word:  FYRGE:
+#Disconnected at word:  FZPSI:
+#Reconnected at word:  FZPSI:
+#Disconnected at word:  G O1J:
+#Reconnected at word:  G O1J:
+#Disconnected at word:  G!MAZ:
+#Reconnected at word:  G!MAZ:
+#Disconnected at word:  G0KME:
+#Reconnected at word:  G0KME:
+#Disconnected at word:  G1IYA:
+#Reconnected at word:  G1IYA:
+#Disconnected at word:  G2H8E:
+#Reconnected at word:  G2H8E:
+#Disconnected at word:  G3FHH:
+#Reconnected at word:  G3FHH:
+#Disconnected at word:  G4DSP:
+#Reconnected at word:  G4DSP:
+#Disconnected at word:  G5C1G:
+#Reconnected at word:  G5C1G:
+#Disconnected at word:  G6AA2:
+#Reconnected at word:  G6AA2:
+#Disconnected at word:  G7:L :
+#Reconnected at word:  G7:L :
+#Disconnected at word:  G88W8:
+#Reconnected at word:  G88W8:
+#Disconnected at word:  G9761:
+#Reconnected at word:  G9761:
+#Disconnected at word:  G:5F::
+#Reconnected at word:  G:5F::
+#Disconnected at word:  G?3Q3:
+#Reconnected at word:  G?3Q3:
+#Disconnected at word:  GA2!8:
+#Reconnected at word:  GA2!8:
+#Disconnected at word:  GB0:8:
+#Reconnected at word:  GB0:8:
+#Disconnected at word:  GC IZ:
+#Reconnected at word:  GC IZ:
+#Disconnected at word:  GCYUS:
+#Reconnected at word:  GCYUS:
+#Disconnected at word:  GDX4K:
+#Reconnected at word:  GDX4K:
+#Disconnected at word:  GEVDY:
+#Reconnected at word:  GEVDY:
+#Disconnected at word:  GFTPJ:
+#Reconnected at word:  GFTPJ:
+#Disconnected at word:  GGS W:
+#Reconnected at word:  GGS W:
+#Disconnected at word:  GHQ:U:
+#Reconnected at word:  GHQ:U:
+#Disconnected at word:  GIOKE:
+#Reconnected at word:  GIOKE:
+#Disconnected at word:  GJMVB:
+#Reconnected at word:  GJMVB:
+#Disconnected at word:  GKL4S:
+#Reconnected at word:  GKL4S:
+#Disconnected at word:  GLJE!:
+#Reconnected at word:  GLJE!:
+#Disconnected at word:  GMHP2:
+#Reconnected at word:  GMHP2:
+#Disconnected at word:  GNG N:
+#Reconnected at word:  GNG N:
+#Disconnected at word:  GOE:4:
+#Reconnected at word:  GOE:4:
+#Disconnected at word:  GPCJF:
+#Reconnected at word:  GPCJF:
+#Disconnected at word:  GQAV6:
+#Reconnected at word:  GQAV6:
+#Disconnected at word:  GR?4Y:
+#Reconnected at word:  GR?4Y:
+#Disconnected at word:  GS9EC:
+#Reconnected at word:  GS9EC:
+#Disconnected at word:  GT7PP:
+#Reconnected at word:  GT7PP:
+#Disconnected at word:  GU6!Q:
+#Reconnected at word:  GU6!Q:
+#Disconnected at word:  GV4?F:
+#Reconnected at word:  GV4?F:
+#Disconnected at word:  GW2KV:
+#Reconnected at word:  GW2KV:
+#Disconnected at word:  GX0WM:
+#Reconnected at word:  GX0WM:
+#Disconnected at word:  GY!6M:
+#Reconnected at word:  GY!6M:
+#Disconnected at word:  GYZGV:
+#Reconnected at word:  GYZGV:
+#Disconnected at word:  GZXSF:
+#Reconnected at word:  GZXSF:
+#Disconnected at word:  H W1U:
+#Reconnected at word:  H W1U:
+#Disconnected at word:  H!UBJ:
+#Reconnected at word:  H!UBJ:
+#Disconnected at word:  H0SN :
+#Reconnected at word:  H0SN :
+#Disconnected at word:  H1QYH:
+#Reconnected at word:  H1QYH:
+#Disconnected at word:  H2P7O:
+#Reconnected at word:  H2P7O:
+#Disconnected at word:  H3NH7:
+#Reconnected at word:  H3NH7:
+#Disconnected at word:  H4LSR:
+#Reconnected at word:  H4LSR:
+#Disconnected at word:  H5K41:
+#Reconnected at word:  H5K41:
+#Disconnected at word:  H5SRL:
+#Reconnected at word:  H5SRL:
+#Disconnected at word:  H6IGU:
+#Reconnected at word:  H6IGU:
+#Disconnected at word:  H7GVV:
+#Reconnected at word:  H7GVV:
+#Disconnected at word:  H8F8P:
+#Reconnected at word:  H8F8P:
+#Disconnected at word:  H9DLZ:
+#Reconnected at word:  H9DLZ:
+#Disconnected at word:  H:C A:
+#Reconnected at word:  H:C A:
+#Disconnected at word:  H?A:N:
+#Reconnected at word:  H?A:N:
+#Disconnected at word:  HA:JS:
+#Reconnected at word:  HA:JS:
+#Disconnected at word:  HB8VM:
+#Reconnected at word:  HB8VM:
+#Disconnected at word:  HC75X:
+#Reconnected at word:  HC75X:
+#Disconnected at word:  HD5F!:
+#Reconnected at word:  HD5F!:
+#Disconnected at word:  HE3Q5:
+#Reconnected at word:  HE3Q5:
+#Disconnected at word:  HF1ZS:
+#Reconnected at word:  HF1ZS:
+#Disconnected at word:  HG090:
+#Reconnected at word:  HG090:
+#Disconnected at word:  HH I7:
+#Reconnected at word:  HH I7:
+#Disconnected at word:  HHYTP:
+#Reconnected at word:  HHYTP:
+#Disconnected at word:  HIX30:
+#Reconnected at word:  HIX30:
+#Disconnected at word:  HJUDR:
+#Reconnected at word:  HJUDR:
+#Disconnected at word:  HJVBM:
+#Reconnected at word:  HJVBM:
+#Disconnected at word:  HKTN6:
+#Reconnected at word:  HKTN6:
+#Disconnected at word:  HLRY2:
+#Reconnected at word:  HLRY2:
+#Disconnected at word:  HMQ7D:
+#Reconnected at word:  HMQ7D:
+#Disconnected at word:  HNOGW:
+#Reconnected at word:  HNOGW:
+#Disconnected at word:  HOMSK:
+#Reconnected at word:  HOMSK:
+#Disconnected at word:  HPL23:
+#Reconnected at word:  HPL23:
+#Disconnected at word:  HQJBA:
+#Reconnected at word:  HQJBA:
+#Disconnected at word:  HRHN3:
+#Reconnected at word:  HRHN3:
+#Disconnected at word:  HSFYL:
+#Reconnected at word:  HSFYL:
+#Disconnected at word:  HTE82:
+#Reconnected at word:  HTE82:
+#Disconnected at word:  HUCHD:
+#Reconnected at word:  HUCHD:
+#Disconnected at word:  HVASQ:
+#Reconnected at word:  HVASQ:
+#Disconnected at word:  HW?26:
+#Reconnected at word:  HW?26:
+#Disconnected at word:  HX9BN:
+#Reconnected at word:  HX9BN:
+#Disconnected at word:  HY7NG:
+#Reconnected at word:  HY7NG:
+#Disconnected at word:  HZ5ZH:
+#Reconnected at word:  HZ5ZH:
+#Disconnected at word:  I 49H:
+#Reconnected at word:  I 49H:
+#Disconnected at word:  I!2JY:
+#Reconnected at word:  I!2JY:
+#Disconnected at word:  I00W!:
+#Reconnected at word:  I00W!:
+#Disconnected at word:  I1!65:
+#Reconnected at word:  I1!65:
+#Disconnected at word:  I1ZG0:
+#Reconnected at word:  I1ZG0:
+#Disconnected at word:  I2XS::
+#Reconnected at word:  I2XS::
+#Disconnected at word:  I3W2D:
+#Reconnected at word:  I3W2D:
+#Disconnected at word:  I4UC2:
+#Reconnected at word:  I4UC2:
+#Disconnected at word:  I5SNS:
+#Reconnected at word:  I5SNS:
+#Disconnected at word:  I6QZR:
+#Reconnected at word:  I6QZR:
+#Disconnected at word:  I7P9R:
+#Reconnected at word:  I7P9R:
+#Disconnected at word:  I8NJ::
+#Reconnected at word:  I8NJ::
+#Disconnected at word:  I9LUN:
+#Reconnected at word:  I9LUN:
+#Disconnected at word:  I:K3Z:
+#Reconnected at word:  I:K3Z:
+#Disconnected at word:  I?IDP:
+#Reconnected at word:  I?IDP:
+#Disconnected at word:  IAGOW:
+#Reconnected at word:  IAGOW:
+#Disconnected at word:  IBF F:
+#Reconnected at word:  IBF F:
+#Disconnected at word:  ICD:C:
+#Reconnected at word:  ICD:C:
+#Disconnected at word:  IDBK!:
+#Reconnected at word:  IDBK!:
+#Disconnected at word:  IE?VE:
+#Reconnected at word:  IE?VE:
+#Disconnected at word:  IF:5C:
+#Reconnected at word:  IF:5C:
+#Disconnected at word:  IG8FO:
+#Reconnected at word:  IG8FO:
+#Disconnected at word:  IH6RR:
+#Reconnected at word:  IH6RR:
+#Disconnected at word:  II51T:
+#Reconnected at word:  II51T:
+#Disconnected at word:  IJ3C2:
+#Reconnected at word:  IJ3C2:
+#Disconnected at word:  IK1O2:
+#Reconnected at word:  IK1O2:
+#Disconnected at word:  IL0 E:
+#Reconnected at word:  IL0 E:
+#Disconnected at word:  IM :S:
+#Reconnected at word:  IM :S:
+#Disconnected at word:  IMYL0:
+#Reconnected at word:  IMYL0:
+!Timed out after sending:  INFO::
+#Disconnected at word:  INW7F:
+#Reconnected at word:  INW7F:
+#Disconnected at word:  IOUHI:
+#Reconnected at word:  IOUHI:
+#Disconnected at word:  IPST?:
+#Reconnected at word:  IPST?:
+#Disconnected at word:  IQR2T:
+#Reconnected at word:  IQR2T:
+#Disconnected at word:  IRPC6:
+#Reconnected at word:  IRPC6:
+#Disconnected at word:  ISNOM:
+#Reconnected at word:  ISNOM:
+#Disconnected at word:  ITM15:
+#Reconnected at word:  ITM15:
+#Disconnected at word:  IUKF4:
+#Reconnected at word:  IUKF4:
+#Disconnected at word:  IVIUP:
+#Reconnected at word:  IVIUP:
+#Disconnected at word:  IWH8H:
+#Reconnected at word:  IWH8H:
+#Disconnected at word:  IXFLG:
+#Reconnected at word:  IXFLG:
+#Disconnected at word:  IYDYU:
+#Reconnected at word:  IYDYU:
+#Disconnected at word:  IZC8::
+#Reconnected at word:  IZC8::
+#Disconnected at word:  J AI9:
+#Reconnected at word:  J AI9:
+#Disconnected at word:  J!:TZ:
+#Reconnected at word:  J!:TZ:
+#Disconnected at word:  J0947:
+#Reconnected at word:  J0947:
+#Disconnected at word:  J17DY:
+#Reconnected at word:  J17DY:
+#Disconnected at word:  J25Q1:
+#Reconnected at word:  J25Q1:
+#Disconnected at word:  J340::
+#Reconnected at word:  J340::
+#Disconnected at word:  J42AK:
+#Reconnected at word:  J42AK:
+#Disconnected at word:  J4MYH:
+#Reconnected at word:  J4MYH:
+#Disconnected at word:  J50M!:
+#Reconnected at word:  J50M!:
+#Disconnected at word:  J6 Y?:
+#Reconnected at word:  J6 Y?:
+#Disconnected at word:  J6Z85:
+#Reconnected at word:  J6Z85:
+#Disconnected at word:  J7XI4:
+#Reconnected at word:  J7XI4:
+#Disconnected at word:  J8VTQ:
+#Reconnected at word:  J8VTQ:
+#Disconnected at word:  J9U2Y:
+#Reconnected at word:  J9U2Y:
+#Disconnected at word:  J:SCR:
+#Reconnected at word:  J:SCR:
+#Disconnected at word:  J?QN1:
+#Reconnected at word:  J?QN1:
+#Disconnected at word:  JAOYV:
+#Reconnected at word:  JAOYV:
+#Disconnected at word:  JBN8V:
+#Reconnected at word:  JBN8V:
+#Disconnected at word:  JCLIW:
+#Reconnected at word:  JCLIW:
+#Disconnected at word:  JDJUR:
+#Reconnected at word:  JDJUR:
+#Disconnected at word:  JEI4O:
+#Reconnected at word:  JEI4O:
+#Disconnected at word:  JFGEU:
+#Reconnected at word:  JFGEU:
+#Disconnected at word:  JGERB:
+#Reconnected at word:  JGERB:
+#Disconnected at word:  JHD1V:
+#Reconnected at word:  JHD1V:
+#Disconnected at word:  JIBC5:
+#Reconnected at word:  JIBC5:
+#Disconnected at word:  JJ?O?:
+#Reconnected at word:  JJ?O?:
+#Disconnected at word:  JK:  :
+#Reconnected at word:  JK:  :
+#Disconnected at word:  JL89A:
+#Reconnected at word:  JL89A:
+#Disconnected at word:  JM6J0:
+#Reconnected at word:  JM6J0:
+#Disconnected at word:  JN4SY:
+#Reconnected at word:  JN4SY:
+#Disconnected at word:  JO2XR:
+#Reconnected at word:  JO2XR:

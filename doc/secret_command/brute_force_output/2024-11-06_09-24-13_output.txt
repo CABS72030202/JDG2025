@@ -1,0 +1,12 @@
+- BRUTE FORCE CONFIG -
+- Words of length 4 to 4
+- Starting ASCII table at '!'
+- Ending ASCII table at 'z'
+- Ignoring characters: "", #, $, %, &, ', (, ), *, +, ,, -, ., /, ;, <, =, >, @, [, \, ], ^, _, `"
+- Starting at word 
+#Disconnected at word:  2
+#Reconnected at word:  2
+#Disconnected at word:  APHTHONGIA:
+#Reconnected at word:  APHTHONGIA:
+#Disconnected at word:  CONDIGNITY
+#Reconnected at word:  CONDIGNITY

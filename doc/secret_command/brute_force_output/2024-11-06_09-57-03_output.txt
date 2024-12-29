@@ -1,0 +1,16 @@
+- BRUTE FORCE CONFIG -
+- Words of length 4 to 4
+- Starting ASCII table at '!'
+- Ending ASCII table at 'z'
+- Ignoring characters: "", #, $, %, &, ', (, ), *, +, ,, -, ., /, ;, <, =, >, @, [, \, ], ^, _, `"
+- Starting at word 
+#Disconnected at word:  DICHLOROHYDRIN
+#Reconnected at word:  DICHLOROHYDRIN
+#Disconnected at word:  DISEMBAY
+#Reconnected at word:  DISEMBAY
+#Disconnected at word:  HELBAN:
+#Reconnected at word:  HELBAN:
+#Disconnected at word:  MATTRESS:
+#Reconnected at word:  MATTRESS:
+#Disconnected at word:  PERSECUTINGLY
+#Reconnected at word:  PERSECUTINGLY

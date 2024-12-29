@@ -1,5 +1,7 @@
 #!/bin/bash
 
+ip_address1="10.40.82.231"
+
 # Display usage instructions if no parameter is provided
 if [ $# -eq 0 ]; then
   echo "Usage: $0 <1|2>"
@@ -10,7 +12,7 @@ fi
 
 # Define paths for each machine
 if [ "$1" -eq 1 ]; then
-  path="admin@192.168.193.231:~"
+  path="admin@"$ip_address1":~"
 elif [ "$1" -eq 2 ]; then
   path="admin@192.168.193.73:~"
 else

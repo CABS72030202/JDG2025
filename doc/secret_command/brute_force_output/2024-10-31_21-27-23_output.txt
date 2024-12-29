@@ -1,0 +1,28 @@
+- BRUTE FORCE CONFIG -
+- Words of length 5 to 12
+- Starting ASCII table at ' '
+- Ending ASCII table at 'Z'
+- Ignoring characters: "", #, $, %, &, ', (, ), *, +, ,, -, ., /, ;, <, =, >, @, [, \, ], ^, _, `"
+- Starting at word !    
+#Disconnected at word:  ! PF4:
+#Reconnected at word:  ! PF4:
+#Disconnected at word:  !!NOV:
+#Reconnected at word:  !!NOV:
+#Disconnected at word:  !0LYW:
+#Reconnected at word:  !0LYW:
+#Disconnected at word:  !1K66:
+#Reconnected at word:  !1K66:
+#Disconnected at word:  !1Q A:
+#Reconnected at word:  !1Q A:
+#Disconnected at word:  !2H7V:
+#Reconnected at word:  !2H7V:
+#Disconnected at word:  !3FG8:
+#Reconnected at word:  !3FG8:
+#Disconnected at word:  !4DQJ:
+#Reconnected at word:  !4DQJ:
+#Disconnected at word:  !5BZH:
+#Reconnected at word:  !5BZH:
+#Disconnected at word:  !6A7G:
+#Reconnected at word:  !6A7G:
+!Timed out after sending:  !6GJW:
+!Timed out after sending:  !6GJX:

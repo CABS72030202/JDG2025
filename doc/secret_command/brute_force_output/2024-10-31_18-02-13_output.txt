@@ -1,0 +1,290 @@
+- BRUTE FORCE CONFIG -
+- Words of length 1 to 8
+- Starting ASCII table at ' '
+- Ending ASCII table at 'Z'
+- Ignoring characters: "", #, $, %, &, ', (, ), *, +, ,, -, ., /, ;, <, =, >, @, [, \, ], ^, _, `"
+- Starting at word I2!C
+#Disconnected at word:  I2!C:
+#Reconnected at word:  I2!C:
+#Disconnected at word:  IKBI:
+#Reconnected at word:  IKBI:
+!Timed out after sending:  INFO:
+#Disconnected at word:  JGWS:
+#Reconnected at word:  JGWS:
+#Disconnected at word:  KGG7:
+#Reconnected at word:  KGG7:
+#Disconnected at word:  LG1U:
+#Reconnected at word:  LG1U:
+#Disconnected at word:  MFNY:
+#Reconnected at word:  MFNY:
+#Disconnected at word:  NF9X:
+#Reconnected at word:  NF9X:
+#Disconnected at word:  OEVL:
+#Reconnected at word:  OEVL:
+#Disconnected at word:  PEEZ:
+#Reconnected at word:  PEEZ:
+#Disconnected at word:  QE0D:
+#Reconnected at word:  QE0D:
+!Timed out after sending:  QV6B:
+!Timed out after sending:  QV6C:
+!Timed out after sending:  QV6D:
+!Timed out after sending:  QV6E:
+!Timed out after sending:  QV6F:
+!Timed out after sending:  QV6G:
+!Timed out after sending:  QV6H:
+!Timed out after sending:  QV6I:
+!Timed out after sending:  QV6J:
+!Timed out after sending:  QV6K:
+!Timed out after sending:  QV6L:
+!Timed out after sending:  QV6M:
+!Timed out after sending:  QV6N:
+!Timed out after sending:  QV6O:
+!Timed out after sending:  QV6P:
+!Timed out after sending:  QV6Q:
+!Timed out after sending:  QV6R:
+!Timed out after sending:  QV6S:
+!Timed out after sending:  QV6T:
+!Timed out after sending:  QV6U:
+!Timed out after sending:  QV6V:
+!Timed out after sending:  QV6W:
+!Timed out after sending:  QV6X:
+!Timed out after sending:  QV6Y:
+!Timed out after sending:  QV6Z:
+!Timed out after sending:  QV7 :
+!Timed out after sending:  QV7!:
+!Timed out after sending:  QV70:
+!Timed out after sending:  QV71:
+!Timed out after sending:  QV72:
+!Timed out after sending:  QV73:
+!Timed out after sending:  QV74:
+!Timed out after sending:  QV75:
+!Timed out after sending:  QV76:
+!Timed out after sending:  QV77:
+!Timed out after sending:  QV78:
+!Timed out after sending:  QV79:
+!Timed out after sending:  QV7::
+!Timed out after sending:  QV7?:
+!Timed out after sending:  QV7A:
+!Timed out after sending:  QV7B:
+!Timed out after sending:  QV7C:
+!Timed out after sending:  QV7D:
+!Timed out after sending:  QV7E:
+!Timed out after sending:  QV7F:
+!Timed out after sending:  QV7G:
+!Timed out after sending:  QV7H:
+!Timed out after sending:  QV7I:
+!Timed out after sending:  QV7J:
+!Timed out after sending:  QV7K:
+!Timed out after sending:  QV7L:
+!Timed out after sending:  QV7M:
+!Timed out after sending:  QV7N:
+!Timed out after sending:  QV7O:
+!Timed out after sending:  QV7P:
+!Timed out after sending:  QV7Q:
+!Timed out after sending:  QV7R:
+!Timed out after sending:  QV7S:
+!Timed out after sending:  QV7T:
+!Timed out after sending:  QV7U:
+!Timed out after sending:  QV7V:
+!Timed out after sending:  QV7W:
+!Timed out after sending:  QV7X:
+!Timed out after sending:  QV7Y:
+!Timed out after sending:  QV7Z:
+!Timed out after sending:  QV8 :
+!Timed out after sending:  QV8!:
+!Timed out after sending:  QV80:
+!Timed out after sending:  QV81:
+!Timed out after sending:  QV82:
+!Timed out after sending:  QV83:
+!Timed out after sending:  QV84:
+!Timed out after sending:  QV85:
+!Timed out after sending:  QV86:
+!Timed out after sending:  QV87:
+!Timed out after sending:  QV88:
+!Timed out after sending:  QV89:
+!Timed out after sending:  QV8::
+!Timed out after sending:  QV8?:
+!Timed out after sending:  QV8A:
+!Timed out after sending:  QV8B:
+!Timed out after sending:  QV8C:
+!Timed out after sending:  QV8D:
+!Timed out after sending:  QV8E:
+!Timed out after sending:  QV8F:
+!Timed out after sending:  QV8G:
+!Timed out after sending:  QV8H:
+!Timed out after sending:  QV8I:
+!Timed out after sending:  QV8J:
+!Timed out after sending:  QV8K:
+!Timed out after sending:  QV8L:
+!Timed out after sending:  QV8M:
+!Timed out after sending:  QV8N:
+!Timed out after sending:  QV8O:
+!Timed out after sending:  QV8P:
+!Timed out after sending:  QV8Q:
+!Timed out after sending:  QV8R:
+!Timed out after sending:  QV8S:
+!Timed out after sending:  QV8T:
+!Timed out after sending:  QV8U:
+!Timed out after sending:  QV8V:
+!Timed out after sending:  QV8W:
+!Timed out after sending:  QV8X:
+!Timed out after sending:  QV8Y:
+!Timed out after sending:  QV8Z:
+!Timed out after sending:  QV9 :
+!Timed out after sending:  QV9!:
+!Timed out after sending:  QV90:
+!Timed out after sending:  QV91:
+!Timed out after sending:  QV92:
+!Timed out after sending:  QV93:
+!Timed out after sending:  QV94:
+!Timed out after sending:  QV95:
+!Timed out after sending:  QV96:
+!Timed out after sending:  QV97:
+!Timed out after sending:  QV98:
+!Timed out after sending:  QV99:
+!Timed out after sending:  QV9::
+!Timed out after sending:  QV9?:
+!Timed out after sending:  QV9A:
+!Timed out after sending:  QV9B:
+!Timed out after sending:  QV9C:
+!Timed out after sending:  QV9D:
+!Timed out after sending:  QV9E:
+!Timed out after sending:  QV9F:
+!Timed out after sending:  QV9G:
+!Timed out after sending:  QV9H:
+!Timed out after sending:  QV9I:
+!Timed out after sending:  QV9J:
+!Timed out after sending:  QV9K:
+!Timed out after sending:  QV9L:
+!Timed out after sending:  QV9M:
+!Timed out after sending:  QV9N:
+!Timed out after sending:  QV9O:
+!Timed out after sending:  QV9P:
+!Timed out after sending:  QV9Q:
+!Timed out after sending:  QV9R:
+!Timed out after sending:  QV9S:
+!Timed out after sending:  QV9T:
+!Timed out after sending:  QV9U:
+!Timed out after sending:  QV9V:
+!Timed out after sending:  QV9W:
+!Timed out after sending:  QV9X:
+!Timed out after sending:  QV9Y:
+!Timed out after sending:  QV9Z:
+!Timed out after sending:  QV: :
+!Timed out after sending:  QV:!:
+!Timed out after sending:  QV:0:
+!Timed out after sending:  QV:1:
+!Timed out after sending:  QV:2:
+!Timed out after sending:  QV:3:
+!Timed out after sending:  QV:4:
+!Timed out after sending:  QV:5:
+!Timed out after sending:  QV:6:
+!Timed out after sending:  QV:7:
+!Timed out after sending:  QV:8:
+!Timed out after sending:  QV:9:
+!Timed out after sending:  QV:::
+!Timed out after sending:  QV:?:
+!Timed out after sending:  QV:A:
+!Timed out after sending:  QV:B:
+!Timed out after sending:  QV:C:
+!Timed out after sending:  QV:D:
+!Timed out after sending:  QV:E:
+!Timed out after sending:  QV:F:
+!Timed out after sending:  QV:G:
+!Timed out after sending:  QV:H:
+!Timed out after sending:  QV:I:
+!Timed out after sending:  QV:J:
+!Timed out after sending:  QV:K:
+!Timed out after sending:  QV:L:
+!Timed out after sending:  QV:M:
+!Timed out after sending:  QV:N:
+!Timed out after sending:  QV:O:
+!Timed out after sending:  QV:P:
+!Timed out after sending:  QV:Q:
+!Timed out after sending:  QV:R:
+!Timed out after sending:  QV:S:
+!Timed out after sending:  QV:T:
+!Timed out after sending:  QV:U:
+!Timed out after sending:  QV:V:
+!Timed out after sending:  QV:W:
+!Timed out after sending:  QV:X:
+!Timed out after sending:  QV:Y:
+!Timed out after sending:  QV:Z:
+!Timed out after sending:  QV? :
+!Timed out after sending:  QV?!:
+!Timed out after sending:  QV?0:
+!Timed out after sending:  QV?1:
+!Timed out after sending:  QV?2:
+!Timed out after sending:  QV?3:
+!Timed out after sending:  QV?4:
+!Timed out after sending:  QV?5:
+!Timed out after sending:  QV?6:
+!Timed out after sending:  QV?7:
+!Timed out after sending:  QV?8:
+!Timed out after sending:  QV?9:
+!Timed out after sending:  QV?::
+!Timed out after sending:  QV??:
+!Timed out after sending:  QV?A:
+!Timed out after sending:  QV?B:
+!Timed out after sending:  QV?C:
+!Timed out after sending:  QV?D:
+!Timed out after sending:  QV?E:
+!Timed out after sending:  QV?F:
+!Timed out after sending:  QV?G:
+!Timed out after sending:  QV?H:
+!Timed out after sending:  QV?I:
+!Timed out after sending:  QV?J:
+!Timed out after sending:  QV?K:
+!Timed out after sending:  QV?L:
+!Timed out after sending:  QV?M:
+!Timed out after sending:  QV?N:
+!Timed out after sending:  QV?O:
+!Timed out after sending:  QV?P:
+!Timed out after sending:  QV?Q:
+!Timed out after sending:  QV?R:
+!Timed out after sending:  QV?S:
+!Timed out after sending:  QV?T:
+!Timed out after sending:  QV?U:
+!Timed out after sending:  QV?V:
+!Timed out after sending:  QV?W:
+!Timed out after sending:  QV?X:
+!Timed out after sending:  QV?Y:
+!Timed out after sending:  QV?Z:
+!Timed out after sending:  QVA :
+!Timed out after sending:  QVA!:
+!Timed out after sending:  QVA0:
+!Timed out after sending:  QVA1:
+!Timed out after sending:  QVA2:
+!Timed out after sending:  QVA3:
+!Timed out after sending:  QVA4:
+!Timed out after sending:  QVA5:
+!Timed out after sending:  QVA6:
+!Timed out after sending:  QVA7:
+!Timed out after sending:  QVA8:
+!Timed out after sending:  QVA9:
+!Timed out after sending:  QVA::
+!Timed out after sending:  QVA?:
+!Timed out after sending:  QVAA:
+!Timed out after sending:  QVAB:
+!Timed out after sending:  QVAC:
+!Timed out after sending:  QVAD:
+!Timed out after sending:  QVAE:
+!Timed out after sending:  QVAF:
+!Timed out after sending:  QVAG:
+!Timed out after sending:  QVAH:
+!Timed out after sending:  QVAI:
+!Timed out after sending:  QVAJ:
+!Timed out after sending:  QVAK:
+!Timed out after sending:  QVAL:
+!Timed out after sending:  QVAM:
+!Timed out after sending:  QVAN:
+!Timed out after sending:  QVAO:
+!Timed out after sending:  QVAP:
+!Timed out after sending:  QVAQ:
+!Timed out after sending:  QVAR:
+!Timed out after sending:  QVAS:
+!Timed out after sending:  QVAT:
+!Timed out after sending:  QVAU:
+!Timed out after sending:  QVAV:
+!Timed out after sending:  QVAW:
+!Timed out after sending:  QVAX:
