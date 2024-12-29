@@ -1,5 +1,4 @@
 config BR2_PACKAGE_JDG_CONTROLLER
     bool "controller"
-    select BR2_PACKAGE_JDG_WIRINGPI
     help
       Build the controller package.

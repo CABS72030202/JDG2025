@@ -1,5 +1,4 @@
 config BR2_PACKAGE_JDG_BLACKBOX
     bool "blackbox"
-    select BR2_PACKAGE_JDG_WIRINGPI
     help
       Build the JDG custom blackbox package.
