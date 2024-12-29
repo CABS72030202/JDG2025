@@ -1,0 +1,11 @@
+[Unit]
+   Description=Blackbox Service
+   After=multi-user.target
+
+   [Service]
+   ExecStart=/home/admin/build/blackbox
+   Restart=always
+   User=root
+
+   [Install]
+   WantedBy=multi-user.target

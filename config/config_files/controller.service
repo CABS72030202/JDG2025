@@ -1,0 +1,11 @@
+[Unit]
+   Description=Controller Service
+   After=multi-user.target
+
+   [Service]
+   ExecStart=/home/admin/build/controller
+   Restart=always
+   User=root
+
+   [Install]
+   WantedBy=multi-user.target

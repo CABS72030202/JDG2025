@@ -1,0 +1,11 @@
+[Unit]
+   Description=Mini RPI Service
+   After=multi-user.target
+
+   [Service]
+   ExecStart=/home/admin/build/mini_rpi
+   Restart=always
+   User=root
+
+   [Install]
+   WantedBy=multi-user.target
