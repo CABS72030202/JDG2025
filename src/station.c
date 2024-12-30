@@ -17,22 +17,22 @@ int GPIO_command = 0;
 
 void Initialize() {
     r_station.color = RED;
-    r_station.state = INACTIVE; 
+    Set_Station_State(&r_station, INACTIVE); 
     r_station.arm_state = INACTIVE;      
     g_station.color = GREEN;
-    g_station.state = INACTIVE;
+    Set_Station_State(&g_station, INACTIVE); 
     g_station.arm_state = INACTIVE;
     b_station.color = BLUE;
-    b_station.state = INACTIVE; 
+    Set_Station_State(&b_station, INACTIVE); 
     b_station.arm_state = INACTIVE;
     y_station.color = YELLOW;
-    y_station.state = INACTIVE; 
+    Set_Station_State(&y_station, INACTIVE); 
     y_station.arm_state = INACTIVE;
     p_station.color = PURPLE;
-    p_station.state = INACTIVE; 
+    Set_Station_State(&p_station, INACTIVE);  
     p_station.arm_state = INACTIVE;
     null_station.color = NONE;
-    null_station.state = INACTIVE;
+    Set_Station_State(&null_station, INACTIVE); 
     null_station.arm_state = INACTIVE;
     curr_station = &null_station;  
 
@@ -118,7 +118,7 @@ int Try_Connect(Station* s) {
     if(temp != NONE) {
       // Set active station
       curr_station = Color_To_Station(temp);
-      curr_station->state = ACTIVE;
+      Set_Station_State(curr_station, ACTIVE); 
       printf("Successfully connected to station %s.\n", Color_To_String(curr_station->color));
       return OK;
     }
@@ -128,7 +128,7 @@ int Try_Connect(Station* s) {
     Delay(2);
   }
   printf("Could not connect to the station.\n");
-  s->state = INACTIVE;
+  Set_Station_State(s, INACTIVE); 
   return ERROR;
 }
 
@@ -277,7 +277,7 @@ void Auto_Load_Drop() {
                 case PURPLE_READY:  load_station_id = 4; break;
                 default: break;
             }
-            array[load_station_id]->state = ACTIVE;
+            Set_Station_State(array[load_station_id], ACTIVE); 
             printf("! Prioritizing station %s !\n", Color_To_String(array[load_station_id]->color));
             GPIO_command = 0;
         }
@@ -347,6 +347,19 @@ void Arm_Control(Color station_color, State toggle) {
         default:
             printf("ERROR. Invalid parameter in Arm_Control(State))\n");
             break;
+    }
+}
+
+void Set_Station_State(Station* station, State state) {
+    station->state = state;
+    switch(station->color) {
+        case RED:       digitalWrite(R_QUEUE_PIN, state); break;
+        case GREEN:     digitalWrite(B_QUEUE_PIN, state); break;
+        case BLUE:      digitalWrite(G_QUEUE_PIN, state); break;
+        case YELLOW:    digitalWrite(Y_QUEUE_PIN, state); break;
+        case PURPLE:    digitalWrite(P_QUEUE_PIN, state); break;
+        case NONE:      break;
+        default:        printf("ERROR. Invalid parameter in Set_Station_State\n"); break;
     }
 }
 
@@ -542,35 +555,35 @@ void Fictive_State() {
     blackbox_pass[4] =  0;          // P
 
     // Red station
-    r_station.state = ACTIVE;
+    Set_Station_State(&r_station, ACTIVE);
     r_station.passengers[1] = 2;    // G
     r_station.passengers[2] = 2;    // B
     r_station.passengers[3] = 2;    // Y
     r_station.passengers[4] = 2;    // P
 
     // Green station
-    g_station.state = INACTIVE;
+    Set_Station_State(&g_station, INACTIVE);
     g_station.passengers[0] = 1;    // R
     g_station.passengers[2] = 3;    // B
     g_station.passengers[3] = 4;    // Y
     g_station.passengers[4] = 0;    // P
 
     // Blue station
-    b_station.state = ACTIVE;
+    Set_Station_State(&b_station, ACTIVE);
     b_station.passengers[0] = 3;    // R
     b_station.passengers[1] = 2;    // G
     b_station.passengers[3] = 2;    // Y
     b_station.passengers[4] = 1;    // P
 
     // Yellow station
-    y_station.state = ACTIVE;
+    Set_Station_State(&y_station, ACTIVE);
     y_station.passengers[0] = 0;    // R
     y_station.passengers[1] = 0;    // G
     y_station.passengers[2] = 4;    // B
     y_station.passengers[4] = 2;    // P
 
     // Purple station
-    p_station.state = ACTIVE;
+    Set_Station_State(&p_station, ACTIVE);
     p_station.passengers[0] = 3;    // R
     p_station.passengers[1] = 3;    // G
     p_station.passengers[2] = 1;    // B

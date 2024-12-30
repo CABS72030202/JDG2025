@@ -60,14 +60,15 @@ extern int active_count;        // Number of active stations
 extern int GPIO_command;		// Current GPIO command for station priority
 
 // Function Prototypes (Station)
-void Initialize();			        // Initialize station attributes and states
-void Wait_For_Two();                // Wait for two stations to connect
-int Connect_Station(Color);         // Connect to a specific station
-int Try_Connect(Station*);          // Attempt to connect to a station
-int Drop_Passengers(Color);         // Drop passengers to a specific station
-int Load_Passengers(Color, int);	// Load passengers going to a specific station
-void Auto_Load_Drop();              // Automate loading and unloading of passengers
-void Arm_Control(Color, State); 	// Control station arm using GPIO
+void Initialize();			        		// Initialize station attributes and states
+void Wait_For_Two();                		// Wait for two stations to connect
+int Connect_Station(Color);         		// Connect to a specific station
+int Try_Connect(Station*);          		// Attempt to connect to a station
+int Drop_Passengers(Color);         		// Drop passengers to a specific station
+int Load_Passengers(Color, int);			// Load passengers going to a specific station
+void Auto_Load_Drop();              		// Automate loading and unloading of passengers
+void Arm_Control(Color, State); 			// Control station arm using GPIO
+void Set_Station_State(Station*, State);	// Set the current state of a station
 
 // Function Prototypes (Blackbox Communication)
 char* Communication(char*);             // Send a command and receive a response

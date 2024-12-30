@@ -23,11 +23,11 @@ int main(void) {
     //Wait_For_Two();
     //Auto_Load_Drop();
 
-    r_station.state = ACTIVE;      
-    g_station.state = ACTIVE;
-    b_station.state = ACTIVE; 
-    y_station.state = ACTIVE; 
-    p_station.state = ACTIVE; 
+    Set_Station_State(&r_station, ACTIVE);
+    Set_Station_State(&g_station, ACTIVE);
+    Set_Station_State(&b_station, ACTIVE);
+    Set_Station_State(&y_station, ACTIVE);
+    Set_Station_State(&p_station, ACTIVE); 
 
     // Testing GPIO
     Arm_Control(RED, ACTIVE);
