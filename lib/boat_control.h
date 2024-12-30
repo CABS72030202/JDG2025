@@ -6,7 +6,7 @@
  * Description:
  * This header file defines the hardware-related constants and configurations 
  * for the BOAT robot. These constants are specific to the BOAT robot's hardware 
- * setup, including pin assignments and motor/servo settings.
+ * setup, including pin assignments and motor settings.
  * 
  * Source: https://www.electronicwings.com/raspberry-pi/raspberry-pi-pwm-generation-using-python-and-c
  */
@@ -20,6 +20,7 @@
 #include <string.h>
 #include <errno.h>
 #include <wiringPi.h>
+#include "rpi_servo.h"
 
 // Enums and Structs
 typedef struct {

@@ -13,8 +13,10 @@ START:
         goto ERR;
     }
 
-    // Initialize boat control
+    // Initialize boat control and servomotors
     if(PWM_Init())
+        goto ERR;
+    if(Servo_Init())
         goto ERR;
 
     // Initialize Bluetooth communication as server
@@ -64,6 +66,7 @@ START:
             // Test double presses
             if(a_toggle && l_stick_toggle) {
                 printf("Left stick + A pressed simultaneously.\n");
+                Toggle_Servo();
             }
             if(b_toggle && r_stick_toggle) {
                 printf("Right stick + B pressed simultaneously.\n");

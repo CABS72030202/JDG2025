@@ -56,8 +56,12 @@ $(OBJ_DIR)/gpio.o: ./lib/gpio.h ./src/gpio.c
 	$(CC) $(CFLAGS) -c ./src/gpio.c -o $(OBJ_DIR)/gpio.o $(CXXFLAGS)
 
 # Object generation from source and header for BOAT_CONTROL
-$(OBJ_DIR)/boat_control.o: ./lib/boat_control.h ./src/boat_control.c
+$(OBJ_DIR)/boat_control.o: ./lib/boat_control.h ./src/boat_control.c ./lib/rpi_servo.h ./src/rpi_servo.c
 	$(CC) $(CFLAGS) -c ./src/boat_control.c -o $(OBJ_DIR)/boat_control.o $(CXXFLAGS)
+
+# Object generation from source and header for RPI_SERVO
+$(OBJ_DIR)/rpi_servo.o: ./lib/rpi_servo.h ./src/rpi_servo.c
+	$(CC) $(CFLAGS) -c ./src/rpi_servo.c -o $(OBJ_DIR)/rpi_servo.o $(CXXFLAGS)
 
 # Clean up the build directories
 clean:
