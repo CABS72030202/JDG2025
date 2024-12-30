@@ -89,7 +89,7 @@ void Wait_For_Two() {
 int Connect_Station(Station* s) {
     // Detect and abord if station is inactive
     if(s->state == INACTIVE) {
-        printf("Station %s is inactive.\n", Color_To_String(station_color));
+        printf("Station %s is inactive.\n", Color_To_String(s->color));
         return ERROR; 
     }
 
