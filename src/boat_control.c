@@ -74,11 +74,23 @@ void Set_Motor_Speed(Brushless* motor) {
     int prev_pwmValue = DUTY_CYCLE_STOP + (int)((DUTY_CYCLE_MAX - DUTY_CYCLE_STOP) * prev_speed);
     int pwmValue = DUTY_CYCLE_STOP + (int)((DUTY_CYCLE_MAX - DUTY_CYCLE_STOP) * motor->speed);
 
-    // Slowly increase the PWM value to the motor pin
-    for(int i = prev_pwmValue; i < pwmValue; i++) {
-        pwmWrite(motor->motor_pin, i);
-        delay(INCREASE_DELAY);
-    }
+    // Slowly increase the PWM value to the motor pin 
+    if(prev_pwmValue < pwmValue)
+        for(int i = prev_pwmValue; i < pwmValue; i++) {
+            if(i >= DUTY_CYCLE_LIMIT)
+                break;
+            pwmWrite(motor->motor_pin, i);
+            delay(INCREASE_DELAY);
+        }
+
+    // Slowly decrease the PWM value to the motor pin
+    if(prev_pwmValue > pwmValue)
+        for(int i = prev_pwmValue; i > pwmValue; i--) {
+            if(i >= DUTY_CYCLE_LIMIT)
+                break;
+            pwmWrite(motor->motor_pin, i);
+            delay(INCREASE_DELAY);
+        }
 }
 
 void Reset_Motors() {

@@ -514,10 +514,10 @@ void Control_Gripper() {
  * Message format: a 5-character string structured as follows:
  * [<arm>:<claw>]
  *
- * Possible values for <arm> and <claw> are as follows (inverted angles) :
- *   - '+' to decrement the angle
- *   - '-' to increment the angle
- *   - '0' to keep current angle
+ * Possible values for <arm> and <claw> are as follows :
+ *   - '+'
+ *   - '-'
+ *   - '0'
  */
 
     // Return early if Bluetooth is disabled
@@ -530,8 +530,8 @@ void Control_Gripper() {
 
     // Format message
     switch(LS_dir) {
-        case UP:   gripper_message[1] = '-'; break;
-        case DOWN: gripper_message[1] = '+'; break;
+        case UP:   gripper_message[1] = '+'; break;
+        case DOWN: gripper_message[1] = '-'; break;
         default:   gripper_message[1] = '0'; break;
     }
     switch(RS_dir) {

@@ -38,15 +38,16 @@ typedef struct {
 
 // Global Constants
 #define BOAT_ID         6            // Unique ID for the BOAT robot
-#define MAX_SPEED       5            // Maximum speed multiplier for the robot
+#define MAX_SPEED       3            // Maximum speed multiplier for the robot
 
 // PWM Constants
-#define PWM_RANGE       1024         // Range for PWM (0-1023)
-#define PWM_CLOCK_DIV   384          // Clock divisor for 50 Hz frequency (19.2 MHz / (384 * 1024) = 50 Hz)
-#define DUTY_CYCLE_STOP 51           // 5% duty cycle (5% of 1024)
-#define DUTY_CYCLE_MAX  102          // 10% duty cycle (10% of 1024)
-#define INIT_DELAY      1000         // Time delay for brushless motor initialization
-#define INCREASE_DELAY  30           // Time delay when increasing speed (in ms)
+#define PWM_RANGE           1024         // Range for PWM (0-1023)
+#define PWM_CLOCK_DIV       384          // Clock divisor for 50 Hz frequency (19.2 MHz / (384 * 1024) = 50 Hz)
+#define DUTY_CYCLE_STOP     51           // 5% duty cycle (5% of 1024)
+#define DUTY_CYCLE_MAX      102          // 10% duty cycle (10% of 1024)
+#define DUTY_CYCLE_LIMIT    93           // Maximum duty cycle accounting for load
+#define INIT_DELAY          1500         // Time delay for brushless motor initialization
+#define INCREASE_DELAY      1            // Time delay when increasing speed (in ms)
 
 // Global Variables
 extern Brushless left_motor;        // Configuration for the left motor

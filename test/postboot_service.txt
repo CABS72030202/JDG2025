@@ -65,3 +65,8 @@ Reboot your Raspberry Pi to test if the script starts automatically:
 sudo reboot
 
 After rebooting, check the log file to ensure it is appending the date and time entries.
+
+__________________________________________________________________________
+### Step 9: Stop the service
+To disable the service:
+sudo systemctl disable date_time_printer.service

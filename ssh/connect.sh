@@ -1,6 +1,7 @@
 #!/bin/bash
 
 ip_address1="10.40.82.231"
+ip_address2="10.40.82.73"
 
 # Display usage instructions if no parameter is provided
 if [ $# -eq 0 ]; then
@@ -16,7 +17,7 @@ if [ "$1" -eq 1 ]; then
   ssh admin@"$ip_address1"
 elif [ "$1" -eq 2 ]; then
   echo -e "To connect to Raspberry Pi, please ensure you are connected to the appropriate network.\n"
-  ssh admin@192.168.193.73 
+  ssh admin@"$ip_address2"
 else
   echo "Invalid option. Please use 1 or 2."
   exit 1

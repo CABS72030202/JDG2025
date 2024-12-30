@@ -30,14 +30,14 @@
 // Servo Angles
 #define ANGLE_STEP     5        // Increment for angle adjustments
 #define OPEN_BOUND     180      // Maximum open angle for the claw
-#define CLOSE_BOUND    10       // Minimum closed angle for the claw
-#define UP_BOUND      0      // Arm angle for position above the rear wheel
-#define DOWN_BOUND     0        // Arm angle for position just above the ground
+#define CLOSE_BOUND    0        // Minimum closed angle for the claw
+#define UP_BOUND       30       // Arm angle for position above the rear wheel
+#define DOWN_BOUND     180      // Arm angle for position just above the ground
 
 // Global Variables
 String gripper_message = "[0:0]\r\n";  // Incoming command message for gripper control
-int claw_angle         = CLOSE_BOUND;   // Initial claw angle: fully closed
-int arm_angle          = 20;           // Initial arm angle: parallel to the ground
+int claw_angle         = OPEN_BOUND;   // Initial claw angle: fully closed
+int arm_angle          = DOWN_BOUND;           // Initial arm angle: parallel to the ground
 Servo grip_claw;
 Servo grip_arm;
 

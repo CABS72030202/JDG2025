@@ -185,12 +185,12 @@ void Decode_Gripper() {
 void Gripper_Control() {
 
   /* Arm control
-   *   - '+' to lift (increment the angle)
-   *   - '-' to drop (decrement the angle)
+   *   - '+' to lift (decrement the angle)
+   *   - '-' to drop (increment the angle)
    */ 
   switch(gripper_message[1]) {
-    case '+': if(arm_angle + ANGLE_STEP <= UP_BOUND) arm_angle += ANGLE_STEP; break;
-    case '-': if(arm_angle - ANGLE_STEP >= DOWN_BOUND) arm_angle -= ANGLE_STEP; break;
+    case '+': if(arm_angle - ANGLE_STEP >= UP_BOUND) arm_angle -= ANGLE_STEP; break;
+    case '-': if(arm_angle + ANGLE_STEP <= DOWN_BOUND) arm_angle += ANGLE_STEP; break;
     case '0': break;
     default:  return;
   }
@@ -201,8 +201,8 @@ void Gripper_Control() {
    *   - '-' to open (increment the angle)
    */ 
   switch(gripper_message[3]) {
-    case '-': if(claw_angle - ANGLE_STEP >= CLOSE_BOUND) claw_angle -= ANGLE_STEP; break;
-    case '+': if(claw_angle + ANGLE_STEP <= OPEN_BOUND) claw_angle += ANGLE_STEP; break;
+    case '+': if(claw_angle - ANGLE_STEP >= CLOSE_BOUND) claw_angle -= ANGLE_STEP; break;
+    case '-': if(claw_angle + ANGLE_STEP <= OPEN_BOUND) claw_angle += ANGLE_STEP; break;
     case '0': break;
     default:  return;
   }
