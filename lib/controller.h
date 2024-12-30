@@ -23,7 +23,7 @@
 #include "../lib/boat_control.h"
 
 // Debug Constants
-#define SKIP_BLUETOOTH     0                     // Set to 1 to disable Bluetooth initialization
+#define SKIP_BLUETOOTH     1                     // Set to 1 to disable Bluetooth initialization
 
 // Global Constants
 #define GAMEPAD_PATH       "/dev/input/js0"      // Path to the gamepad device
@@ -33,7 +33,7 @@ const int robot_order[] = {6, 0, 4, 3, 1, 5, 2}; // Order of robot selection
 // Digital Button IDs
 #define A_BUTTON           0                     // ID for button A
 #define B_BUTTON           1                     // ID for button B
-#define X_BUTTON           2                     // ID for button X
+#define X_BUTTON           2                     // ID for brushless motors reset
 #define Y_BUTTON           3                     // ID for changing constant speed
 #define LB_BUTTON          4                     // ID for back left wheel control
 #define RB_BUTTON          5                     // ID for back right wheel control
@@ -65,6 +65,12 @@ typedef enum direction Direction;
 
 enum color {RED, GREEN, BLUE, YELLOW, PURPLE, CONE, SHIP}; // Color enum for robots
 typedef enum color Color;
+
+// Button toggle values
+int a_toggle = 0;
+int b_toggle = 0;
+int l_stick_toggle = 0;
+int r_stick_toggle = 0;
 
 // Axis Values
 int LT_val = 0;                                 // Current value of LT axis

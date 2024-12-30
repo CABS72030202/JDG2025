@@ -137,10 +137,12 @@ void Controller_Event(struct js_event e) {
     if(e.type == JS_EVENT_BUTTON && e.value)     // 1 is pressed, 0 is released
         switch(e.number) {
             case A_BUTTON:
-                //printf("Pressed button A\n");
+                printf("Pressed button A\n");
+                a_toggle = 1;
                 break;
             case B_BUTTON:
-                //printf("Pressed button B\n");
+                printf("Pressed button B\n");
+                b_toggle = 1;
                 break;
             case X_BUTTON:
                 printf("Pressed button X\n");
@@ -182,10 +184,12 @@ void Controller_Event(struct js_event e) {
                 }
                 break;
             case L_STICK_PRESS:
-                //printf("Pressed LEFT STICK\n");
+                printf("Pressed LEFT STICK\n");
+                l_stick_toggle = 1;
                 break;
             case R_STICK_PRESS:
-                //printf("Pressed RIGHT STICK\n");
+                printf("Pressed RIGHT STICK\n");
+                r_stick_toggle = 1;
                 break;
             default:
                 return;
@@ -194,6 +198,14 @@ void Controller_Event(struct js_event e) {
     // Check if button released
     if(e.type == JS_EVENT_BUTTON && !e.value)
         switch(e.number) {
+            case A_BUTTON:
+                printf("Released button A\n");
+                a_toggle = 0;
+                break;
+            case B_BUTTON:
+                printf("Released button B\n");
+                b_toggle = 0;
+                break;
             case LB_BUTTON:
                 printf("Released button LB: Stopping left wheel\n");
                 l_speed = 0;
@@ -201,6 +213,14 @@ void Controller_Event(struct js_event e) {
             case RB_BUTTON:
                 printf("Released button RB: Stopping right wheel\n");
                 r_speed = 0;
+                break;
+            case L_STICK_PRESS:
+                printf("Released LEFT STICK\n");
+                l_stick_toggle = 0;
+                break;
+            case R_STICK_PRESS:
+                printf("Released RIGHT STICK\n");
+                r_stick_toggle = 0;
                 break;
             default:
                 return;
@@ -288,6 +308,14 @@ void Controller_Event(struct js_event e) {
             default:
                 return;
         }
+
+    // Test double presses
+    if(a_toggle && l_stick_toggle) {
+        printf("Left stick + A pressed simultaneously.\n");
+    }
+    if(b_toggle && r_stick_toggle) {
+        printf("Right stick + B pressed simultaneously.\n");
+    }
 }
 
 int Format_Message(Color c, int l, int r, Direction a) {

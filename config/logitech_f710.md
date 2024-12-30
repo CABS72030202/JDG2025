@@ -16,6 +16,9 @@ Aucune configuration requise.
 | **RT**            | Actionne la roue droite en marche avant à une vitesse proportionnelle à l’enfoncement de la gâchette. |
 | **LT**            | Actionne la roue gauche en marche avant à une vitesse proportionnelle à l’enfoncement de la gâchette. |
 | **Croix directionnelle** | Oriente le robot à une vitesse constante.                                |
+| **Bouton A + Bouton gâchette gauche**       | Ouverture des rampes du bateau pour permettre aux robots de débarquer. |
+| **Bouton B + Bouton gâchette droite**       | Réinitialisation de la communication Bluetooth en cas d'erreur. |
+| **Bouton Y**       | Alterne entre deux valeurs prédéfinies pour la vitesse constante (vitesse d’approche ou vitesse normale). |
 | **Bouton Y**       | Alterne entre deux valeurs prédéfinies pour la vitesse constante (vitesse d’approche ou vitesse normale). |
 | **Bouton X**       | Réinitialise les moteurs sans balais du bateau en cas de dysfonctionnement. |
 | **Bouton Back**    | Sélectionne le robot précédent pour le contrôle.                             |
