@@ -16,6 +16,14 @@ int active_count = 0;
 int GPIO_command = 0;
 
 void Initialize() {
+    // Initialize WiringPi
+    if (wiringPiSetup() == -1) {
+        printf("WiringPi setup failed\n");
+        return -1;
+    }
+    Initialize_GPIO();
+
+    // Initialize stations
     r_station.color = RED;
     Set_Station_State(&r_station, INACTIVE); 
     r_station.arm_state = INACTIVE;      
@@ -35,14 +43,6 @@ void Initialize() {
     Set_Station_State(&null_station, INACTIVE); 
     null_station.arm_state = INACTIVE;
     curr_station = &null_station;  
-
-    // Initialize WiringPi
-    if (wiringPiSetup() == -1) {
-        printf("WiringPi setup failed\n");
-        return -1;
-    }
-
-    Initialize_GPIO();
 
     if(DEBUG_MODE) {
         printf("WARNING. DEBUG MODE IS ON.\n");
@@ -356,14 +356,20 @@ void Arm_Control(Station* station, State toggle) {
 
 void Set_Station_State(Station* station, State state) {
     station->state = state;
+    int led_pin = 0;
     switch(station->color) {
-        case RED:       digitalWrite(R_QUEUE_PIN, state); break;
-        case GREEN:     digitalWrite(B_QUEUE_PIN, state); break;
-        case BLUE:      digitalWrite(G_QUEUE_PIN, state); break;
-        case YELLOW:    digitalWrite(Y_QUEUE_PIN, state); break;
-        case PURPLE:    digitalWrite(P_QUEUE_PIN, state); break;
+        case RED:       led_pin=R_QUEUE_PIN; break;
+        case GREEN:     led_pin=G_QUEUE_PIN; break;
+        case BLUE:      led_pin=B_QUEUE_PIN; break;
+        case YELLOW:    led_pin=Y_QUEUE_PIN; break;
+        case PURPLE:    led_pin=P_QUEUE_PIN; break;
         case NONE:      break;
-        default:        printf("ERROR. Invalid parameter in Set_Station_State\n"); break;
+        default:        printf("ERROR. Invalid color in Set_Station_State\n"); break;
+    }
+    switch(station->state) {
+        case ACTIVE:    digitalWrite(led_pin, HIGH); break;
+        case INACTIVE:  digitalWrite(led_pin, LOW);  break;
+        default:        printf("ERROR. Invalid state in Set_Station_State\n"); break;
     }
 }
 
