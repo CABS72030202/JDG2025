@@ -86,22 +86,19 @@ void Wait_For_Two() {
     }
 }
 
-int Connect_Station(Color station_color) {
-    // Get corresponding station from specified color
-    Station* temp = Color_To_Station(station_color);
-
-    // Wait until connection is established
-    if(Try_Connect(temp) == ERROR)
-        return ERROR;
-
+int Connect_Station(Station* s) {
     // Detect and abord if station is inactive
-    if(temp->state == INACTIVE) {
+    if(s->state == INACTIVE) {
         printf("Station %s is inactive.\n", Color_To_String(station_color));
         return ERROR; 
     }
 
+    // Wait until connection is established
+    if(Try_Connect(s) == ERROR)
+        return ERROR;
+
     // Change current station
-    curr_station = temp;
+    curr_station = s;
     return OK;
 }
 
@@ -110,21 +107,28 @@ int Try_Connect(Station* s) {
   for(int i = 0; i < MAX_ITERATIONS; i++) {
     
     // Lift up corresponding arm
-    Arm_Control(s->color, ACTIVE);
+    Arm_Control(s, ACTIVE);
     Delay(1);
     
-    // Get color if successful
-    Color temp = Info_Color();
-    if(temp != NONE) {
-      // Set active station
-      curr_station = Color_To_Station(temp);
-      Set_Station_State(curr_station, ACTIVE); 
-      printf("Successfully connected to station %s.\n", Color_To_String(curr_station->color));
-      return OK;
+    // Test connection by getting color 
+    Color c = Info_Color();
+
+    // Validate if color matches station
+    if(s->color != c) {
+        printf("Error. Color (%s) does not match station (%s).\n", Color_To_String(c), Color_To_String(s->color));
+        return ERROR;
+    }
+
+    // Set active station if no errors
+    if(c != NONE) {
+        curr_station = s;
+        Set_Station_State(curr_station, ACTIVE); 
+        printf("Successfully connected to station %s.\n", Color_To_String(curr_station->color));
+        return OK;
     }
 
     // Try again after delay if unsuccessful
-    Arm_Control(s->color, INACTIVE);
+    Arm_Control(s, INACTIVE);
     Delay(2);
   }
   printf("Could not connect to the station.\n");
@@ -132,9 +136,9 @@ int Try_Connect(Station* s) {
   return ERROR;
 }
 
-int Drop_Passengers(Color drop_station) {
+int Drop_Passengers(Station* drop_station) {
     // Send all passengers to station
-    char* response = Communication(Format_Str("SEND", drop_station, blackbox_pass[drop_station]));
+    char* response = Communication(Format_Str("SEND", drop_station->color, blackbox_pass[drop_station->color]));
 
     // Detect and print error
     if(response[0] == 'E') {
@@ -144,15 +148,15 @@ int Drop_Passengers(Color drop_station) {
 
     // Print confirmation message if successful
     else {
-        printf("\nSuccessfully sent %i passengers to %s station\n", blackbox_pass[drop_station], Color_To_String(drop_station));
+        printf("\nSuccessfully sent %i passengers to %s station\n", blackbox_pass[drop_station->color], Color_To_String(drop_station->color));
 
         // Update array
-        blackbox_pass[drop_station] = 0;
+        blackbox_pass[drop_station->color] = 0;
         return OK;
     }
 }
 
-int Load_Passengers(Color c, int nb) {
+int Load_Passengers(Station* load_station, int nb) {
     // Update arrays and abort if error detected
     if(Info_Blackbox_Count() || Info_Station_Count())
         return ERROR;
@@ -160,29 +164,29 @@ int Load_Passengers(Color c, int nb) {
     // Test parameter consistency
     int sum = 0;
     for(int i = 0; i < 5; i++)
-        sum += blackbox_pass[0];
+        sum += blackbox_pass[i];
     if(sum + nb > 5)
         return ERROR;
 
     // Take passengers from station
-    char* response = Communication(Format_Str("TAKE", c, nb));
+    char* response = Communication(Format_Str("TAKE", load_station->color, nb));
 
     // Detect and print error
     if(response[0] == 'E') {
-        printf("Cannot take %i passengers going to %s from %s : %s", nb, Color_To_String(c), Color_To_String(curr_station->color), response);
+        printf("Cannot take %i passengers going to %s from %s : %s", nb, Color_To_String(load_station->color), Color_To_String(curr_station->color), response);
         return ERROR;       
     }
 
     // Print confirmation message if successful
     else {
-        printf("\nSuccessfully took %i passengers going to %s from %s\n", nb, Color_To_String(c), Color_To_String(curr_station->color));
+        printf("\nSuccessfully took %i passengers going to %s from %s\n", nb, Color_To_String(load_station->color), Color_To_String(curr_station->color));
         
         // Update arrays
-        blackbox_pass[c] += nb;
-        curr_station->passengers[c] -= nb;
+        blackbox_pass[load_station->color] += nb;
+        curr_station->passengers[load_station->color] -= nb;
 
         // Delay to show passengers onboard
-        Delay(TIMEOUT);
+        Delay(ONBOARD_TIMEOUT);
         
         return OK;
     }
@@ -231,7 +235,7 @@ void Auto_Load_Drop() {
             // 1. Connect to load station and skip if inactive or if a new station is ready
             if(GPIO_command != 0)
                 break;
-            if(Connect_Station(array[load_station_id]->color) == ERROR)
+            if(Connect_Station(array[load_station_id]) == ERROR)
                 break;
 
             // 2. Find next active/relevant drop station
@@ -251,15 +255,15 @@ void Auto_Load_Drop() {
 
             // 3. Load passengers
             nb = Get_Max_Count(array[load_station_id], array[drop_station_id]);
-            if(Load_Passengers(array[drop_station_id]->color, nb) == ERROR)
+            if(Load_Passengers(array[drop_station_id], nb) == ERROR)
                 return;
 
             // 4. Connect to drop station
-            if(Connect_Station(array[drop_station_id]->color) == ERROR)
+            if(Connect_Station(array[drop_station_id]) == ERROR)
                 return;
 
             // 5. Drop passengers
-            if(Drop_Passengers(array[drop_station_id]->color) == ERROR)
+            if(Drop_Passengers(array[drop_station_id]) == ERROR)
                 return;
         }
         // Change load station
@@ -289,7 +293,7 @@ void Auto_Load_Drop() {
     }
 }
 
-void Arm_Control(Color station_color, State toggle) {
+void Arm_Control(Station* station, State toggle) {
 
     // Detect newly available stations
     int temp = Read_Arm_BIN();
@@ -326,8 +330,8 @@ void Arm_Control(Color station_color, State toggle) {
     Delay(1);
 
     // Activate only one
-    Color_To_Station(station_color)->arm_state = toggle;
-    switch(station_color) {
+    station->arm_state = toggle;
+    switch(station->color) {
         case RED:
             toggle == ACTIVE ? Write_Arm_DEC(RED_UP) : Write_Arm_DEC(RED_DOWN);
             break;

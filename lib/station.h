@@ -48,6 +48,7 @@ typedef struct {
 // Global Variables and Constants
 #define ERROR   1
 #define OK      0
+#define ONBOARD_TIMEOUT 2		// Delay to show passengers onboard
 extern Station r_station;       // Red station
 extern Station g_station;       // Green station
 extern Station b_station;       // Blue station
@@ -62,12 +63,12 @@ extern int GPIO_command;		// Current GPIO command for station priority
 // Function Prototypes (Station)
 void Initialize();			        		// Initialize station attributes and states
 void Wait_For_Two();                		// Wait for two stations to connect
-int Connect_Station(Color);         		// Connect to a specific station
+int Connect_Station(Station*);         		// Connect to a specific station
 int Try_Connect(Station*);          		// Attempt to connect to a station
-int Drop_Passengers(Color);         		// Drop passengers to a specific station
-int Load_Passengers(Color, int);			// Load passengers going to a specific station
+int Drop_Passengers(Station*);         		// Drop passengers to a specific station
+int Load_Passengers(Station*, int);			// Load passengers going to a specific station
 void Auto_Load_Drop();              		// Automate loading and unloading of passengers
-void Arm_Control(Color, State); 			// Control station arm using GPIO
+void Arm_Control(Station*, State); 			// Control station arm using GPIO
 void Set_Station_State(Station*, State);	// Set the current state of a station
 
 // Function Prototypes (Blackbox Communication)
