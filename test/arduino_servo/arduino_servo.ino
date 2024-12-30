@@ -19,60 +19,71 @@
 
 // Servo Angles
 #define ANGLE_STEP     1        // Increment for angle adjustments
-#define OPEN_BOUND     180      // Maximum open angle for the claw
+#define OPEN_BOUND     70       // Maximum open angle for the claw
 #define CLOSE_BOUND    0        // Minimum closed angle for the claw
 #define UP_BOUND       30       // Arm angle for position above the rear wheel
 #define DOWN_BOUND     180      // Arm angle for position just above the ground
+#define INIT_ANGLE     80       // Arm angle to reach before attaching claw servo
 
 // Global Variables
-String gripper_message = "[0:0]\r\n";  // Incoming command message for gripper control
-int claw_angle         = CLOSE_BOUND;   // Initial claw angle: fully closed
-int arm_angle          = DOWN_BOUND;           // Initial arm angle: parallel to the ground
+String gripper_message = "[0:0]\r\n";       // Incoming command message for gripper control
+int claw_angle         = CLOSE_BOUND;       // Initial claw angle: fully closed
+int arm_angle          = DOWN_BOUND - 10;   // Initial arm angle: parallel to the ground
+bool init_claw         = false;             // Attach claw servo only when arm is raised after setup
 Servo grip_claw;
 Servo grip_arm;
 
 // Prototypes
 void Gripper_Control();
+void Init_Claw();
 
 void setup() {
-  grip_claw.attach(CLAW_PIN);
-  grip_claw.write(claw_angle);
   grip_arm.attach(ARM_PIN);
   grip_arm.write(arm_angle);
 }
 
 void loop() {
-  while(arm_angle != UP_BOUND) {
-    gripper_message = "[+:0]\r\n";
-    Gripper_Control();
-    delay(DELAY);
+  // Loop before claw servo attach
+  if(!init_claw) {
+    while(arm_angle != INIT_ANGLE) {
+      gripper_message = "[+:0]\r\n";
+      Gripper_Control();
+      delay(DELAY*3);
+    }
+    Init_Claw();
+    delay(1000);
   }
 
-  delay(1000);
+  // Normal loop
+  else {
+    while(arm_angle != UP_BOUND) {
+      gripper_message = "[+:0]\r\n";
+      Gripper_Control();
+      delay(DELAY);
+    }
+    delay(1000);
 
-  while(arm_angle != DOWN_BOUND) {
-    gripper_message = "[-:0]\r\n";
-    Gripper_Control();
-    delay(DELAY);
+    while(arm_angle != DOWN_BOUND) {
+      gripper_message = "[-:0]\r\n";
+      Gripper_Control();
+      delay(DELAY);
+    }
+    delay(1000);
+
+    while(claw_angle != OPEN_BOUND) {
+      gripper_message = "[0:-]\r\n";
+      Gripper_Control();
+      delay(DELAY);
+    }
+    delay(1000);
+
+    while(claw_angle != CLOSE_BOUND) {
+      gripper_message = "[0:+]\r\n";
+      Gripper_Control();
+      delay(DELAY);
+    }
+    delay(1000);
   }
-
-  delay(1000);
-
-  while(claw_angle != OPEN_BOUND) {
-    gripper_message = "[0:-]\r\n";
-    Gripper_Control();
-    delay(DELAY);
-  }
-
-  delay(1000);
-
-  while(claw_angle != CLOSE_BOUND) {
-    gripper_message = "[0:+]\r\n";
-    Gripper_Control();
-    delay(DELAY);
-  }
-
-  delay(1000);
 }
 
 void Gripper_Control() {
@@ -100,4 +111,10 @@ void Gripper_Control() {
     default:  return;
   }
   grip_claw.write(claw_angle); 
+}
+
+void Init_Claw() {
+  grip_claw.attach(CLAW_PIN);
+  grip_claw.write(claw_angle);
+  init_claw = true;
 }

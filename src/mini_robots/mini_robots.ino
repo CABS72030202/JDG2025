@@ -56,11 +56,8 @@ void setup() {
   if(ROBOT_ID != CONE_ROBOT_ID) {
     arm.attach(SERVO_PIN);
     arm.write(ARM_ANGLE_UP);
-    Serial.print("");
   }
   else {
-    grip_claw.attach(CLAW_PIN);
-    grip_claw.write(claw_angle);
     grip_arm.attach(ARM_PIN);
     grip_arm.write(arm_angle);
   }
@@ -86,6 +83,10 @@ void loop() {
   if(gripper_message != "[0:0]\r\n")
     Decode_Gripper();
 
+  // Test if gripper claw needs to be initialized
+  if(!init_claw && arm_angle <= INIT_ANGLE) 
+    Init_Claw();
+
   // Manage LEDs from command values
   LED_Control();
 
@@ -95,6 +96,13 @@ void loop() {
   // Execute commands 
   Move();
   Arm();
+}
+
+void Init_Claw() {
+  grip_claw.attach(CLAW_PIN);
+  grip_claw.write(claw_angle);
+  init_claw = true;
+  delay(300);
 }
 
 void Get_Message() {
@@ -200,6 +208,8 @@ void Gripper_Control() {
    *   - '+' to close (decrement the angle)
    *   - '-' to open (increment the angle)
    */ 
+  if(!init_claw)
+    return;
   switch(gripper_message[3]) {
     case '+': if(claw_angle - ANGLE_STEP >= CLOSE_BOUND) claw_angle -= ANGLE_STEP; break;
     case '-': if(claw_angle + ANGLE_STEP <= OPEN_BOUND) claw_angle += ANGLE_STEP; break;
