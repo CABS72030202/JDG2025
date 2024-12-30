@@ -114,5 +114,6 @@ void Get_Speed_From_Dir(Direction);            // Set wheel speeds based on dire
 int Check_GPIO_Command();                      // Check if a GPIO command has changed
 void Change_Arm_State(int);                    // Change the arm state (e.g., UP/DOWN)
 void Control_Gripper();                        // Send gripper arm (0) or caw (1) instructions over Bluetooth to cone robot
+void Reset();                                  // Reset default variable values
 
 #endif

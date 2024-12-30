@@ -5,24 +5,24 @@
 #include "../lib/controller.h"
 
 int main() {
-    
+START:
     // Open the serial port
     int uart_fd = serialOpen(UART, BAUD_RATE);
     if (uart_fd < 0) {
         fprintf(stderr, "Unable to open serial device: %s\n", strerror(errno));
-        return 1;
+        goto ERR;
     }
 
     // Initialize boat control
     if(PWM_Init())
-        return 1;
+        goto ERR;
 
     // Initialize Bluetooth communication as server
     if(SKIP_BLUETOOTH) 
         printf("WARNING. BLUETOOTH SERVER IS DISABLED.\n");
     else {
         server_sock = bt_init(1, NULL);
-        if (server_sock < 0) return 1;
+        if (server_sock < 0) goto ERR;
         client_sock = server_sock;
         struct sockaddr_rc client_addr = { 0 };
         socklen_t opt = sizeof(client_addr);
@@ -30,7 +30,7 @@ int main() {
         if (client_sock < 0) {
             perror("Failed to accept connection");
             close(server_sock);
-            return 1;
+            goto ERR;
         }
         char client_address[18] = { 0 };
         ba2str(&client_addr.rc_bdaddr, client_address);
@@ -41,7 +41,7 @@ int main() {
     int fd = open(GAMEPAD_PATH, O_RDONLY);
     if (fd < 0) {
         perror("Failed to open gamepad");
-        return 1;
+        goto ERR;
     }
     
     if(!BLOCKING_MODE)
@@ -49,7 +49,7 @@ int main() {
         if (fcntl(fd, F_SETFL, fcntl(fd, F_GETFL) | O_NONBLOCK) == -1) {
             perror("Failed to set non-blocking mode");
             close(fd);
-            return 1;
+            goto ERR;
         }
 
     struct js_event e;
@@ -61,6 +61,15 @@ int main() {
             // Process controller event if available
             Controller_Event(e);   
 
+            // Test double presses
+            if(a_toggle && l_stick_toggle) {
+                printf("Left stick + A pressed simultaneously.\n");
+            }
+            if(b_toggle && r_stick_toggle) {
+                printf("Right stick + B pressed simultaneously.\n");
+                goto ERR;
+            }
+
             // Format message
             if(Format_Message(robot, l_speed, r_speed, arm)) {
 
@@ -71,7 +80,7 @@ int main() {
                 // Send message via Bluetooth
                 if (!SKIP_BLUETOOTH && bt_send(client_sock, message) < 0) {
                     close(client_sock);
-                    return 1;
+                    goto ERR;
                 }
 
                 // Control boat if selected
@@ -87,10 +96,13 @@ int main() {
         }
     }
 
+ERR:
     serialClose(uart_fd);
     close(fd);
     close(client_sock);
     close(server_sock);
+    Reset();
+    goto START;
     return 0;
 }
 
@@ -308,14 +320,6 @@ void Controller_Event(struct js_event e) {
             default:
                 return;
         }
-
-    // Test double presses
-    if(a_toggle && l_stick_toggle) {
-        printf("Left stick + A pressed simultaneously.\n");
-    }
-    if(b_toggle && r_stick_toggle) {
-        printf("Right stick + B pressed simultaneously.\n");
-    }
 }
 
 int Format_Message(Color c, int l, int r, Direction a) {
@@ -571,4 +575,32 @@ void Control_Gripper() {
     // Send message via Bluetooth
     if (!SKIP_BLUETOOTH)
         bt_send(client_sock, gripper_message);
+}
+
+void Reset() {
+    a_toggle = 0;
+    b_toggle = 0;
+    l_stick_toggle = 0;
+    r_stick_toggle = 0;
+    LT_val = 0;
+    RT_val = 0;
+    LSX_val = 0;
+    LSY_val = 0;
+    RSX_val = 0;
+    RSY_val = 0; 
+    CX_val = 0;
+    CY_val = 0;
+    LT_range = 0;
+    RT_range = 0;
+    LS_dir = NONE; 
+    RS_dir = NONE;
+    CR_dir = NONE;
+    constant_speed = 1; 
+    strcpy(message, "0:00:00:0\r\n");
+    strcpy(gripper_message, "[0:0]\r\n");
+    robot = NONE;
+    l_speed = 0;
+    r_speed = 0;
+    arm = DOWN;
+    GPIO_command = 0;
 }
