@@ -12,7 +12,11 @@
 #define CLAW_PIN       10       // Pin for claw servo motor control
 
 // Debug Constants
-#define DELAY          5       // In milliseconds
+#define DELAY          100     // In milliseconds
+#define DEBUG_CLAW     0       // 1 if robot has a claw
+#define TEST_SPECIFIC  1       // 1 to test two specific values
+#define VAL1           0       // Lower bound (arm is up)
+#define VAL2           20      // Upper bound (arm is down)
 
 // Gripper Specific Global Constants
 #define CONE_ROBOT_ID  5        // ID corresponding to the robot equipped with a gripper
@@ -40,49 +44,73 @@ void Init_Claw();
 void setup() {
   grip_arm.attach(ARM_PIN);
   grip_arm.write(arm_angle);
+  Serial.begin(115200);
 }
 
 void loop() {
-  // Loop before claw servo attach
-  if(!init_claw) {
-    while(arm_angle != INIT_ANGLE) {
-      gripper_message = "[+:0]\r\n";
-      Gripper_Control();
-      delay(DELAY*3);
+  if(DEBUG_CLAW) {
+    // Loop before claw servo attach
+    if(!init_claw) {
+      while(arm_angle != INIT_ANGLE) {
+        gripper_message = "[+:0]\r\n";
+        Gripper_Control();
+        delay(DELAY*3);
+      }
+      Init_Claw();
+      delay(1000);
     }
-    Init_Claw();
-    delay(1000);
+
+    // Normal loop
+    else {
+      while(arm_angle != UP_BOUND) {
+        gripper_message = "[+:0]\r\n";
+        Gripper_Control();
+        delay(DELAY);
+      }
+      delay(1000);
+
+      while(arm_angle != DOWN_BOUND) {
+        gripper_message = "[-:0]\r\n";
+        Gripper_Control();
+        delay(DELAY);
+      }
+      delay(1000);
+
+      while(claw_angle != OPEN_BOUND) {
+        gripper_message = "[0:-]\r\n";
+        Gripper_Control();
+        delay(DELAY);
+      }
+      delay(1000);
+
+      while(claw_angle != CLOSE_BOUND) {
+        gripper_message = "[0:+]\r\n";
+        Gripper_Control();
+        delay(DELAY);
+      }
+      delay(1000);
+    }
   }
-
-  // Normal loop
   else {
-    while(arm_angle != UP_BOUND) {
-      gripper_message = "[+:0]\r\n";
-      Gripper_Control();
-      delay(DELAY);
+    if(TEST_SPECIFIC) {
+        grip_arm.write(VAL1);
+        Serial.print("Current angle value = ");
+        Serial.println(VAL1);
+        delay(2000);
+        grip_arm.write(VAL2);
+        Serial.print("Current angle value = ");
+        Serial.println(VAL2);
+        delay(2000);
     }
-    delay(1000);
-
-    while(arm_angle != DOWN_BOUND) {
-      gripper_message = "[-:0]\r\n";
-      Gripper_Control();
-      delay(DELAY);
+    else {
+      for(int i = 0; i <= 180; i++) {
+        grip_arm.write(i);
+        Serial.print("Current angle value = ");
+        Serial.println(i);
+        delay(DELAY);
+      }
+      delay(1000);
     }
-    delay(1000);
-
-    while(claw_angle != OPEN_BOUND) {
-      gripper_message = "[0:-]\r\n";
-      Gripper_Control();
-      delay(DELAY);
-    }
-    delay(1000);
-
-    while(claw_angle != CLOSE_BOUND) {
-      gripper_message = "[0:+]\r\n";
-      Gripper_Control();
-      delay(DELAY);
-    }
-    delay(1000);
   }
 }
 
