@@ -26,11 +26,11 @@
 #define MAX_SPEED       3       // Maximum speed multiplier for the robot
 
 // Speed Levels
-const int LEFT_SPEEDS[MAX_SPEED]  = {180, 210, 240};   // Speed levels for the left motor
-const int RIGHT_SPEEDS[MAX_SPEED] = {120, 150, 180};   // Speed levels for the right motor
+const int LEFT_SPEEDS[MAX_SPEED]  = {125, (125+255)/2, 255};   // Speed levels for the left motor
+const int RIGHT_SPEEDS[MAX_SPEED] = {110, (110+240)/2, 240};   // Speed levels for the right motor
 
 // Servo Angles
-#define ARM_ANGLE_UP    10      // Servo angle for the arm in the UP position
-#define ARM_ANGLE_DOWN  30      // Servo angle for the arm in the DOWN position
+#define ARM_ANGLE_UP    30      // Servo angle for the arm in the UP position
+#define ARM_ANGLE_DOWN  65      // Servo angle for the arm in the DOWN position
 
 #endif 

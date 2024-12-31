@@ -8,10 +8,10 @@
  */
 
 // Define pins
-#define DC_FL_PIN 6             // Front left DC motor drive
-#define DC_FR_PIN 3            // Front right DC motor drive
-#define DC_BL_PIN 5             // Back left DC motor drive
-#define DC_BR_PIN 11             // Back right DC motor drive
+#define DC_FL_PIN 5             // Front left DC motor drive
+#define DC_FR_PIN 11            // Front right DC motor drive
+#define DC_BL_PIN 6             // Back left DC motor drive
+#define DC_BR_PIN 3             // Back right DC motor drive
 
 // Debug constants
 #define MIN_TEST_VAL  20
@@ -26,8 +26,8 @@
 
 // Global constants
 #define MAX_SPEED 3             
-const int LEFT_SPEEDS[MAX_SPEED]  = {120, (115+255)/2, 255};
-const int RIGHT_SPEEDS[MAX_SPEED] = {110, (110+245)/2, 245};
+const int LEFT_SPEEDS[MAX_SPEED]  = {125, (125+255)/2, 255};
+const int RIGHT_SPEEDS[MAX_SPEED] = {110, (110+240)/2, 240};
 
 // Global variables
 int l_speed = 0;                // Analog left wheel speed value

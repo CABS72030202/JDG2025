@@ -15,8 +15,8 @@
 #define DELAY          100     // In milliseconds
 #define DEBUG_CLAW     0       // 1 if robot has a claw
 #define TEST_SPECIFIC  1       // 1 to test two specific values
-#define VAL1           0      // Lower bound (arm is up)
-#define VAL2           35      // Upper bound (arm is down)
+#define VAL1           30      // Lower bound (arm is up)
+#define VAL2           65      // Upper bound (arm is down)
 
 // Gripper Specific Global Constants
 #define CONE_ROBOT_ID  5        // ID corresponding to the robot equipped with a gripper
