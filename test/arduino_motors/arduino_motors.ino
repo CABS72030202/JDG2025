@@ -8,9 +8,9 @@
  */
 
 // Define pins
-#define DC_FL_PIN 5             // Front left DC motor drive
+#define DC_FL_PIN 6             // Front left DC motor drive
 #define DC_FR_PIN 3            // Front right DC motor drive
-#define DC_BL_PIN 6             // Back left DC motor drive
+#define DC_BL_PIN 5             // Back left DC motor drive
 #define DC_BR_PIN 11             // Back right DC motor drive
 
 // Debug constants
