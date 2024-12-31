@@ -22,13 +22,13 @@
 #include "gripper.h"
 
 /* INCLUDE CORRESPONDING HEADER FILE */
-#include "blue.h"
+#include "red.h"
 
 // Global Variables
 Servo arm;                            // Servo motor object for arm control
 LiquidCrystal_I2C lcd(0x27, 16, 2);   // LCD object for display
 String message = "0:00:00:0\r\n";     // Incoming command message format for robot control
-int robot = 0;                        // Current robot ID
+int robot = -1;                       // Current robot ID
 int l_speed = 0;                      // Left wheel speed
 int r_speed = 0;                      // Right wheel speed
 int arm_state = 0;                    // Arm state: 0 = down, 1 = up

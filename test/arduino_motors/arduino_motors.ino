@@ -8,9 +8,9 @@
  */
 
 // Define pins
-#define DC_FL_PIN 6             // Front left DC motor drive
+#define DC_FL_PIN 5             // Front left DC motor drive
 #define DC_FR_PIN 3            // Front right DC motor drive
-#define DC_BL_PIN 5             // Back left DC motor drive
+#define DC_BL_PIN 6             // Back left DC motor drive
 #define DC_BR_PIN 11             // Back right DC motor drive
 
 // Debug constants
@@ -26,7 +26,7 @@
 
 // Global constants
 #define MAX_SPEED 3             
-const int LEFT_SPEEDS[MAX_SPEED]  = {140, (140+255)/2, 255};
+const int LEFT_SPEEDS[MAX_SPEED]  = {130, (130+245)/2, 245};
 const int RIGHT_SPEEDS[MAX_SPEED] = {100, (100+255)/2, 250};
 
 // Global variables
