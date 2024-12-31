@@ -19,12 +19,8 @@ Le Raspberry Pi 3 Model B placé sur le bateau est le maître responsable de tou
   - GPIO 26 / Pin #32 (PWM0) + GPIO 22 / Pin #31
 - **Servomoteurs** :
   - GPIO 7 / Pin #7
-- **LEDs d'états du système** :
+- **DELs de type WS2811 d'états du système** :
   - GPIO 12 / Pin #19
-  - GPIO 13 / Pin #21
-  - GPIO 14 / Pin #23
-  - GPIO 28 / Pin #38
-  - GPIO 29 / Pin #40
 - **Communication UART** :
   - GPIO 15 / Pin #8 : Tx pour la communication UART avec les Arduino.
 - **Ports USB** :
@@ -44,3 +40,6 @@ Le Raspberry Pi 3 Model B placé sur le bateau est le maître responsable de tou
   - Nom d'utilisateur : `admin`
   - Mot de passe : `password`
 - **Optimisation future** : Si le temps le permet, un système Linux embarqué simplifié sera construit avec Buildroot pour optimiser les performances.
+
+# Références
+- **WS2811** : https://cdn-learn.adafruit.com/downloads/pdf/neopixels-on-raspberry-pi.pdf
