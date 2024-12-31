@@ -22,7 +22,7 @@
 #include "gripper.h"
 
 /* INCLUDE CORRESPONDING HEADER FILE */
-#include "red.h"
+#include "purple.h"
 
 // Global Variables
 Servo arm;                            // Servo motor object for arm control
