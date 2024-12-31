@@ -20,6 +20,7 @@
 
 // Includes
 #include "gripper.h"
+#include "melody/melody.cpp"
 
 /* INCLUDE CORRESPONDING HEADER FILE */
 #include "yellow.h"
