@@ -1,4 +1,4 @@
-#include "pikmin.h"
+#include "gandalf.h"
 
 #define PLAY_COUNT 1   // The number of times the melody will be played (-1 is infinite)
 
