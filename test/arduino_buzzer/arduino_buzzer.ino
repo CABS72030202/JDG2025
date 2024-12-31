@@ -1,36 +1,43 @@
-#include "pitches.h"
-#include "durations.h"
+#include "pikmin.h"
 
-#define NOTE_COUNT 4
+#define PLAY_COUNT 1   // The number of times the melody will be played (-1 is infinite)
 
-// notes in the melody:
-int melody[NOTE_COUNT] = {
-  NOTE_DS6, NOTE_E6, NOTE_CS6, NOTE_C6
-};
+void Play_Melody();
+void Start_Song();
+void Stop_Song();
 
-float noteDurations[NOTE_COUNT] = {
-  125, 500, 125, 1250
-};
+int remaining;
 
 void setup() {
-  Serial.begin(115200);
-  Serial.println("-----");
-  // iterate over the notes of the melody:
-  for (int thisNote = 0; thisNote < NOTE_COUNT; thisNote++) {
+  Start_Song();
+}
 
-    // to calculate the note duration, take one second divided by the note type.
-    int noteDuration = MSPB * noteDurations[thisNote];
-    Serial.println(noteDuration);
-    tone(8, melody[thisNote], noteDuration);
+void loop() {
+  while(remaining != 0) {
+    Play_Melody();
+    remaining--;
+  }
+}
 
-    // to distinguish the notes, set a minimum time between them.
-    int pauseBetweenNotes = noteDuration * 0.8;
-    delay(pauseBetweenNotes);
-    // stop the tone playing:
+void Play_Melody() {
+  // Iterate over the notes of the melody
+  for (int i = 0; i < NOTE_COUNT; i++) {
+
+    // Calculate the note duration
+    int note_duration = MSPB * note_durations[i];
+    tone(8, note_pitches[i], note_duration);
+
+    // To distinguish the notes, set a minimum time between them
+    int pause_between_notes = note_duration * 0.8;
+    delay(pause_between_notes);
     noTone(8);
   }
 }
 
-void loop() {
-  // no need to repeat the melody.
+void Start_Song() {
+  remaining = PLAY_COUNT;
+}
+
+void Stop_Song() {
+  remaining = 0;
 }
