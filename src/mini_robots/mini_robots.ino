@@ -70,6 +70,9 @@ void setup() {
   lcd.init();
   lcd.backlight();
   lcd.setCursor(0, 0);
+
+  // Melody
+  Start_Song();
 }
 
 void loop() {

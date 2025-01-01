@@ -26,6 +26,7 @@ void Play_Melody() {
 
 void Start_Song() {
   remaining = PLAY_COUNT;
+  Play_Melody();
 }
 
 void Stop_Song() {
