@@ -15,12 +15,12 @@ void Play_Melody() {
 
     // Calculate the note duration
     int note_duration = MSPB * note_durations[i];
-    tone(8, note_pitches[i], note_duration);
+    tone(BUZZER_PIN, note_pitches[i], note_duration);
 
     // To distinguish the notes, set a minimum time between them
     int pause_between_notes = note_duration * 0.8;
     delay(pause_between_notes);
-    noTone(8);
+    noTone(BUZZER_PIN);
   }
 }
 
