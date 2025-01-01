@@ -7,7 +7,7 @@ CC = gcc
 CFLAGS = -g -w -Wall
 CXXFLAGS = -Ilib -Isrc -Itest
 VPATH = lib:src:test
-LIB = -lm -lwiringPi -lbluetooth
+LIB = -lm -lwiringPi -lbluetooth -lws2811
 
 # Create build directories if they don't exist
 $(shell mkdir -p $(OBJ_DIR) $(BUILD_DIR))
@@ -20,8 +20,8 @@ blackbox: $(OBJ_DIR)/blackbox.o $(OBJ_DIR)/station.o $(OBJ_DIR)/communication.o 
 	$(CC) $(CFLAGS) -o $(BUILD_DIR)/blackbox $(OBJ_DIR)/blackbox.o $(OBJ_DIR)/station.o $(OBJ_DIR)/communication.o $(OBJ_DIR)/gpio.o $(LIB)
 
 # Controller executable construction
-controller: $(OBJ_DIR)/controller.o $(OBJ_DIR)/gpio.o $(OBJ_DIR)/rpi_bluetooth.o $(OBJ_DIR)/boat_control.o $(OBJ_DIR)/rpi_servo.o
-	$(CC) $(CFLAGS) -o $(BUILD_DIR)/controller $(OBJ_DIR)/controller.o $(OBJ_DIR)/gpio.o $(OBJ_DIR)/rpi_bluetooth.o $(OBJ_DIR)/boat_control.o $(OBJ_DIR)/rpi_servo.o $(LIB)
+controller: $(OBJ_DIR)/controller.o $(OBJ_DIR)/gpio.o $(OBJ_DIR)/rpi_bluetooth.o $(OBJ_DIR)/boat_control.o $(OBJ_DIR)/rpi_servo.o $(OBJ_DIR)/led.o
+	$(CC) $(CFLAGS) -o $(BUILD_DIR)/controller $(OBJ_DIR)/controller.o $(OBJ_DIR)/gpio.o $(OBJ_DIR)/rpi_bluetooth.o $(OBJ_DIR)/boat_control.o $(OBJ_DIR)/rpi_servo.o $(OBJ_DIR)/led.o $(LIB)
 
 # Bluetooth receiver executable construction
 mini_rpi: $(OBJ_DIR)/mini_rpi.o $(OBJ_DIR)/rpi_bluetooth.o
@@ -62,6 +62,10 @@ $(OBJ_DIR)/boat_control.o: ./lib/boat_control.h ./src/boat_control.c
 # Object generation from source and header for RPI_SERVO
 $(OBJ_DIR)/rpi_servo.o: ./lib/rpi_servo.h ./src/rpi_servo.c
 	$(CC) $(CFLAGS) -c ./src/rpi_servo.c -o $(OBJ_DIR)/rpi_servo.o $(CXXFLAGS)
+
+# Object generation from source and header for LED
+$(OBJ_DIR)/led.o: ./lib/led.h ./src/led.c
+	$(CC) $(CFLAGS) -c ./src/led.c -o $(OBJ_DIR)/led.o $(CXXFLAGS)
 
 # Clean up the build directories
 clean:

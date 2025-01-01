@@ -13,10 +13,12 @@ START:
         goto ERR;
     }
 
-    // Initialize boat control and servomotors
+    // Initialize boat outputs
     if(PWM_Init())
         goto ERR;
     if(Servo_Init())
+        goto ERR;
+    if(LED_Init())
         goto ERR;
 
     // Initialize Bluetooth communication as server
@@ -104,6 +106,7 @@ ERR:
     close(fd);
     close(client_sock);
     close(server_sock);
+    ws2811_fini(&ledstring);
     Reset();
     goto START;
     return 0;

@@ -1,5 +1,5 @@
 /*
- * WS2811 LED Control with Raspberry Pi 3B using GPIO #12
+ * WS2811 LED Control with Raspberry Pi 3B
  * 
  * This program demonstrates how to control 5 WS2811 LEDs connected to GPIO pin #12 (BCM pin 18) on a Raspberry Pi 3B.
  * It uses the rpi-ws281x library to control the LEDs with precise timing. The LEDs are controlled using the GRB color format.
