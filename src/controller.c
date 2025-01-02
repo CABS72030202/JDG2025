@@ -72,20 +72,16 @@ START:
                     user_override_on = !user_override_on;
             }
             if(b_toggle && r_stick_toggle) {
-                printf("Right stick + B pressed simultaneously.\n");
+                printf("Right stick + B pressed simultaneously : resetting Bluetooth.\n");
                 goto ERR;
             }
-            if(x_toggle && l_stick_toggle) {
-                printf("Left stick + X pressed simultaneously.\n");
-                Toggle_Brushless();
-            }
             if(x_toggle && r_stick_toggle) {
-                printf("Right stick + X pressed simultaneously.\n");
+                printf("Right stick + X pressed simultaneously : resetting brushless.\n");
                 Reset_Motors();
             }
             if(b_toggle && x_toggle && l_stick_toggle) {
-                printf("Left stick + B + X pressed simultaneously.\n");
-                Toggle_Servo(&ramp_servo);
+                printf("Left stick + B + X pressed simultaneously : opening ramps.\n");
+                Toggle_Servo();
             }
 
             // Format message

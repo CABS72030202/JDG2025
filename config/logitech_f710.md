@@ -26,7 +26,6 @@ Aucune configuration requise.
 | **A + Bouton gâchette gauche**       | Secret réservé au maître programmeur ! |
 | **B + Bouton gâchette droite**       | Réinitialisation de la communication Bluetooth en cas d'erreur. |
 | **X + Bouton gâchette droite**       | Réinitialisation des moteurs sans balais du bateau en cas de dysfonctionnement. |
-| **X + Bouton gâchette gauche**       | Modification des moteurs du bateau : passage des hélices aux roues pour le contrôle. |
 | **B + X + Bouton gâchette gauche**       | Ouverture des rampes du bateau pour permettre aux robots de débarquer. |
 
 ### Notes au pilote : 

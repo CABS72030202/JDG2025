@@ -25,7 +25,6 @@
 // Enums and Structs
 typedef struct {
     char side;              // 'R' for Right or 'L' for Left
-    char type;              // 'W' for Wheel or 'P' for Propeller
     float speed;            // Current speed as a percentage (0.0 to 1.0)
     int multiplier;         // Current speed as a multiplier
     int motor_pin;          // GPIO Pin for the motor PWM
@@ -33,10 +32,10 @@ typedef struct {
 } Brushless;
 
 // Pin Definitions
-#define LEFT_MOTOR_PWM_PIN          23      // GPIO Pin for the left side PWM
-#define WHEEL_POWER_GPIO_PIN        24      // GPIO Pin to provide power to the wheel drive
-#define RIGHT_MOTOR_PWM_PIN         26      // GPIO Pin for the right side PWM
-#define PROPELLER_POWER_GPIO_PIN    22      // GPIO Pin to provide power to the propeller drive
+#define LEFT_MOTOR_PWM_PIN      23      // GPIO Pin for the left side PWM
+#define LEFT_POWER_GPIO_PIN     24      // GPIO Pin to provide power to the left drive
+#define RIGHT_MOTOR_PWM_PIN     26      // GPIO Pin for the right side PWM
+#define RIGHT_POWER_GPIO_PIN    22      // GPIO Pin to provide power to the right drive
 
 // Global Constants
 #define BOAT_ID             6               // Unique ID for the BOAT robot
@@ -53,22 +52,18 @@ extern const int BOAT_SPEEDS[MAX_SPEED];    // Preset duty cycle values for brus
 #define INCREASE_DELAY      1            // Time delay when increasing speed (in ms)
 
 // Global Variables
-extern Brushless left_wheel;        // Configuration for the left wheel motor
-extern Brushless right_wheel;       // Configuration for the right wheel motor
-extern Brushless left_propeller;    // Configuration for the left wheel propeller
-extern Brushless right_propeller;   // Configuration for the right wheel propeller
-extern char message[];              // Controller command message
-extern char control_type;           // Current brushless type ('P' or 'W') control
+extern Brushless left_motors;        // Configuration for the left motors
+extern Brushless right_motors;       // Configuration for the right motors
+extern char message[];               // Controller command message
 
 // Function Prototypes
 int PWM_Init();                                                     // Initialize brushless motors control
-void Brushless_Init(Brushless*, char, char, float, int, int, int);  // Initialize brushless struct 
+void Brushless_Init(Brushless*, char, float, int, int, int);  // Initialize brushless struct 
 void Control_Boat();                                                // Main control logic for the boat
 void Motor_Startup(Brushless*);                                     // Startup routine for a motor
 void Set_Motor_Speed(Brushless*);                                   // Set the speed of a motor
 void Reset_Motors();                                                // Reset both motors to their initial state
 void Reset_Motor(Brushless*);                                       // Reset a specific motor to its initial state
 int Get_Motor_Multiplier(Brushless*);                               // Get the speed multiplier for a motor from the controller command message
-void Toggle_Brushless();                                                 // Toggle between wheel and propeller control
 
 #endif

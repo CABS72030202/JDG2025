@@ -25,7 +25,7 @@
 
 // Debug Constants
 #define SKIP_BLUETOOTH          1                // Set to 1 to disable Bluetooth initialization
-#define USER_CAN_CONTROL_ARM    1                // Set to 1 to enable manual arm control
+#define USER_CAN_CONTROL_ARM    0                // Set to 1 to enable manual arm control
 
 // Global Constants
 #define GAMEPAD_PATH       "/dev/input/js0"      // Path to the gamepad device
