@@ -18,11 +18,23 @@
 #include "../lib/constants.h"
 #include <softPwm.h>
 
+// Enums and Structs
+typedef struct {
+    int is_open;            // 1 is yes, 0 is no
+    int servo_pin;          // GPIO Pin to provide 5V power to the motor
+    int close_angle;        // Value when closed
+    int open_angle;         // Value when open
+} Servo;
+
 // Global Variables
-static int is_servo_open = 0;           // Current servomotors state
+extern Servo ramp_servo;        // Servomotors locking boat ramps
+extern Servo switch_servo;      // Servomotor triggering a switch
 
 // Function Prototypes
 int Servo_Init();                       // Initialize servomotors control
-void Toggle_Servo();                    // Toggle servomotors state (open/close)
+void Toggle_Servo(Servo*);              // Toggle specific servomotor's state (open/close)
+void Continuous_Mode(Servo*, int);      // Write an angle larger than 180 degrees
+int Map_Angle_To_Pulse(int);            // Get the required pulse for a specific angle in continuous mode 
+int Map_Angle_To_Delay(int);            // Get the required turning time for a specific angle in continuous mode 
 
 #endif

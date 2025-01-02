@@ -80,12 +80,17 @@ const int BOAT_SPEEDS[MAX_SPEED] =  {60, 70, 80};   // Preset duty cycle values 
     // ----------- //
 
 // Pin Definitions
-#define SERVO_PIN 7
+#define RAMP_SERVO_PIN      7
+#define SWITCH_SERVO_PIN    28
 // Global Constants
 #define SERVO_MIN_PULSE_WIDTH   0       // Minimum pulse width for the servo (µs)
 #define SERVO_MAX_PULSE_WIDTH   100     // Maximum pulse width for the servo (µs)
-#define SERVO_OPEN_ANGLE        10      // Pulse width for open position
-#define SERVO_CLOSE_ANGLE       20      // Pulse width for close position
+#define TURN_TIME_PER_DEGREE    10      // Typical time in milliseconds to turn 1 degree
+// Angle values
+#define RAMP_SERVO_OPEN         10      // Pulse width for open position
+#define RAMP_SERVO_CLOSE        20      // Pulse width for close position
+#define SWITCH_SERVO_OPEN       0       // Pulse width for open position
+#define SWITCH_SERVO_CLOSE      365     // Pulse width for close position
 
     // ---- //
     // LEDS //

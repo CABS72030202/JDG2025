@@ -65,6 +65,7 @@ typedef enum color Color;
 // Button toggle values
 int a_toggle = 0;
 int b_toggle = 0;
+int x_toggle = 0;
 int l_stick_toggle = 0;
 int r_stick_toggle = 0;
 

@@ -68,11 +68,23 @@ START:
             // Test double presses
             if(a_toggle && l_stick_toggle) {
                 printf("Left stick + A pressed simultaneously.\n");
-                Toggle_Servo();
+                
             }
             if(b_toggle && r_stick_toggle) {
                 printf("Right stick + B pressed simultaneously.\n");
                 goto ERR;
+            }
+            if(x_toggle && l_stick_toggle) {
+                printf("Left stick + X pressed simultaneously.\n");
+                Toggle_Servo(&switch_servo);
+            }
+            if(x_toggle && r_stick_toggle) {
+                printf("Right stick + X pressed simultaneously.\n");
+                Reset_Motor();
+            }
+            if(b_toggle && x_toggle && l_stick_toggle) {
+                printf("Left stick + B + X pressed simultaneously.\n");
+                Toggle_Servo(&ramp_servo);
             }
 
             // Format message
@@ -164,8 +176,7 @@ void Controller_Event(struct js_event e) {
                 break;
             case X_BUTTON:
                 printf("Pressed button X\n");
-                if(robot == BOAT_ID)
-                    Reset_Motors();
+                x_toggle = 1;
                 break;
             case Y_BUTTON:
                 if(constant_speed != AXIS_RANGE_COUNT - 1)      // Change to fast mode
@@ -223,6 +234,10 @@ void Controller_Event(struct js_event e) {
             case B_BUTTON:
                 printf("Released button B\n");
                 b_toggle = 0;
+                break;
+            case X_BUTTON:
+                printf("Released button X\n");
+                x_toggle = 0;
                 break;
             case LB_BUTTON:
                 printf("Released button LB: Stopping left wheel\n");
@@ -586,6 +601,7 @@ void Control_Gripper() {
 void Reset() {
     a_toggle = 0;
     b_toggle = 0;
+    x_toggle = 0;
     l_stick_toggle = 0;
     r_stick_toggle = 0;
     LT_val = 0;
