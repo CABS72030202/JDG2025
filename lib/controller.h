@@ -24,7 +24,8 @@
 #include "../lib/led.h"
 
 // Debug Constants
-#define SKIP_BLUETOOTH     1                     // Set to 1 to disable Bluetooth initialization
+#define SKIP_BLUETOOTH          1                // Set to 1 to disable Bluetooth initialization
+#define USER_CAN_CONTROL_ARM    1                // Set to 1 to enable manual arm control
 
 // Global Constants
 #define GAMEPAD_PATH       "/dev/input/js0"      // Path to the gamepad device

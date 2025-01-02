@@ -31,17 +31,19 @@ typedef struct {
 } Servo;
 
 // Pin Definitions
-#define SERVO_PIN 7
+#define RAMP_SERVO_PIN 7
 
 // Global Constants
 #define SERVO_MIN_PULSE_WIDTH   0       // Minimum pulse width for the servo (µs)
 #define SERVO_MAX_PULSE_WIDTH   100     // Maximum pulse width for the servo (µs)
-#define SERVO_OPEN_ANGLE        10      // Pulse width for open position
-#define SERVO_CLOSE_ANGLE       20      // Pulse width for close position
+#define TURN_TIME_PER_DEGREE    10      // Typical time in milliseconds to turn 1 degree
+
+// Servo angle values
+#define RAMP_SERVO_OPEN         10      // Pulse width for open position
+#define RAMP_SERVO_CLOSE        20      // Pulse width for close position
 
 // Global Variables
-extern Servo ramp_servo;        // Servomotors locking boat ramps
-extern Servo switch_servo;      // Servomotor triggering a switch
+extern Servo ramp_servo;                // Servomotors locking boat ramps
 
 // Function Prototypes
 int Servo_Init();                       // Initialize servomotors control

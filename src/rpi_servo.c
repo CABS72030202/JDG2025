@@ -5,7 +5,6 @@
 #include "../lib/rpi_servo.h"
 
 Servo ramp_servo;
-Servo switch_servo;
 
 int Servo_Init() {
     // Initialize struct values
@@ -13,21 +12,10 @@ int Servo_Init() {
     ramp_servo.servo_pin = RAMP_SERVO_PIN;
     ramp_servo.close_angle = RAMP_SERVO_CLOSE;
     ramp_servo.open_angle = RAMP_SERVO_OPEN;
-    switch_servo.is_open = 0;
-    switch_servo.servo_pin = SWITCH_SERVO_PIN;
-    switch_servo.close_angle = SWITCH_SERVO_CLOSE;
-    switch_servo.open_angle = SWITCH_SERVO_OPEN;
 
     // Initialize ramp servo
     pinMode(ramp_servo.servo_pin, OUTPUT);
     if(softPwmCreate(ramp_servo.servo_pin, ramp_servo.close_angle, SERVO_MAX_PULSE_WIDTH) != 0) {
-        fprintf(stdout, "Unable to start ramp servo: %s\n", strerror(errno));
-        return 1;
-    }
-
-    // Initialize switch servo
-    pinMode(switch_servo.servo_pin, OUTPUT);
-    if(softPwmCreate(switch_servo.servo_pin, switch_servo.close_angle, SERVO_MAX_PULSE_WIDTH) != 0) {
         fprintf(stdout, "Unable to start ramp servo: %s\n", strerror(errno));
         return 1;
     }

@@ -38,8 +38,9 @@ typedef struct {
 #define RIGHT_POWER_GPIO_PIN  22      // GPIO Pin to provide 5V power to the right motor
 
 // Global Constants
-#define BOAT_ID         6            // Unique ID for the BOAT robot
-#define MAX_SPEED       3            // Maximum speed multiplier for the robot
+#define BOAT_ID             6               // Unique ID for the BOAT robot
+#define MAX_SPEED           3               // Maximum speed multiplier for the robot
+const int BOAT_SPEEDS[] =   {60, 70, 80};   // Preset duty cycle values for brushless motors speed
 
 // PWM Constants
 #define PWM_RANGE           1024         // Range for PWM (0-1023)
