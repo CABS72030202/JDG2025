@@ -41,7 +41,7 @@ typedef struct {
 // Global Constants
 #define BOAT_ID             6               // Unique ID for the BOAT robot
 #define MAX_SPEED           3               // Maximum speed multiplier for the robot
-const int BOAT_SPEEDS[] =   {60, 70, 80};   // Preset duty cycle values for brushless motors speed
+extern const int BOAT_SPEEDS[MAX_SPEED];    // Preset duty cycle values for brushless motors speed
 
 // PWM Constants
 #define PWM_RANGE           1024         // Range for PWM (0-1023)
@@ -58,7 +58,7 @@ extern Brushless right_wheel;       // Configuration for the right wheel motor
 extern Brushless left_propeller;    // Configuration for the left wheel propeller
 extern Brushless right_propeller;   // Configuration for the right wheel propeller
 extern char message[];              // Controller command message
-char control_type;                  // Current brushless type ('P' or 'W') control
+extern char control_type;           // Current brushless type ('P' or 'W') control
 
 // Function Prototypes
 int PWM_Init();                                                     // Initialize brushless motors control

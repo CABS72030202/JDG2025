@@ -8,6 +8,8 @@ Brushless left_wheel;
 Brushless right_wheel;
 Brushless left_propeller;
 Brushless right_propeller;
+const int BOAT_SPEEDS[MAX_SPEED] = {60, 70, 80};
+char control_type;
 
 int PWM_Init() {
 
