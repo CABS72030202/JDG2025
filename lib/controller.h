@@ -18,6 +18,7 @@
 // Includes
 #include <fcntl.h>
 #include <linux/joystick.h>
+#include "../lib/constants.h"
 #include "../lib/gpio.h"
 #include "../lib/rpi_bluetooth.h"
 #include "../lib/boat_control.h"
@@ -53,12 +54,6 @@ const int robot_order[] = {6, 0, 4, 3, 1, 5, 2}; // Order of robot selection
 #define R_STICK_Y          4                     // ID for right stick Y-axis
 #define CROSS_X            6                     // ID for rotating using one wheel
 #define CROSS_Y            7                     // ID for driving with both wheels
-
-// Analog Ranges
-#define ANAL_SHIFT_VAL     32767                 // Shift value for analog inputs
-#define ANAL_MAX_VAL       65534                 // Maximum value for analog inputs
-#define AXIS_RANGE_COUNT   4                     // Number of axis ranges (includes 0)
-#define JOYSTICK_THRESHOLD 10000                 // Threshold to detect joystick movement
 
 // Special Types
 enum direction {NONE, UP, DOWN, LEFT, RIGHT};    // Direction enum for movement
