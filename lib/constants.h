@@ -26,7 +26,8 @@
     // ----- //
     // DEBUG //
     // ----- //
-#define SKIP_BLUETOOTH     1                     // Set to 1 to disable Bluetooth initialization
+#define SKIP_BLUETOOTH          1               // Set to 1 to disable Bluetooth initialization
+#define USER_CAN_CONTROL_ARM    1               // Set to 1 to enable manual arm control
 
     // ---------------- //
     // GLOBAL CONSTANTS //

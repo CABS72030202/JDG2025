@@ -187,8 +187,8 @@ void Decode_Gripper() {
  *   - '0' to keep current angle
  */
 
-  // Exit if this robot is not the cone robot
-  if (ROBOT_ID != CONE_ROBOT_ID) return;
+  // Exit if last message before gripper command was not for this robot
+  if (robot != ROBOT_ID) return;
 
   // Execute command
   Gripper_Control();

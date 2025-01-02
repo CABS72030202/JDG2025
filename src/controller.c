@@ -68,7 +68,8 @@ START:
             // Test double presses
             if(a_toggle && l_stick_toggle) {
                 printf("Left stick + A pressed simultaneously.\n");
-                
+                if(USER_CAN_CONTROL_ARM)
+                    user_override_on = !user_override_on;
             }
             if(b_toggle && r_stick_toggle) {
                 printf("Right stick + B pressed simultaneously.\n");
@@ -294,7 +295,7 @@ void Controller_Event(struct js_event e) {
                 temp_dir = Get_Direction(LSX_val, LSY_val);
                 if(LS_dir != temp_dir) {
                     LS_dir = temp_dir;
-                    if(robot == CONE) {    // ACTIVATED ONLY IF CONE IS SELECTED
+                    if(robot == CONE || user_override_on) {    // ACTIVATED ONLY IF CONE IS SELECTED OR IF USER_CAN_CONTROL_ARM=1
                         printf("Left stick used. Direction is %s.\n", Direction_Str(LS_dir));
                         Control_Gripper();
                     }
@@ -573,13 +574,17 @@ void Control_Gripper() {
  *   - '0'
  */
 
-    // Return early if Bluetooth is disabled
-    if(SKIP_BLUETOOTH)
-        return;
+    // Skip early returns if user override is on
+    if(!user_override_on) {
 
-    // Return early if invalid robot
-    if(robot != CONE)
-        return;
+        // Return early if Bluetooth is disabled
+        if(SKIP_BLUETOOTH)
+            return;
+
+        // Return early if invalid robot
+        if(robot != CONE)
+            return;
+    }
 
     // Format message
     switch(LS_dir) {
@@ -596,6 +601,11 @@ void Control_Gripper() {
     // Send message via Bluetooth
     if (!SKIP_BLUETOOTH)
         bt_send(client_sock, gripper_message);
+
+    // Send message via UART 
+    if(robot != CONE)
+        for (int i = 0; i < strlen(gripper_message); i++) 
+            serialPutchar(uart_fd, gripper_message[i]);
 }
 
 void Reset() {

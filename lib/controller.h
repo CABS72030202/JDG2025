@@ -99,6 +99,7 @@ Direction arm = DOWN;                           // Arm control direction
 int GPIO_command = 0;                           // Current GPIO command for arm control
 int server_sock;                                // Bluetooth server socket
 int client_sock;                                // Bluetooth client socket
+int user_override_on = 0;                       // User manually controls robot arm  
 
 // Prototypes
 int Get_Anal_Range(int);                       // Get the range of an analog input value
