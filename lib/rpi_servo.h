@@ -15,7 +15,11 @@
 #define RPI_SERVO_H
 
 // Includes
-#include "../lib/constants.h"
+#include <stdlib.h>
+#include <stdio.h>
+#include <string.h>
+#include <errno.h>
+#include <wiringPi.h>
 #include <softPwm.h>
 
 // Enums and Structs
@@ -25,6 +29,15 @@ typedef struct {
     int close_angle;        // Value when closed
     int open_angle;         // Value when open
 } Servo;
+
+// Pin Definitions
+#define SERVO_PIN 7
+
+// Global Constants
+#define SERVO_MIN_PULSE_WIDTH   0       // Minimum pulse width for the servo (µs)
+#define SERVO_MAX_PULSE_WIDTH   100     // Maximum pulse width for the servo (µs)
+#define SERVO_OPEN_ANGLE        10      // Pulse width for open position
+#define SERVO_CLOSE_ANGLE       20      // Pulse width for close position
 
 // Global Variables
 extern Servo ramp_servo;        // Servomotors locking boat ramps

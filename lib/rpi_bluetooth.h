@@ -18,8 +18,21 @@
 #include <bluetooth/bluetooth.h>
 #include <bluetooth/rfcomm.h>
 #include <sys/socket.h>
+#include <stdio.h>
+#include <unistd.h>
+#include <stdbool.h>
+#include <stdlib.h>
+#include <wiringPi.h>
 #include <wiringSerial.h>
-#include "../lib/constants.h"
+#include <errno.h>
+#include <string.h>
+
+// Global Constants
+#define CHANNEL     1                   // RFCOMM communication channel
+#define BUFFER_SIZE 32                  // Buffer size for received messages
+#define SERVER_ADR  "B8:27:EB:A9:8C:AB" // Default server Bluetooth address
+#define UART        "/dev/serial0"      // UART device path
+#define BAUD_RATE   115200              // UART baud rate
 
 // Function Prototypes
 int bt_init(int, const char*);          // Initialize Bluetooth as server (1) or client (0)

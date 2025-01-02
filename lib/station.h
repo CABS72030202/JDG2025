@@ -17,9 +17,17 @@
 #define STATION_H
 
 // Includes
-#include "../lib/constants.h"
+#include <stdlib.h>
+#include <stdio.h>
+#include <string.h>
 #include "../lib/communication.h"
 #include "../lib/gpio.h"
+
+// Debugging Parameters (1 = Enabled, 0 = Disabled)
+#define DEBUG_MODE 		0
+#define ACTIVE_LOOP 	1
+#define MAX_ITERATIONS	1000
+#define USER_INPUT	    0
 
 // Enums and Structs
 typedef enum color {
@@ -37,7 +45,10 @@ typedef struct {
 	State arm_state;      // Arm state: ACTIVE or INACTIVE
 } Station;
 
-// Global Variables
+// Global Variables and Constants
+#define ERROR   1
+#define OK      0
+#define ONBOARD_TIMEOUT 2		// Delay to show passengers onboard
 extern Station r_station;       // Red station
 extern Station g_station;       // Green station
 extern Station b_station;       // Blue station

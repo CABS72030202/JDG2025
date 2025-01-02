@@ -27,8 +27,19 @@
 #define LED_H
 
 // Includes
-#include "../lib/constants.h"
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#include <wiringPi.h>
 #include "../rpi_ws281x/ws2811.h"
+
+// Global Constants
+#define LED_COUNT       5        // Number of LEDs
+#define GPIO_PIN        21       // GPIO pin number (BCM mode)
+#define LED_FREQ_HZ     800000   // Frequency of WS2811 LEDs
+#define LED_DMA         10       // DMA channel
+#define LED_BRIGHTNESS  255      // Maximum brightness
+#define LED_CHANNEL     0        // Channel for controlling LEDs
 
 // Global variables
 extern ws2811_t ledstring;

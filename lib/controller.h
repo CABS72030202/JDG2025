@@ -18,7 +18,6 @@
 // Includes
 #include <fcntl.h>
 #include <linux/joystick.h>
-#include "../lib/constants.h"
 #include "../lib/gpio.h"
 #include "../lib/rpi_bluetooth.h"
 #include "../lib/boat_control.h"
@@ -30,7 +29,7 @@
 // Global Constants
 #define GAMEPAD_PATH       "/dev/input/js0"      // Path to the gamepad device
 #define BLOCKING_MODE      0                     // Set to 1 to wait for controller updates
-const int robot_order[] = {6, 0, 4, 3, 1, 5, 2}; // Order of robot selection
+const int robot_order[] = {6, 2, 1, 3, 0, 4, 5}; // Order of robot selection
 
 // Digital Button IDs
 #define A_BUTTON           0                     // ID for button A
@@ -54,6 +53,12 @@ const int robot_order[] = {6, 0, 4, 3, 1, 5, 2}; // Order of robot selection
 #define R_STICK_Y          4                     // ID for right stick Y-axis
 #define CROSS_X            6                     // ID for rotating using one wheel
 #define CROSS_Y            7                     // ID for driving with both wheels
+
+// Analog Ranges
+#define ANAL_SHIFT_VAL     32767                 // Shift value for analog inputs
+#define ANAL_MAX_VAL       65534                 // Maximum value for analog inputs
+#define AXIS_RANGE_COUNT   4                     // Number of axis ranges (includes 0)
+#define JOYSTICK_THRESHOLD 10000                 // Threshold to detect joystick movement
 
 // Special Types
 enum direction {NONE, UP, DOWN, LEFT, RIGHT};    // Direction enum for movement

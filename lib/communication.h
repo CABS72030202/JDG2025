@@ -14,10 +14,20 @@
 #define COMMUNICATION_H
 
 // Includes
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#include <errno.h>
+#include <wiringPi.h>
 #include <wiringSerial.h>
 #include <time.h>
-#include "../lib/constants.h"
 #include "../lib/station.h"
+
+// Global Constants
+#define SERIAL_PORT "/dev/ttyUSB0"     // Serial port for communication
+#define BAUD_RATE 115200               // Baud rate for serial communication
+#define BUFFER_SIZE 16                 // Size of communication buffer
+#define TIMEOUT 5                      // Communication timeout in seconds
 
 // Global Variables
 extern int fd;                         // File descriptor for the serial port
