@@ -77,7 +77,7 @@ START:
             }
             if(x_toggle && l_stick_toggle) {
                 printf("Left stick + X pressed simultaneously.\n");
-                Toggle_Servo(&switch_servo);
+                Toggle_Brushless();
             }
             if(x_toggle && r_stick_toggle) {
                 printf("Right stick + X pressed simultaneously.\n");

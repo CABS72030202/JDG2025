@@ -42,7 +42,7 @@ void Toggle_Servo(Servo* s) {
             Continuous_Mode(s, s->open_angle);
         else
             softPwmWrite(s->servo_pin, s->open_angle);        
-        is_servo_open = 1;
+        s->is_open = 1;
     }
 }
 

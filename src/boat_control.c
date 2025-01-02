@@ -4,8 +4,10 @@
 
 #include "../lib/boat_control.h"
 
-Brushless left_motor;
-Brushless right_motor;
+Brushless left_wheel;
+Brushless right_wheel;
+Brushless left_propeller;
+Brushless right_propeller;
 
 int PWM_Init() {
 
@@ -20,36 +22,52 @@ int PWM_Init() {
     pinMode(RIGHT_MOTOR_PWM_PIN, PWM_OUTPUT);
 
     // Set GPIO pin for motor power
-    pinMode(LEFT_POWER_GPIO_PIN, OUTPUT);
-    pinMode(RIGHT_POWER_GPIO_PIN, OUTPUT);
+    pinMode(WHEEL_POWER_GPIO_PIN, OUTPUT);
+    pinMode(PROPELLER_POWER_GPIO_PIN, OUTPUT);
 
     // Configure PWM clock and range for 50 Hz frequency
-    pwmSetMode(PWM_MODE_MS);     // Use Mark:Space mode for stable frequency
-    pwmSetClock(PWM_CLOCK_DIV); // Set clock divisor
-    pwmSetRange(PWM_RANGE);     // Set range
+    pwmSetMode(PWM_MODE_MS);        // Use Mark:Space mode for stable frequency
+    pwmSetClock(PWM_CLOCK_DIV);     // Set clock divisor
+    pwmSetRange(PWM_RANGE);         // Set range
 
     // Initialize motor structs
-    left_motor.side = 'L';
-    left_motor.speed = 0.0;
-    left_motor.multiplier = 0;
-    left_motor.motor_pin = LEFT_MOTOR_PWM_PIN;
-    left_motor.power_pin = LEFT_POWER_GPIO_PIN;
-    right_motor.side = 'R';
-    right_motor.speed = 0.0;
-    right_motor.multiplier = 0;
-    right_motor.motor_pin = RIGHT_MOTOR_PWM_PIN;
-    right_motor.power_pin = RIGHT_POWER_GPIO_PIN;
+    Brushless_Init(&left_wheel, 'L', 'W', 0.0, 0, LEFT_MOTOR_PWM_PIN, WHEEL_POWER_GPIO_PIN);
+    Brushless_Init(&right_wheel, 'R', 'W', 0.0, 0, RIGHT_MOTOR_PWM_PIN, WHEEL_POWER_GPIO_PIN);
+    Brushless_Init(&left_propeller, 'L', 'P', 0.0, 0, LEFT_MOTOR_PWM_PIN, PROPELLER_POWER_GPIO_PIN);
+    Brushless_Init(&right_propeller, 'R', 'P', 0.0, 0, RIGHT_MOTOR_PWM_PIN, PROPELLER_POWER_GPIO_PIN);
 
-    // Start motors
-    Motor_Startup(&left_motor);
-    Motor_Startup(&right_motor);
+    // Control the propellers first
+    Toggle_Brushless();
 
     return 0;
 }
 
+void Brushless_Init(Brushless* motor, char side, char type, float speed, int multiplier, int motor_pin, int power_pin) {
+    motor->side = side;
+    motor->type = type;
+    motor->speed = speed;
+    motor->multiplier = multiplier;
+    motor->motor_pin = motor_pin;
+    motor->power_pin = power_pin;
+    Motor_Startup(motor);
+}
+
 void Control_Boat() {
-    Set_Motor_Speed(&left_motor);
-    Set_Motor_Speed(&right_motor);
+    switch(control_type) {
+        case 'p':
+        case 'P':
+            Set_Motor_Speed(&left_propeller);
+            Set_Motor_Speed(&right_propeller);
+            break;
+        case 'w':
+        case 'W':
+            Set_Motor_Speed(&left_wheel);
+            Set_Motor_Speed(&right_wheel);
+            break;
+        default:
+            printf("Invalid type in Control_Boat().\n");
+            break;
+    }
 }
 
 void Motor_Startup(Brushless* motor) {
@@ -98,8 +116,19 @@ void Set_Motor_Speed(Brushless* motor) {
 }
 
 void Reset_Motors() {
-    Reset_Motor(&left_motor);
-    Reset_Motor(&right_motor);
+    switch(control_type) {
+        case 'p':
+        case 'P':
+            Reset_Motor(&left_propeller);
+            break;
+        case 'w':
+        case 'W':
+            Reset_Motor(&left_wheel);
+            break;
+        default:
+            printf("Invalid type in Reset_Motors().\n");
+            break;
+    }
 }
 
 void Reset_Motor(Brushless* motor) {
@@ -115,4 +144,24 @@ int Get_Motor_Multiplier(Brushless* motor) {
         default:    printf("Error. Wrong side in Get_Motor_Multiplier.\n"); return;
     }
     return motor->multiplier;
+}
+
+void Toggle_Brushless() {
+    switch(control_type) {
+        case 'w':
+        case 'W':
+            digitalWrite(WHEEL_POWER_GPIO_PIN, LOW);
+            Motor_Startup(&left_propeller);
+            Motor_Startup(&right_propeller);
+            control_type = 'P';
+            break;
+        default:
+        case 'p':
+        case 'P':
+            digitalWrite(PROPELLER_POWER_GPIO_PIN, LOW);
+            Motor_Startup(&left_wheel);
+            Motor_Startup(&right_wheel);
+            control_type = 'W';
+            break;
+    }
 }
