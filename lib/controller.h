@@ -96,6 +96,8 @@ Direction CR_dir = NONE;                        // Current direction of cross in
 
 // Global Variables
 int constant_speed = 1;                         // Speed multiplier for constant controls
+int uart_fd;                                    // UART file descriptor
+int fd;                                         // Controller file descriptor
 char message[] = "0:00:00:0\r\n";               // Formatted message for robot control
 char gripper_message[] = "[0:0]\r\n";           // Formatted message for gripper arm control
 Color robot = NONE;                             // Current selected robot

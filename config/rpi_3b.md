@@ -19,7 +19,6 @@ Le Raspberry Pi 3 Model B placé sur le bateau est le maître responsable de tou
   - GPIO 26 / Pin #32 (PWM0) + GPIO 22 / Pin #31
 - **Servomoteurs** :
   - GPIO 7 / Pin #7
-  - GPIO 28 / Pin #38
 - **DELs de type WS2811 d'états du système** :
   - GPIO 21 / Pin #40
 - **Communication UART** :

@@ -7,7 +7,7 @@
 int main() {
 START:
     // Open the serial port
-    int uart_fd = serialOpen(UART, BAUD_RATE);
+    uart_fd = serialOpen(UART, BAUD_RATE);
     if (uart_fd < 0) {
         fprintf(stderr, "Unable to open serial device: %s\n", strerror(errno));
         goto ERR;
@@ -42,7 +42,7 @@ START:
     }
 
     // Start controller communication
-    int fd = open(GAMEPAD_PATH, O_RDONLY);
+    fd = open(GAMEPAD_PATH, O_RDONLY);
     if (fd < 0) {
         perror("Failed to open gamepad");
         goto ERR;
@@ -81,7 +81,7 @@ START:
             }
             if(x_toggle && r_stick_toggle) {
                 printf("Right stick + X pressed simultaneously.\n");
-                Reset_Motor();
+                Reset_Motors();
             }
             if(b_toggle && x_toggle && l_stick_toggle) {
                 printf("Left stick + B + X pressed simultaneously.\n");
