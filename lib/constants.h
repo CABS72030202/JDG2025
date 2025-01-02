@@ -55,6 +55,7 @@ const int robot_order[] = {6, 2, 1, 3, 0, 4, 5}; // Order of robot selection
 
 #define BOAT_ID                     6               // Unique ID for the BOAT robot
 #define MAX_SPEED                   3               // Maximum speed multiplier for the robot
+const int BOAT_SPEEDS[MAX_SPEED] =  {60, 70, 80};   // Preset duty cycle values for brushless motors speed
 
     // ---------------- //
     // BRUSHLESS MOTORS //

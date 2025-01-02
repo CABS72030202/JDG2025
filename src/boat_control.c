@@ -67,8 +67,12 @@ void Set_Motor_Speed(Brushless* motor) {
     // Save previous speed
     float prev_speed = motor->speed;
 
-    // Convert multiplier to percentage
-    motor->speed = Get_Motor_Multiplier(motor) / (float)MAX_SPEED;
+    // Get speed from multiplier
+    if(Get_Motor_Multiplier(motor) <= 0) {
+        pwmWrite(motor->motor_pin, DUTY_CYCLE_STOP);
+        return;
+    }
+    motor->speed = BOAT_SPEEDS[motor->multiplier - 1];
     
     // Calculate the previous and new PWM value based on the speed percentage
     int prev_pwmValue = DUTY_CYCLE_STOP + (int)((DUTY_CYCLE_MAX - DUTY_CYCLE_STOP) * prev_speed);
@@ -86,7 +90,7 @@ void Set_Motor_Speed(Brushless* motor) {
     // Slowly decrease the PWM value to the motor pin
     if(prev_pwmValue > pwmValue)
         for(int i = prev_pwmValue; i > pwmValue; i--) {
-            if(i >= DUTY_CYCLE_LIMIT)
+            if(i < DUTY_CYCLE_STOP)
                 break;
             pwmWrite(motor->motor_pin, i);
             delay(INCREASE_DELAY);
