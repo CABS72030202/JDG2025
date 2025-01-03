@@ -23,6 +23,8 @@ Le Raspberry Pi 3 Model B placé sur le bateau est le maître responsable de tou
   - GPIO 21 / Pin #40
 - **Communication UART** :
   - GPIO 15 / Pin #8 : Tx pour la communication UART avec les Arduino.
+- **Extra GPIO**
+  - GPIO 13 / Pin #21
 - **Ports USB** :
   - Récepteur de la manette sans fil : ports USB du haut.
   - Fil USB-A vers USB-C : pour la communication avec la boîte noire (ports USB du bas).

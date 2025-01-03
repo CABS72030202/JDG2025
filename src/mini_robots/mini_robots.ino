@@ -23,7 +23,7 @@
 #include "melody/melody.cpp"
 
 /* INCLUDE CORRESPONDING HEADER FILE */
-#include "yellow.h"
+#include "cone.h"
 
 // Global Variables
 Servo arm;                            // Servo motor object for arm control
@@ -72,7 +72,7 @@ void setup() {
   lcd.setCursor(0, 0);
 
   // Melody
-  Start_Song();
+  Start_Song(); 
 }
 
 void loop() {

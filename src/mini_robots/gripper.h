@@ -21,8 +21,8 @@
 #include <Servo.h>
 
 // Pin Definitions
-#define ARM_PIN        9        // Pin for arm servo motor control
-#define CLAW_PIN       10       // Pin for claw servo motor control
+#define ARM_PIN        10      // Pin for arm servo motor control
+#define CLAW_PIN       9       // Pin for claw servo motor control
 
 // Gripper Specific Global Constants
 #define CONE_ROBOT_ID  5        // ID corresponding to the robot equipped with a gripper
