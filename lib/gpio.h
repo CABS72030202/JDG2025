@@ -16,6 +16,7 @@
 // Includes
 #include <wiringPi.h>
 #include <stdio.h>
+#include "led.h"
 
 // GPIO Command Pins
 #define ARM_OUT_PIN_0   0    // GPIO 0 - PIN 11

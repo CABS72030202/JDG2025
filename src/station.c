@@ -42,7 +42,8 @@ void Initialize() {
     null_station.color = NONE;
     Set_Station_State(&null_station, INACTIVE); 
     null_station.arm_state = INACTIVE;
-    curr_station = &null_station;  
+    curr_station = &null_station; 
+    Clear_LEDs();
 
     if(DEBUG_MODE) {
         printf("WARNING. DEBUG MODE IS ON.\n");
@@ -361,19 +362,19 @@ void Arm_Control(Station* station, State toggle) {
 
 void Set_Station_State(Station* station, State state) {
     station->state = state;
-    int led_pin = 0;
+    int led_id = 0, led_color_id = 0;
     switch(station->color) {
-        case RED:       led_pin=RED; break;
-        case GREEN:     led_pin=GREEN; break;
-        case BLUE:      led_pin=BLUE; break;
-        case YELLOW:    led_pin=YELLOW; break;
-        case PURPLE:    led_pin=PURPLE; break;
+        case RED:       led_id=RED;     led_color_id = RED_ID;      break;
+        case GREEN:     led_id=GREEN;   led_color_id = GREEN_ID;    break;
+        case BLUE:      led_id=BLUE;    led_color_id = BLUE_ID;     break;
+        case YELLOW:    led_id=YELLOW;  led_color_id = YELLOW_ID;   break;
+        case PURPLE:    led_id=PURPLE;  led_color_id = PURPLE_ID;   break;
         case NONE:      break;
         default:        printf("ERROR. Invalid color in Set_Station_State\n"); break;
     }
     switch(station->state) {
-        case ACTIVE:    digitalWrite(led_pin, HIGH); break;
-        case INACTIVE:  digitalWrite(led_pin, LOW);  break;
+        case ACTIVE:    Set_LED_Color(led_id, led_color_id); break;
+        case INACTIVE:  Set_LED_Color(led_id, ORANGE_ID); break;
         default:        printf("ERROR. Invalid state in Set_Station_State\n"); break;
     }
 }

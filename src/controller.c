@@ -18,8 +18,6 @@ START:
         goto ERR;
     if(Servo_Init())
         goto ERR;
-    if(LED_Init())
-        goto ERR;
 
     // Initialize Bluetooth communication as server
     if(SKIP_BLUETOOTH) 

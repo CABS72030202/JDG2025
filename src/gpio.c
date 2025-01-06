@@ -13,11 +13,7 @@ void Initialize_GPIO() {
     pinMode(ARM_IN_PIN_1, INPUT);
     pinMode(ARM_IN_PIN_2, INPUT);
     pinMode(ARM_IN_PIN_3, INPUT);
-    pinMode(R_QUEUE_PIN, OUTPUT);
-    pinMode(G_QUEUE_PIN, OUTPUT);
-    pinMode(B_QUEUE_PIN, OUTPUT);
-    pinMode(Y_QUEUE_PIN, OUTPUT);
-    pinMode(P_QUEUE_PIN, OUTPUT);
+    LED_Init();
     Write_Arm_DEC(DOWN_ALL);
 }
 
