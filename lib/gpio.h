@@ -27,13 +27,6 @@
 #define ARM_IN_PIN_2    25   // GPIO 25 - PIN 37
 #define ARM_IN_PIN_3    27   // GPIO 27 - PIN 36
 
-// GPIO State Pins
-#define R_QUEUE_PIN     12   // GPIO 12 - PIN 19
-#define G_QUEUE_PIN     13   // GPIO 13 - PIN 21
-#define B_QUEUE_PIN     14   // GPIO 14 - PIN 23
-#define Y_QUEUE_PIN     28   // GPIO 28 - PIN 38
-#define P_QUEUE_PIN     29   // GPIO 29 - PIN 40
-
 // State IDs
 #define DOWN_ALL        0
 #define RED_UP          1
