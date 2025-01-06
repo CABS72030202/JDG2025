@@ -28,9 +28,41 @@ int LED_Init() {
     return 0;
 }
 
-void Set_LED_Color(int led_num, int red, int green, int blue) {
+void Set_LED_RGB(int led_num, int red, int green, int blue) {
     ledstring.channel[0].leds[led_num] = (green << 16) | (red << 8) | blue;
     ws2811_render(&ledstring);
+}
+
+void Set_LED_Color(int led_num, int color_id) {
+    switch(color_id) {
+        case RED_ID:
+            Set_LED_RGB(led_num, 255, 0, 0);
+            break;
+        case GREEN_ID:
+            Set_LED_RGB(led_num, 0, 255, 0);
+            break;
+        case BLUE_ID:
+            Set_LED_RGB(led_num, 0, 0, 255);
+            break;
+        case YELLOW_ID:
+            Set_LED_RGB(led_num, 255, 255, 0);
+            break;
+        case PURPLE_ID:
+            Set_LED_RGB(led_num, 127, 0, 255);
+            break;
+        case WHITE_ID:
+            Set_LED_RGB(led_num, 255, 255, 255);
+            break;
+        case ORANGE_ID:
+            Set_LED_RGB(led_num, 255, 127, 0);
+            break;
+        case PINK_ID:
+            Set_LED_RGB(led_num, 255, 0, 127);
+            break;
+        default:
+            printf("Error. Invalid color ID in Set_LED_Color.\n");
+            break;
+    }
 }
 
 void Clear_LEDs() {
