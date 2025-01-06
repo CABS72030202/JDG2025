@@ -390,7 +390,6 @@ char* Communication(char* sent) {
     if(Send(sent) == OK)
         if(Receive(received) == OK)
             return received;
-
     return NULL;
 }
 

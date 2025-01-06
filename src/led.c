@@ -24,7 +24,7 @@ int LED_Init() {
         return 1;
     }
     for(int i = 0; i < LED_COUNT; i++)
-        Set_LED_RGB(i, 255, 0, 0);
+        Set_LED_Color(i, WHITE_ID);
     return 0;
 }
 

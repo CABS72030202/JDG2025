@@ -23,6 +23,7 @@ int main(void) {
     //Wait_For_Two();
     //Auto_Load_Drop();
 
+    
     Set_Station_State(&r_station, ACTIVE);
     Set_Station_State(&g_station, ACTIVE);
     Set_Station_State(&b_station, ACTIVE);
@@ -30,81 +31,60 @@ int main(void) {
     Set_Station_State(&p_station, ACTIVE); 
 
     // Testing GPIO
-    /*Arm_Control(RED, ACTIVE);
+    /*Arm_Control(&r_station, ACTIVE);
     Delay(2);
-    Arm_Control(GREEN, ACTIVE);
+    Arm_Control(&g_station, ACTIVE);
     Delay(2);
-    Arm_Control(BLUE, ACTIVE);
+    Arm_Control(&b_station, ACTIVE);
     Delay(2);
-    Arm_Control(YELLOW, ACTIVE);
+    Arm_Control(&y_station, ACTIVE);
     Delay(2);
-    Arm_Control(PURPLE, ACTIVE);
+    Arm_Control(&p_station, ACTIVE);
     Delay(2);
-    Arm_Control(PURPLE, INACTIVE);*/
+    Arm_Control(&p_station, INACTIVE);*/
 
     
-        if(Connect_Station(BLUE) == ERROR) {
+        if(Connect_Station(&g_station) == ERROR) {
             printf("Exit with error.\n");
             return 0;
         }
         Delay(3);
-        if(Load_Passengers(YELLOW, 1) == ERROR) {
+        if(Load_Passengers(&r_station, 1) == ERROR) {
             printf("Exit with error.\n");
             return 0;
         }
         Delay(3);
-        if(Connect_Station(YELLOW) == ERROR) {
+        if(Connect_Station(&r_station) == ERROR) {
             printf("Exit with error.\n");
             return 0;
         }
         Delay(3);
-        if(Drop_Passengers(YELLOW) == ERROR) {
+        if(Drop_Passengers(&r_station) == ERROR) {
             printf("Exit with error.\n");
             return 0;
         }
         Delay(3);
         
-        if(Connect_Station(RED) == ERROR) {
+        if(Connect_Station(&p_station) == ERROR) {
             printf("Exit with error.\n");
             return 0;
         }
         Delay(3);
-        if(Load_Passengers(GREEN, 1) == ERROR) {
+        if(Load_Passengers(&g_station, 1) == ERROR) {
             printf("Exit with error.\n");
             return 0;
         }
         Delay(3);
-        if(Connect_Station(GREEN) == ERROR) {
+        if(Connect_Station(&g_station) == ERROR) {
             printf("Exit with error.\n");
             return 0;
         }
         Delay(3);
-        if(Drop_Passengers(GREEN) == ERROR) {
+        if(Drop_Passengers(&g_station) == ERROR) {
             printf("Exit with error.\n");
             return 0;
         }
         Delay(3);
-
-        if(Connect_Station(PURPLE) == ERROR) {
-            printf("Exit with error.\n");
-            return 0;
-        }
-        Delay(3);
-        if(Load_Passengers(YELLOW, 1) == ERROR) {
-            printf("Exit with error.\n");
-            return 0;
-        }
-        Delay(3);
-        if(Connect_Station(YELLOW) == ERROR) {
-            printf("Exit with error.\n");
-            return 0;
-        }
-        Delay(3);
-        if(Drop_Passengers(YELLOW) == ERROR) {
-        printf("Exit with error.\n");
-        return 0;
-    }
-    
 
     /*while (Try_Connect() == OK) {
         Send("INFO:C\n");
@@ -112,6 +92,6 @@ int main(void) {
         printf("Received: %s", received);
     }*/
 
-    ws2811_fini(&ledstring);
+    //ws2811_fini(&ledstring);
     return 0; 
 }

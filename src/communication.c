@@ -49,7 +49,7 @@ int Receive(char* str) {
 
       // Exit loop on newline character
       if (dat == '\n') {
-        Filter_Reception();
+        //Filter_Reception();
         printf("Received: %s", str);
         return OK;
       }
