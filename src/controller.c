@@ -114,7 +114,6 @@ ERR:
     close(fd);
     close(client_sock);
     close(server_sock);
-    ws2811_fini(&ledstring);
     Reset();
     goto START;
     return 0;

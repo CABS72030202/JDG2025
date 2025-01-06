@@ -22,6 +22,7 @@ void Initialize() {
         return -1;
     }
     Initialize_GPIO();
+    LED_Init();
 
     // Initialize stations
     r_station.color = RED;

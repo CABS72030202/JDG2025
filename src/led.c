@@ -24,7 +24,7 @@ int LED_Init() {
         return 1;
     }
     for(int i = 0; i < LED_COUNT; i++)
-        Set_LED_Color(i, 255, 0, 0);
+        Set_LED_RGB(i, 255, 0, 0);
     return 0;
 }
 
@@ -67,7 +67,7 @@ void Set_LED_Color(int led_num, int color_id) {
 
 void Clear_LEDs() {
     for (int i = 0; i < LED_COUNT; i++) {
-        Set_LED_Color(i, 0, 0, 0);
+        Set_LED_RGB(i, 0, 0, 0);
     }
     ws2811_render(&ledstring);
 }

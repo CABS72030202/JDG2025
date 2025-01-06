@@ -22,6 +22,7 @@
 #include <string.h>
 #include "../lib/communication.h"
 #include "../lib/gpio.h"
+#include "../lib/led.h"
 
 // Debugging Parameters (1 = Enabled, 0 = Disabled)
 #define DEBUG_MODE 		0

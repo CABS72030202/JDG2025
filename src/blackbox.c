@@ -112,5 +112,6 @@ int main(void) {
         printf("Received: %s", received);
     }*/
 
+    ws2811_fini(&ledstring);
     return 0; 
 }

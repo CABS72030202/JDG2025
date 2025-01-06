@@ -13,7 +13,6 @@ void Initialize_GPIO() {
     pinMode(ARM_IN_PIN_1, INPUT);
     pinMode(ARM_IN_PIN_2, INPUT);
     pinMode(ARM_IN_PIN_3, INPUT);
-    LED_Init();
     Write_Arm_DEC(DOWN_ALL);
 }
 

@@ -16,12 +16,12 @@ $(shell mkdir -p $(OBJ_DIR) $(BUILD_DIR))
 all: blackbox controller mini_rpi
 
 # Blackbox executable construction
-blackbox: $(OBJ_DIR)/blackbox.o $(OBJ_DIR)/station.o $(OBJ_DIR)/communication.o $(OBJ_DIR)/gpio.o
-	$(CC) $(CFLAGS) -o $(BUILD_DIR)/blackbox $(OBJ_DIR)/blackbox.o $(OBJ_DIR)/station.o $(OBJ_DIR)/communication.o $(OBJ_DIR)/gpio.o $(LIB)
+blackbox: $(OBJ_DIR)/blackbox.o $(OBJ_DIR)/station.o $(OBJ_DIR)/communication.o $(OBJ_DIR)/gpio.o $(OBJ_DIR)/led.o
+	$(CC) $(CFLAGS) -o $(BUILD_DIR)/blackbox $(OBJ_DIR)/blackbox.o $(OBJ_DIR)/station.o $(OBJ_DIR)/communication.o $(OBJ_DIR)/gpio.o $(OBJ_DIR)/led.o $(LIB)
 
 # Controller executable construction
-controller: $(OBJ_DIR)/controller.o $(OBJ_DIR)/gpio.o $(OBJ_DIR)/rpi_bluetooth.o $(OBJ_DIR)/boat_control.o $(OBJ_DIR)/rpi_servo.o $(OBJ_DIR)/led.o
-	$(CC) $(CFLAGS) -o $(BUILD_DIR)/controller $(OBJ_DIR)/controller.o $(OBJ_DIR)/gpio.o $(OBJ_DIR)/rpi_bluetooth.o $(OBJ_DIR)/boat_control.o $(OBJ_DIR)/rpi_servo.o $(OBJ_DIR)/led.o $(LIB)
+controller: $(OBJ_DIR)/controller.o $(OBJ_DIR)/gpio.o $(OBJ_DIR)/rpi_bluetooth.o $(OBJ_DIR)/boat_control.o $(OBJ_DIR)/rpi_servo.o 
+	$(CC) $(CFLAGS) -o $(BUILD_DIR)/controller $(OBJ_DIR)/controller.o $(OBJ_DIR)/gpio.o $(OBJ_DIR)/rpi_bluetooth.o $(OBJ_DIR)/boat_control.o $(OBJ_DIR)/rpi_servo.o $(LIB)
 
 # Bluetooth receiver executable construction
 mini_rpi: $(OBJ_DIR)/mini_rpi.o $(OBJ_DIR)/rpi_bluetooth.o
