@@ -30,7 +30,7 @@ int main(void) {
     Set_Station_State(&p_station, ACTIVE); 
 
     // Testing GPIO
-    Arm_Control(RED, ACTIVE);
+    /*Arm_Control(RED, ACTIVE);
     Delay(2);
     Arm_Control(GREEN, ACTIVE);
     Delay(2);
@@ -40,60 +40,71 @@ int main(void) {
     Delay(2);
     Arm_Control(PURPLE, ACTIVE);
     Delay(2);
-    Arm_Control(PURPLE, INACTIVE);
+    Arm_Control(PURPLE, INACTIVE);*/
 
-    /*while(1) {
+    
         if(Connect_Station(BLUE) == ERROR) {
             printf("Exit with error.\n");
             return 0;
         }
+        Delay(3);
         if(Load_Passengers(YELLOW, 1) == ERROR) {
             printf("Exit with error.\n");
             return 0;
         }
+        Delay(3);
         if(Connect_Station(YELLOW) == ERROR) {
             printf("Exit with error.\n");
             return 0;
         }
+        Delay(3);
         if(Drop_Passengers(YELLOW) == ERROR) {
             printf("Exit with error.\n");
             return 0;
         }
+        Delay(3);
         
         if(Connect_Station(RED) == ERROR) {
             printf("Exit with error.\n");
             return 0;
         }
+        Delay(3);
         if(Load_Passengers(GREEN, 1) == ERROR) {
             printf("Exit with error.\n");
             return 0;
         }
+        Delay(3);
         if(Connect_Station(GREEN) == ERROR) {
             printf("Exit with error.\n");
             return 0;
         }
+        Delay(3);
         if(Drop_Passengers(GREEN) == ERROR) {
             printf("Exit with error.\n");
             return 0;
         }
+        Delay(3);
 
         if(Connect_Station(PURPLE) == ERROR) {
             printf("Exit with error.\n");
             return 0;
         }
+        Delay(3);
         if(Load_Passengers(YELLOW, 1) == ERROR) {
             printf("Exit with error.\n");
             return 0;
         }
+        Delay(3);
         if(Connect_Station(YELLOW) == ERROR) {
             printf("Exit with error.\n");
             return 0;
         }
+        Delay(3);
         if(Drop_Passengers(YELLOW) == ERROR) {
         printf("Exit with error.\n");
         return 0;
     }
-    }
+    
 
     /*while (Try_Connect() == OK) {
         Send("INFO:C\n");

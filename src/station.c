@@ -334,18 +334,23 @@ void Arm_Control(Station* station, State toggle) {
     switch(station->color) {
         case RED:
             toggle == ACTIVE ? Write_Arm_DEC(RED_UP) : Write_Arm_DEC(RED_DOWN);
+            printf("Toggle RED arm.\n");
             break;
         case GREEN:
             toggle == ACTIVE ? Write_Arm_DEC(GREEN_UP) : Write_Arm_DEC(GREEN_DOWN);
+            printf("Toggle GREEN arm.\n");
             break;
         case BLUE:
             toggle == ACTIVE ? Write_Arm_DEC(BLUE_UP) : Write_Arm_DEC(BLUE_DOWN);
+            printf("Toggle BLUE arm.\n");
             break;
         case YELLOW:
             toggle == ACTIVE ? Write_Arm_DEC(YELLOW_UP) : Write_Arm_DEC(YELLOW_DOWN);
+            printf("Toggle YELLOW arm.\n");
             break;
         case PURPLE:
             toggle == ACTIVE ? Write_Arm_DEC(PURPLE_UP) : Write_Arm_DEC(PURPLE_DOWN);
+            printf("Toggle PURPLE arm.\n");
             break;
         case NONE:
         default:

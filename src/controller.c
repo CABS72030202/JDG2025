@@ -47,7 +47,6 @@ START:
         perror("Failed to open gamepad");
         goto ERR;
     }
-    
     if(!BLOCKING_MODE)
         // Set the gamepad file descriptor to non-blocking mode
         if (fcntl(fd, F_SETFL, fcntl(fd, F_GETFL) | O_NONBLOCK) == -1) {
@@ -55,8 +54,10 @@ START:
             close(fd);
             goto ERR;
         }
-
     struct js_event e;
+
+    // Select first robot
+    robot = robot_order[0];
     
     while(1) {
         // Attempt to read controller event
