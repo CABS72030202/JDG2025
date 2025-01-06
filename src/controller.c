@@ -19,26 +19,6 @@ START:
     if(Servo_Init())
         goto ERR;
 
-    // Initialize Bluetooth communication as server
-    if(SKIP_BLUETOOTH) 
-        printf("WARNING. BLUETOOTH SERVER IS DISABLED.\n");
-    else {
-        server_sock = bt_init(1, NULL);
-        if (server_sock < 0) goto ERR;
-        client_sock = server_sock;
-        struct sockaddr_rc client_addr = { 0 };
-        socklen_t opt = sizeof(client_addr);
-        client_sock = accept(server_sock, (struct sockaddr *)&client_addr, &opt);
-        if (client_sock < 0) {
-            perror("Failed to accept connection");
-            close(server_sock);
-            goto ERR;
-        }
-        char client_address[18] = { 0 };
-        ba2str(&client_addr.rc_bdaddr, client_address);
-        printf("Accepted connection from %s\n", client_address);
-    }
-
     // Start controller communication
     fd = open(GAMEPAD_PATH, O_RDONLY);
     if (fd < 0) {
@@ -91,7 +71,7 @@ START:
                     serialPutchar(uart_fd, message[i]);
 
                 // Send message via Bluetooth
-                if (!SKIP_BLUETOOTH && bt_send(client_sock, message) < 0) {
+                if (bt_on && bt_send(client_sock, message) < 0) {
                     close(client_sock);
                     goto ERR;
                 }
@@ -114,7 +94,30 @@ ERR:
     close(fd);
     close(client_sock);
     close(server_sock);
+    bt_on = 0;
     Reset();
+
+    // Initialize Bluetooth communication as server
+    if(SKIP_BLUETOOTH) 
+        printf("WARNING. BLUETOOTH SERVER IS DISABLED.\n");
+    else {
+        server_sock = bt_init(1, NULL);
+        if (server_sock < 0) goto ERR;
+        client_sock = server_sock;
+        struct sockaddr_rc client_addr = { 0 };
+        socklen_t opt = sizeof(client_addr);
+        client_sock = accept(server_sock, (struct sockaddr *)&client_addr, &opt);
+        if (client_sock < 0) {
+            perror("Failed to accept connection");
+            close(server_sock);
+            goto ERR;
+        }
+        char client_address[18] = { 0 };
+        ba2str(&client_addr.rc_bdaddr, client_address);
+        printf("Accepted connection from %s\n", client_address);
+        bt_on = 1;
+    }
+
     goto START;
     return 0;
 }
@@ -572,7 +575,7 @@ void Control_Gripper() {
     if(!user_override_on) {
 
         // Return early if Bluetooth is disabled
-        if(SKIP_BLUETOOTH)
+        if(!bt_on)
             return;
 
         // Return early if invalid robot
@@ -593,7 +596,7 @@ void Control_Gripper() {
     }
     
     // Send message via Bluetooth
-    if (!SKIP_BLUETOOTH)
+    if (bt_on)
         bt_send(client_sock, gripper_message);
 
     // Send message via UART 

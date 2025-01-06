@@ -24,13 +24,13 @@
 #include "../lib/led.h"
 
 // Debug Constants
-#define SKIP_BLUETOOTH          1                // Set to 1 to disable Bluetooth initialization
+#define SKIP_BLUETOOTH          0                // Set to 1 to disable Bluetooth initialization
 #define USER_CAN_CONTROL_ARM    0                // Set to 1 to enable manual arm control
 
 // Global Constants
 #define GAMEPAD_PATH       "/dev/input/js0"      // Path to the gamepad device
 #define BLOCKING_MODE      0                     // Set to 1 to wait for controller updates
-const int robot_order[] = {6, 2, 1, 3, 0, 4, 5}; // Order of robot selection
+const int robot_order[] = {6, 5};                // Order of robot selection
 
 // Digital Button IDs
 #define A_BUTTON           0                     // ID for button A
@@ -108,6 +108,7 @@ int GPIO_command = 0;                           // Current GPIO command for arm 
 int server_sock;                                // Bluetooth server socket
 int client_sock;                                // Bluetooth client socket
 int user_override_on = 0;                       // User manually controls robot arm  
+int bt_on = 0;                                  // 1 if the Bluetooth communication is initialized
 
 // Prototypes
 int Get_Anal_Range(int);                       // Get the range of an analog input value

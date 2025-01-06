@@ -31,7 +31,7 @@
 #define ANGLE_STEP     3        // Increment for angle adjustments
 #define OPEN_BOUND     60       // Maximum open angle for the claw
 #define CLOSE_BOUND    0        // Minimum closed angle for the claw
-#define UP_BOUND       30       // Arm angle for position above the rear wheel
+#define UP_BOUND       0       // Arm angle for position above the rear wheel
 #define DOWN_BOUND     180      // Arm angle for position just above the ground
 #define INIT_ANGLE     80       // Arm angle to reach before attaching claw servo
 
