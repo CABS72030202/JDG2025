@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # Default values
-file_path="/mnt/c/Users/sebas/OneDrive - Université du Québec à Trois-Rivières/Implication/JDG/Machine 2025/JDG2025/doc/secret_command/brute_force_output"
+file_path="/mnt/c/Users/sebas/OneDrive - Université du Québec à Trois-Rivières/Implication/JDG/2025/Machine 2025/JDG2025/doc/secret_command/brute_force_output"
 file_name="output.txt"
 
 # Function to display usage information
